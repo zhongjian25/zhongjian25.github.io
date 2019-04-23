@@ -1,0 +1,367 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="搞趣">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://www.gao7app.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="hexo valine LeanCloud">
+
+
+    <meta name="description" content="hexo 评论页面报错
+Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.
+
+关于Valine和LeanCloud
+Valine是一款基于Leancloud的快速、简洁且高...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>hexo-valine | 搞趣</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="搞趣" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(/./img/banner6.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://www.gao7app.com">搞趣</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/数据库/"><i class="fa "></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="hexo-valine">
+            
+	            hexo-valine
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/hexo-valine-LeanCloud/">hexo valine LeanCloud</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/23</span>
+        </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="hexo-评论页面报错"><a href="#hexo-评论页面报错" class="headerlink" title="hexo 评论页面报错"></a>hexo 评论页面报错</h3><blockquote>
+<p>Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.</p>
+</blockquote>
+<h3 id="关于Valine和LeanCloud"><a href="#关于Valine和LeanCloud" class="headerlink" title="关于Valine和LeanCloud"></a>关于Valine和LeanCloud</h3><blockquote>
+<p>Valine是一款基于Leancloud的快速、简洁且高效的无后端评论系统。<br>Valine诞生于2017年8月7日，理论上支持但不限于静态博客，目前已有Hexo、Jekyll、Typecho、Hugo等博客程序在使用Valine。她完全不需要账号，一个昵称就够了，为了方便以后联系也可以留下邮箱，甚至可以如路人般水一下而不留一点痕迹，给人一种清新脱俗、小家碧玉的感觉，这多少符合现在互联网顶贴水楼的习惯。同时她又支持Gravatar的头像和Markdown的语法，方便大家展现个性化的头像和多变的评论样式。<br>另外Valine还支持文章阅读量统计，next主题也是集成此功能的，如需要请在主题配置文件中搜索“leancloud_visitors”字段启用。具体请网络搜索或查看官方说明 .<br><a href="https://valine.js.org/visitor.html" target="_blank" rel="noopener">https://valine.js.org/visitor.html</a></p>
+</blockquote>
+<blockquote>
+<p>LeanCloud是行业领先的一站式后端云服务提供商，专注于为开发者提供一流的工具、平台和服务。<br>LeanCloud于2013年9月发布，主要提供包括数据存储、文件存储与CDN、消息推送和实时通信在内的后端云服务，同时提供支撑后端代码的云引擎和云函数等开发工具，全面涵盖移动开发的需求；同时也提供了易于集成的全平台SDK，支持iOS、Android应用和游戏开发，以及包括微信小程序在内的web开发。帮助客户脱繁重的后端开发负担，最大限度地降低开发成本、缩短开发周期、加快迭代速度，在激烈的市场竞争中胜出。<br><a href="https://leancloud.cn/" target="_blank" rel="noopener">https://leancloud.cn/</a></p>
+</blockquote>
+<h3 id="在snippet主题中启用Valine"><a href="#在snippet主题中启用Valine" class="headerlink" title="在snippet主题中启用Valine"></a>在snippet主题中启用Valine</h3><blockquote>
+<p>　　本人使用的是Hexo博客系统的snippet（v6.0.5）版本主题，所有操作设置仅对应该系统和主题版本，其他博客系统或主题请参考官方说明。在此提一下next主题现在主要有v5.1.x和v6.x两个版本，其中v5.1.x版本现已停止更新并迁移到新的仓库升级为v6.x，具体请参考官方说明。<a href="https://github.com/shenliyang/hexo-theme-snippet" target="_blank" rel="noopener">https://github.com/shenliyang/hexo-theme-snippet</a></p>
+</blockquote>
+<blockquote>
+<p>获取APP ID 和 APP Key<br><a href="https://leancloud.cn/" target="_blank" rel="noopener">注册LeanCloud</a> （过程跳过），注册后请到注册邮箱内验证邮箱。登录后点击页面右上角的控制台，进去后点击创建应用，应用名称随便填(如valine)并创建，之后将鼠标移到应用标签上并点击设置按钮<br><img src="hexo-valine/valine1.png" alt="image"></p>
+</blockquote>
+<blockquote>
+<p>进去后点击设置中的“应用Key”，就可以看到APP ID 和 APP Key了。<br><img src="hexo-valine/valine2.png" alt="image"></p>
+</blockquote>
+<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><blockquote>
+<p>请打开next的配置文件_config.yml，搜索valine找到下面的字段，复制上面的APP ID和APP Key分别粘贴到appid和appkey，注意ID和Key是可以复制的，冒号后面空一格再粘贴。将enable: false改为enable: true即可启用Valine评论，其他的选项除非你知道是什么，否则请保持默认设置。如果已开启其他评论，请先关闭。然后执行hexo clean和 hexo s 两个命令进行本地预览，查看是否正常启用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## Valine评论</span><br><span class="line">valine:</span><br><span class="line">   enable: true</span><br><span class="line">   appId: ID</span><br><span class="line">   appKey: Key</span><br><span class="line">   placeholder: 说点什么吧</span><br><span class="line">   notify: false</span><br><span class="line">   verify: false</span><br><span class="line">   avatar: mm</span><br><span class="line">   meta: nick,mail</span><br><span class="line">   pageSize: 10</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="管理评论数据"><a href="#管理评论数据" class="headerlink" title="管理评论数据"></a>管理评论数据</h3><blockquote>
+<p>回到刚才的网页页面，点击“存储”(或者登录&gt;选择你创建的应用&gt;存储)，应该可以看到“Comment”文件，点击就可以查看管理评论数据了。如果没有“Comment”文件，你可以自己评论一条然后刷新管理页面。</p>
+</blockquote>
+<blockquote>
+<p>关于自带的评论邮件提醒功能请谨慎使用，首先应”登录Leancloud&gt;选择你的评论应用&gt;设置&gt;邮件模板“，然后参照官方说明进行设置并保存。请注意修改链接为你的博客或者网站首页。由于邮件提醒功能使用的Leancloud的密码重置邮件提醒，只能传递昵称、邮箱两个属性，所以邮件提醒链接无法直达指定文章页。发送次数过多，可能会暂时被Leancloud 屏蔽邮件发送功能。<a href="https://valine.js.org/notify.html" target="_blank" rel="noopener">https://valine.js.org/notify.html</a></p>
+</blockquote>
+<blockquote>
+<p>Valine目前使用的是Gravatar作为评论列表头像。请自行登录或注册Gravatar，然后修改自己的头像。评论的时候，留下在Gravatar注册时所使用的邮箱即可。如果你修改了头像后发现没有更新，请不要慌张，因为gravatar.cat.net 有七天的缓存期，安静的等待吧。</p>
+</blockquote>
+<blockquote>
+<p>当然，你也可以配合使用 panjunwen 开发的 Valine-Admin (<a href="https://github.com/panjunwen/Valine-Admin" target="_blank" rel="noopener">https://github.com/panjunwen/Valine-Admin</a>)<br>进行评论数据管理和邮件提醒等。</p>
+</blockquote>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/hexo-GitHub.html" class="next-post btn btn-default" title="hexo+GitHub">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">hexo+GitHub</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo-评论页面报错"><span class="toc-text">hexo 评论页面报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于Valine和LeanCloud"><span class="toc-text">关于Valine和LeanCloud</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在snippet主题中启用Valine"><span class="toc-text">在snippet主题中启用Valine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置next主题"><span class="toc-text">配置next主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理评论数据"><span class="toc-text">管理评论数据</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
