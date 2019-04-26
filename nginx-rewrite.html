@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="nginx rewrite">
+
+
+    <meta name="description" content="
+date:modify by lyc at 2017-11-21http://www.cnblogs.com/kevingrace/p/6398488.htmldate:modify by l...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>nginx-rewrite | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="nginx-rewrite">
+            
+	            nginx-rewrite
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/nginx-rewrite/">nginx rewrite</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/26</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>date:modify by lyc at 2017-11-21<br><a href="http://www.cnblogs.com/kevingrace/p/6398488.html">http://www.cnblogs.com/kevingrace/p/6398488.html</a><br>date:modify by lyc at 2018-05-15  </p>
+</blockquote>
+<h1 id="一、nginx-rewrite规则"><a href="#一、nginx-rewrite规则" class="headerlink" title="一、nginx rewrite规则"></a>一、nginx rewrite规则</h1><h2 id="1-rewrite语法"><a href="#1-rewrite语法" class="headerlink" title="1.rewrite语法"></a>1.rewrite语法</h2><ul>
+<li>nginx通过ngx_http_rewrite_module模块支持url重写、支持if条件判断，但不支持else。  </li>
+<li>该模块需要PCRE支持，因此应在编译nginx时指定PCRE源码目录, nginx安装方法。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rewrite   regex       replacement  [flag]</span><br><span class="line">关键字	  正则表达式   替换值	    标志位</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">rewrite  ^/(.*)  http://www.etiantian.org/$1 permanent;</span><br><span class="line"></span><br><span class="line">解释：</span><br><span class="line">^/(.*)      表示匹配所有</span><br><span class="line">$1          取前面regex部分括号里的内容</span><br><span class="line">permanent   永久301重定向，即跳转到后面的http://www.etiantian.org/$1地址上</span><br></pre></td></tr></table></figure>
+<h2 id="2-rewrite-flags标记位"><a href="#2-rewrite-flags标记位" class="headerlink" title="2.rewrite flags标记位"></a>2.rewrite flags标记位</h2><table>
+<thead>
+<tr>
+<th>flag</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>last</td>
+<td>本条规则匹配完成后，继续向下匹配新的location URL规则。（基本上都用这个Flag，表示rewrite。）</td>
+</tr>
+<tr>
+<td>break</td>
+<td>本条规则匹配完成即终止，不在匹配后面的任何规则</td>
+</tr>
+<tr>
+<td>redirect</td>
+<td>返回302临时重定向，浏览器地址栏会显示跳转后的URL地址</td>
+</tr>
+<tr>
+<td>permanent</td>
+<td>返回301永久重定向，浏览器地址栏会显示跳转后的URL地址。原有的url支持正则，重写的url不支持正则</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-正则表达式匹配规则"><a href="#3-正则表达式匹配规则" class="headerlink" title="3.正则表达式匹配规则"></a>3.正则表达式匹配规则</h2><ul>
+<li>~ 为区分大小写匹配</li>
+<li>~* 为不区分大小写匹配</li>
+<li>!~和!~* 分别为区分大小写不匹配及不区分大小写不匹配</li>
+</ul>
+<h2 id="4-文件及目录匹配"><a href="#4-文件及目录匹配" class="headerlink" title="4.文件及目录匹配"></a>4.文件及目录匹配</h2><ul>
+<li>-f 和!-f 用来判断是否存在文件</li>
+<li>-d 和!-d 用来判断是否存在目录</li>
+<li>-e 和!-e 用来判断是否存在文件或目录</li>
+<li>-x 和!-x 用来判断文件是否可执行</li>
+</ul>
+<h2 id="5-rewrite指令优先级"><a href="#5-rewrite指令优先级" class="headerlink" title="5.rewrite指令优先级"></a>5.rewrite指令优先级</h2><h3 id="rewrite可配置区块："><a href="#rewrite可配置区块：" class="headerlink" title="rewrite可配置区块："></a>rewrite可配置区块：</h3><p>rewrite一般配置在server全局区块，也经常搭配if条件区块来使用：</p>
+<ol>
+<li>server区块：配置在server区块的rewrite可以说是全局的，所有请求优先匹配该区块的rewrite指令。</li>
+<li>if区块：通过正则或条件匹配，将命中的请求进行重写，再去匹配接下去的location进行处理请求。配置在if区块的目的就是更好的让下面的location命中，然后去处理请求。</li>
+<li>location区块：可以配置在location区块，但没有多大意义，已经被location命中的请求一般直接进行处理了，再重写没意义。</li>
+</ol>
+<hr>
+<h3 id="rewrite指令优先级"><a href="#rewrite指令优先级" class="headerlink" title="rewrite指令优先级"></a>rewrite指令优先级</h3><ol>
+<li>执行server块的rewrite指令(这里的块指的是server关键字后{ }包围的区域，其它xx块类似)</li>
+<li>执行if区块的rewrite指令</li>
+<li>执行location匹配</li>
+<li>执行选定的location中的rewrite指令  <ul>
+<li>如果其中某步uri被重写，则重新循环执行1-3，直到找到真实存在的文件  </li>
+<li>如果循环超过10次，则返回500 Internal Server Error错误</li>
+<li>通过配置break来停止</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>注意：在location里面的rewrite指令，应使用break而不是last , 使用last将循环10次匹配，然后返回500错误。</p>
+</blockquote>
+<h1 id="二、if指令规则"><a href="#二、if指令规则" class="headerlink" title="二、if指令规则"></a>二、if指令规则</h1><p>不支持else，rewrite常搭配if条件语句来执行：</p>
+<h2 id="1-if指令语法"><a href="#1-if指令语法" class="headerlink" title="1.if指令语法"></a>1.if指令语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 语法：</span><br><span class="line">if (condition) &#123;...&#125;  </span><br><span class="line"></span><br><span class="line">默认值：无  </span><br><span class="line">作用域：server,location  </span><br><span class="line">对给定的条件condition进行判断。如果为真，大括号内的rewrite指令将被执行。</span><br></pre></td></tr></table></figure>
+<h3 id="2-if指令条件"><a href="#2-if指令条件" class="headerlink" title="2.if指令条件"></a>2.if指令条件</h3><p>if条件(conditon)可以是如下任何内容:  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1）一个变量名   false如果这个变量是空字符串或者以0开始的字符串；</span><br><span class="line">2）使用= !=     比较的一个变量和字符串</span><br><span class="line">3）是用~ ~*     与正则表达式匹配的变量，如果这个正则表达式中包含&#125;，;则整个表达式需要用&quot; 或&apos; 包围</span><br><span class="line">4）使用-f !-f   检查一个文件是否存在</span><br><span class="line">5）使用-d !-d   检查一个目录是否存在</span><br><span class="line">6）使用-e !-e   检查一个文件、目录、符号链接是否存在</span><br><span class="line">7）使用-x !-x   检查一个文件是否可执行</span><br></pre></td></tr></table></figure>
+<h3 id="3-if指令实例"><a href="#3-if指令实例" class="headerlink" title="3.if指令实例"></a>3.if指令实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if ($http_user_agent ~ MSIE) &#123;</span><br><span class="line">     rewrite ^(.*)$ /msie/$1 break;</span><br><span class="line"> &#125;</span><br><span class="line"> if ($request_method = POST) &#123;</span><br><span class="line">     return 405;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/nginx-ssl.html" class="pre-post btn btn-default" title="nginx-ssl">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">nginx-ssl</span>
+        </a>
+    
+    
+        <a href="/nginx-tcp.html" class="next-post btn btn-default" title="nginx-tcp">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">nginx-tcp</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、nginx-rewrite规则"><span class="toc-text">一、nginx rewrite规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-rewrite语法"><span class="toc-text">1.rewrite语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-rewrite-flags标记位"><span class="toc-text">2.rewrite flags标记位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-正则表达式匹配规则"><span class="toc-text">3.正则表达式匹配规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-文件及目录匹配"><span class="toc-text">4.文件及目录匹配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-rewrite指令优先级"><span class="toc-text">5.rewrite指令优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rewrite可配置区块："><span class="toc-text">rewrite可配置区块：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rewrite指令优先级"><span class="toc-text">rewrite指令优先级</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、if指令规则"><span class="toc-text">二、if指令规则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-if指令语法"><span class="toc-text">1.if指令语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-if指令条件"><span class="toc-text">2.if指令条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-if指令实例"><span class="toc-text">3.if指令实例</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

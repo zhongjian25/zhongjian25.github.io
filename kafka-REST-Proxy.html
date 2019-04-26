@@ -1,0 +1,414 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="Kafka REST Proxy">
+
+
+    <meta name="description" content="Kafka REST Proxy
+2018-0810
+
+一、业务场景需求
+某公司A，需要把游戏日志传给另外一家公司B。架构大致是，游戏服务器把日志传到kafka消息队列，kafka在到es进行数...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>kafka-REST-Proxy | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="kafka-REST-Proxy">
+            
+	            kafka-REST-Proxy
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Kafka-REST-Proxy/">Kafka REST Proxy</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/25</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="Kafka-REST-Proxy"><a href="#Kafka-REST-Proxy" class="headerlink" title="Kafka REST Proxy"></a>Kafka REST Proxy</h3><blockquote>
+<p>2018-0810</p>
+</blockquote>
+<h4 id="一、业务场景需求"><a href="#一、业务场景需求" class="headerlink" title="一、业务场景需求"></a>一、业务场景需求</h4><blockquote>
+<p>某公司A，需要把游戏日志传给另外一家公司B。架构大致是，游戏服务器把日志传到kafka消息队列，kafka在到es进行数据分析。由于服务器是公司B自己提供，公司A就需要提供一个外网接口让对方把数据写到云ukafka。 由于ukafka只有内网IP，zookeeper中只能注册一个地址，通过nginx代理或者ssh端口转发都不能做到外网正常使用，除非节点本身有外网IP。这个时候就需要用到Kafka REST Proxy。</p>
+</blockquote>
+<h4 id="二、Kafka-REST-Proxy-介绍"><a href="#二、Kafka-REST-Proxy-介绍" class="headerlink" title="二、Kafka REST Proxy 介绍"></a>二、Kafka REST Proxy 介绍</h4><blockquote>
+<p>Kafka REST代理为Kafka集群提供RESTful接口。它可以轻松生成和使用消息，查看集群状态，以及在不使用本机Kafka协议或客户端的情况下执行管理操作。用例示例包括从任何语言构建的任何前端应用程序向Kafka报告数据，将消息提取到尚不支持Kafka的流处理框架，以及脚本管理操作。</p>
+</blockquote>
+<blockquote>
+<p>kafka rest proxy  是rest api接口，通过这个代理把数据转发到kafka的。<br>主要有两部分组成</p>
+<pre><code>- Schema Registry提供元数据的存储和解析。
+- Producer的序列化和Consumer的反序列化都会去Schema Registry读取对应的Schema
+</code></pre><p>通过Kafka REST Proxy API接口做代理，把外网传输数据转发到内网kafka中。</p>
+</blockquote>
+<blockquote>
+<p>相关资料1 <a href="https://github.com/confluentinc/kafka-rest">https://github.com/confluentinc/kafka-rest</a><br>相关资料2 <a href="https://docs.confluent.io/current/kafka-rest/docs/index.html">https://docs.confluent.io/current/kafka-rest/docs/index.html</a> </p>
+</blockquote>
+<h4 id="三、安装"><a href="#三、安装" class="headerlink" title="三、安装"></a>三、安装</h4><h5 id="1、安装jdk1-8-以上"><a href="#1、安装jdk1-8-以上" class="headerlink" title="1、安装jdk1.8 以上"></a>1、安装jdk1.8 以上</h5><blockquote>
+<p>下载JDK<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src/kafka</span><br><span class="line">wget  -c http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm?AuthParam=1493105955_1f866324e85307d5f9b495e276577b05</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>安装JDK<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 检查jdk 是否安装</span><br><span class="line">rpm -qa | grep jdk</span><br><span class="line"># 安装jdk</span><br><span class="line">cd /usr/local/src/kafka</span><br><span class="line">rpm -ivh  jdk-8u131-linux-x64.rpm</span><br><span class="line"># 设置环境</span><br><span class="line">cat &gt;&gt; /etc/profile&lt;&lt;&quot;EOF&quot;</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_131</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib  </span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br><span class="line">EOF</span><br><span class="line"># 加载环境变量</span><br><span class="line">. /etc/profile</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="2、添加相关源"><a href="#2、添加相关源" class="headerlink" title="2、添加相关源"></a>2、添加相关源</h5><blockquote>
+<p>vim /etc/yum.repos.d/confluent.repo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[Confluent.dist]</span><br><span class="line">name=Confluent repository (dist)</span><br><span class="line">baseurl=http://packages.confluent.io/rpm/3.1/6</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://packages.confluent.io/rpm/3.1/archive.key</span><br><span class="line">enabled=1</span><br><span class="line"></span><br><span class="line">[Confluent]</span><br><span class="line">name=Confluent repository</span><br><span class="line">baseurl=http://packages.confluent.io/rpm/3.1</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=http://packages.confluent.io/rpm/3.1/archive.key</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="3、安装"><a href="#3、安装" class="headerlink" title="3、安装"></a>3、安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install confluent-kafka-rest confluent-schema-registry -y</span><br></pre></td></tr></table></figure>
+<h5 id="4、修改confluent-schema-registry-配置"><a href="#4、修改confluent-schema-registry-配置" class="headerlink" title="4、修改confluent-schema-registry 配置"></a>4、修改confluent-schema-registry 配置</h5><blockquote>
+<p>vim /etc/schema-registry/schema-registry.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">listeners=http://0.0.0.0:8080 ## 提供给kafka-rest 连接的端口</span><br><span class="line">kafkastore.connection.url=10.10.41.3x:2181,10.10.187.3x:2181,10.10.87.5x:2181  ## 实际kafka的zookeeper</span><br><span class="line">kafkastore.topic=_schemas</span><br><span class="line">debug=false</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schema-registry-start /etc/schema-registry/schema-registry.properties</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h5 id="5、修改confluent-kafka-rest配置"><a href="#5、修改confluent-kafka-rest配置" class="headerlink" title="5、修改confluent-kafka-rest配置"></a>5、修改confluent-kafka-rest配置</h5><blockquote>
+<p>vim /etc/kafka-rest/kafka-rest.properties<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#id=kafka-rest-test-server</span><br><span class="line">#port=9092  ## 自定义端口 默认 8082</span><br><span class="line">schema.registry.url=http://localhost:8080 ## 上面schema 端口</span><br><span class="line">zookeeper.connect=10.10.41.3x:2181,10.10.187.3x:2181,10.10.87.5x:2181</span><br><span class="line">## 实际kafka的zookeeper</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-rest-start /etc/kafka-rest/kafka-rest.properties</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><blockquote>
+<p>发送消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -H &quot;Content-Type: application/vnd.kafka.json.v1+json&quot;  --data &apos;&#123;&quot;records&quot;:[&#123;&quot;value&quot;:&#123;&quot;foo&quot;:&quot;bar2&quot;&#125;&#125;]&#125;&apos; &quot;http://x.x.x.x:8082/topics/opstest&quot; </span><br><span class="line"># 正常返回结果</span><br><span class="line">&#123;&quot;offsets&quot;:[&#123;&quot;partition&quot;:0,&quot;offset&quot;:5,&quot;error_code&quot;:null,&quot;error&quot;:null&#125;],&quot;key_schema_id&quot;:null,&quot;value_schema_id&quot;:null&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>接收消息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./kafka-console-consumer.sh --zookeeper 10.10.x.x:2181 --from-beginning --topic opstest</span><br><span class="line"># 结果</span><br><span class="line">&#123;&quot;foo&quot;:&quot;bar&quot;&#125;</span><br><span class="line">&#123;&quot;foo&quot;:&quot;bar2&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/jenkins-install.html" class="pre-post btn btn-default" title="jenkins-install">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">jenkins-install</span>
+        </a>
+    
+    
+        <a href="/kafka-install.html" class="next-post btn btn-default" title="kafka-install">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">kafka-install</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Kafka-REST-Proxy"><span class="toc-text">Kafka REST Proxy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、业务场景需求"><span class="toc-text">一、业务场景需求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、Kafka-REST-Proxy-介绍"><span class="toc-text">二、Kafka REST Proxy 介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三、安装"><span class="toc-text">三、安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1、安装jdk1-8-以上"><span class="toc-text">1、安装jdk1.8 以上</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2、添加相关源"><span class="toc-text">2、添加相关源</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3、安装"><span class="toc-text">3、安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4、修改confluent-schema-registry-配置"><span class="toc-text">4、修改confluent-schema-registry 配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5、修改confluent-kafka-rest配置"><span class="toc-text">5、修改confluent-kafka-rest配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

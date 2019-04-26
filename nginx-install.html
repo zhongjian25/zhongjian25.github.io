@@ -16,14 +16,13 @@
     <link rel="dns-prefetch" href="http://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="hexo valine LeanCloud">
+    <meta name="keywords" content="nginx install">
 
 
-    <meta name="description" content="hexo 评论页面报错
-Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.
-
-关于Valine和LeanCloud
-Valine是一款基于Leancloud的快速、简洁且高...">
+    <meta name="description" content="
+wriren by: CQhttps://www.920430.comwriren time: 2017-7-4 15:52:2
+Building nginx from Sources
+htt...">
 
 
 
@@ -35,7 +34,7 @@ Valine是一款基于Leancloud的快速、简洁且高...">
     <!--Title-->
 
 
-<title>hexo-valine | 云运维</title>
+<title>nginx-install | 云运维</title>
 
 
     <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
@@ -171,9 +170,9 @@ Valine是一款基于Leancloud的快速、简洁且高...">
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="hexo-valine">
+        <h1 id="nginx-install">
             
-	            hexo-valine
+	            nginx-install
             
         </h1>
         <div class="post-meta">
@@ -189,7 +188,7 @@ Valine是一款基于Leancloud的快速、简洁且高...">
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
                 
-                    <a class="tag-link" href="/tags/hexo-valine-LeanCloud/">hexo valine LeanCloud</a>
+                    <a class="tag-link" href="/tags/nginx-install/">nginx install</a>
                 
             </span>
         </span>
@@ -199,7 +198,7 @@ Valine是一款基于Leancloud的快速、简洁且高...">
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/04/23</span>
+            <span class="date-meta">2019/04/26</span>
         </span>
         
             <span class="fa-wrap">
@@ -214,40 +213,214 @@ Valine是一款基于Leancloud的快速、简洁且高...">
     </div>
     
     <div class="post-body post-content">
-        <h3 id="hexo-评论页面报错"><a href="#hexo-评论页面报错" class="headerlink" title="hexo 评论页面报错"></a>hexo 评论页面报错</h3><blockquote>
-<p>Code 403: 访问被api域名白名单拒绝，请检查你的安全域名设置.</p>
+        <hr>
+<p><strong><em>wriren by: CQ</em></strong><br><strong><em><a href="https://www.920430.com">https://www.920430.com</a></em></strong><br><strong><em>wriren time: 2017-7-4 15:52:2</em></strong></p>
+<h2 id="Building-nginx-from-Sources"><a href="#Building-nginx-from-Sources" class="headerlink" title="Building nginx from Sources"></a><strong>Building nginx from Sources</strong></h2><blockquote>
+<p><a href="http://nginx.org/en/docs/configure.html">http://nginx.org/en/docs/configure.html</a></p>
 </blockquote>
-<h3 id="关于Valine和LeanCloud"><a href="#关于Valine和LeanCloud" class="headerlink" title="关于Valine和LeanCloud"></a>关于Valine和LeanCloud</h3><blockquote>
-<p>Valine是一款基于Leancloud的快速、简洁且高效的无后端评论系统。<br>Valine诞生于2017年8月7日，理论上支持但不限于静态博客，目前已有Hexo、Jekyll、Typecho、Hugo等博客程序在使用Valine。她完全不需要账号，一个昵称就够了，为了方便以后联系也可以留下邮箱，甚至可以如路人般水一下而不留一点痕迹，给人一种清新脱俗、小家碧玉的感觉，这多少符合现在互联网顶贴水楼的习惯。同时她又支持Gravatar的头像和Markdown的语法，方便大家展现个性化的头像和多变的评论样式。<br>另外Valine还支持文章阅读量统计，next主题也是集成此功能的，如需要请在主题配置文件中搜索“leancloud_visitors”字段启用。具体请网络搜索或查看官方说明 .<br><a href="https://valine.js.org/visitor.html">https://valine.js.org/visitor.html</a></p>
-</blockquote>
-<blockquote>
-<p>LeanCloud是行业领先的一站式后端云服务提供商，专注于为开发者提供一流的工具、平台和服务。<br>LeanCloud于2013年9月发布，主要提供包括数据存储、文件存储与CDN、消息推送和实时通信在内的后端云服务，同时提供支撑后端代码的云引擎和云函数等开发工具，全面涵盖移动开发的需求；同时也提供了易于集成的全平台SDK，支持iOS、Android应用和游戏开发，以及包括微信小程序在内的web开发。帮助客户脱繁重的后端开发负担，最大限度地降低开发成本、缩短开发周期、加快迭代速度，在激烈的市场竞争中胜出。<br><a href="https://leancloud.cn/">https://leancloud.cn/</a></p>
-</blockquote>
-<h3 id="在snippet主题中启用Valine"><a href="#在snippet主题中启用Valine" class="headerlink" title="在snippet主题中启用Valine"></a>在snippet主题中启用Valine</h3><blockquote>
-<p>　　本人使用的是Hexo博客系统的snippet（v6.0.5）版本主题，所有操作设置仅对应该系统和主题版本，其他博客系统或主题请参考官方说明。在此提一下next主题现在主要有v5.1.x和v6.x两个版本，其中v5.1.x版本现已停止更新并迁移到新的仓库升级为v6.x，具体请参考官方说明。<a href="https://github.com/shenliyang/hexo-theme-snippet">https://github.com/shenliyang/hexo-theme-snippet</a></p>
-</blockquote>
-<blockquote>
-<p>获取APP ID 和 APP Key<br><a href="https://leancloud.cn/">注册LeanCloud</a> （过程跳过），注册后请到注册邮箱内验证邮箱。登录后点击页面右上角的控制台，进去后点击创建应用，应用名称随便填(如valine)并创建，之后将鼠标移到应用标签上并点击设置按钮<br><img src="hexo-valine/valine1.png" alt="image"></p>
-</blockquote>
-<blockquote>
-<p>进去后点击设置中的“应用Key”，就可以看到APP ID 和 APP Key了。<br><img src="hexo-valine/valine2.png" alt="image"></p>
-</blockquote>
-<h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><blockquote>
-<p>请打开next的配置文件_config.yml，搜索valine找到下面的字段，复制上面的APP ID和APP Key分别粘贴到appid和appkey，注意ID和Key是可以复制的，冒号后面空一格再粘贴。将enable: false改为enable: true即可启用Valine评论，其他的选项除非你知道是什么，否则请保持默认设置。如果已开启其他评论，请先关闭。然后执行hexo clean和 hexo s 两个命令进行本地预览，查看是否正常启用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## Valine评论</span><br><span class="line">valine:</span><br><span class="line">   enable: true</span><br><span class="line">   appId: ID</span><br><span class="line">   appKey: Key</span><br><span class="line">   placeholder: 说点什么吧</span><br><span class="line">   notify: false</span><br><span class="line">   verify: false</span><br><span class="line">   avatar: mm</span><br><span class="line">   meta: nick,mail</span><br><span class="line">   pageSize: 10</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="管理评论数据"><a href="#管理评论数据" class="headerlink" title="管理评论数据"></a>管理评论数据</h3><blockquote>
-<p>回到刚才的网页页面，点击“存储”(或者登录&gt;选择你创建的应用&gt;存储)，应该可以看到“Comment”文件，点击就可以查看管理评论数据了。如果没有“Comment”文件，你可以自己评论一条然后刷新管理页面。</p>
-</blockquote>
-<blockquote>
-<p>关于自带的评论邮件提醒功能请谨慎使用，首先应”登录Leancloud&gt;选择你的评论应用&gt;设置&gt;邮件模板“，然后参照官方说明进行设置并保存。请注意修改链接为你的博客或者网站首页。由于邮件提醒功能使用的Leancloud的密码重置邮件提醒，只能传递昵称、邮箱两个属性，所以邮件提醒链接无法直达指定文章页。发送次数过多，可能会暂时被Leancloud 屏蔽邮件发送功能。<a href="https://valine.js.org/notify.html">https://valine.js.org/notify.html</a></p>
-</blockquote>
-<blockquote>
-<p>Valine目前使用的是Gravatar作为评论列表头像。请自行登录或注册Gravatar，然后修改自己的头像。评论的时候，留下在Gravatar注册时所使用的邮箱即可。如果你修改了头像后发现没有更新，请不要慌张，因为gravatar.cat.net 有七天的缓存期，安静的等待吧。</p>
-</blockquote>
-<blockquote>
-<p>当然，你也可以配合使用 panjunwen 开发的 Valine-Admin (<a href="https://github.com/panjunwen/Valine-Admin">https://github.com/panjunwen/Valine-Admin</a>)<br>进行评论数据管理和邮件提醒等。</p>
-</blockquote>
+<ul>
+<li><p>下载对应版本的源码包。</p>
+<pre><code>$ cd /usr/local/src
+$ sudo wget http://nginx.org/download/nginx-1.12.0.tar.gz
+$ sudo wget https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.gz
+$ sudo wget http://zlib.net/zlib-1.2.11.tar.gz
+</code></pre></li>
+<li><p>同级目录解压。</p>
+<pre><code>$ sudo tar xf nginx-1.12.0.tar.gz
+$ sudo tar xf pcre-8.40.tar.gz
+$ sudo tar xf zlib-1.2.11.tar.gz
+</code></pre></li>
+<li><p>安装相关的编译依赖包</p>
+<pre><code>$ sudo apt-get -y install autoconf automake build-essential pkg-config \
+    libperl-dev libxml2 libxslt1-dev libgeoip-dev zlib1g-dev
+</code></pre></li>
+<li><p>创建nginx用户,并禁止其登陆</p>
+<pre><code>$ sudo useradd -s /sbin/nologin nginx
+</code></pre></li>
+<li><p>编译安装</p>
+<pre><code> $ sudo cd /usr/local/src/nginx-1.12.0
+ $ sudo ./configure --user=nginx --group=nginx \
+     --prefix=/usr/local/nginx-1.12.0 \
+     --conf-path=/usr/local/nginx-1.12.0/conf/nginx.conf \
+     --pid-path=/var/log/nginx/nginx.pid \
+     --with-pcre=../pcre-8.40 \
+     --with-zlib=../zlib-1.2.11 \
+     --with-stream \
+     --with-stream_ssl_module \
+     --with-http_ssl_module \
+     --with-http_v2_module \
+     --with-http_geoip_module \
+     --with-http_realip_module \
+     --with-http_xslt_module \
+     --with-file-aio \
+     --with-http_perl_module \
+     --with-http_auth_request_module \
+     --with-http_gzip_static_module \
+     --with-http_secure_link_module \
+     --with-http_sub_module \
+     --with-http_stub_status_module
+$ sudo make &amp;&amp; make install
+$ sudo ln -s /usr/local/nginx-1.12.0 /usr/local/nginx
+</code></pre></li>
+<li><p>调整配置文件</p>
+<pre><code>$ sudo vim /usr/local/nginx/conf/nginx.conf
+user                  nginx nginx;
+worker_processes      auto;
 
+## Binds worker processes to the sets of CPUs. 
+## Each CPU set is represented by a bitmask of allowed CPUs. There should be a separate set defined for each of the worker processes. 
+## By default, worker processes are not bound to any specific CPUs.
+worker_cpu_affinity   auto;
+error_log             /var/log/nginx/error.log  notice;
+pid                   /var/log/nginx/nginx.pid;
+
+## Specifies the value for maximum file descriptors that can be opened by this process.
+worker_rlimit_nofile  51200;
+
+events
+{
+    use epoll;
+
+    ## Sets the maximum number of simultaneous connections that can be opened by a worker process.
+    ## It should be kept in mind that this number includes all connections (e.g. connections with proxied servers, among others), not only connections with clients. Another consideration is that the actual number of simultaneous connections cannot exceed the current limit on the maximum number of open files, which can be changed by worker_rlimit_nofile.
+
+    ## maxclient = worker_processes * worker_connections / cpu_number
+    worker_connections 30000;
+}
+
+http
+{
+    include       mime.types;
+    default_type  application/octet-stream;
+    log_format    weblog  &apos;$http_x_forwarded_for $remote_port &quot;$request&quot; $status [$time_local] &apos;
+                        &apos;&quot;$http_user_agent&quot; &quot;$http_referer&quot; $body_bytes_sent &apos;
+                        &apos;$remote_addr $gzip_ratio&apos;;
+
+    sendfile           on;
+    server_tokens      off;
+    tcp_nopush         on;
+    tcp_nodelay        on;
+    keepalive_timeout  60;
+    request_pool_size  4k;
+
+    ## Allows accurate tuning of per-connection memory allocations. 
+    ## This directive has minimal impact on performance and should not generally be used. 
+    ## By default, the size is equal to 256 bytes on 32-bit platforms and 512 bytes on 64-bit platforms.
+    connection_pool_size            512;
+
+    client_header_timeout           3m;
+    client_body_timeout             3m;
+    send_timeout                    3m;
+    client_header_buffer_size       256k;
+    large_client_header_buffers     4 1024k;
+    client_max_body_size            10m;
+    client_body_buffer_size         256k;
+    output_buffers                  4 32k;
+    postpone_output                 1460;
+    server_names_hash_bucket_size   128;
+
+    fastcgi_connect_timeout        180s;
+    fastcgi_send_timeout           180s;
+    fastcgi_read_timeout           180s;
+    fastcgi_buffer_size            2048k;
+    fastcgi_buffers                4 1024k;
+    fastcgi_busy_buffers_size      2048k;
+    fastcgi_temp_file_write_size   2048k;
+
+    gzip                  on;
+    gzip_http_version     1.1;
+    gzip_comp_level       2;
+    gzip_min_length       1100;
+    gzip_buffers          16 8k;
+    gzip_vary             on;
+    gzip_proxied          expired no-cache no-store private auth;
+    gzip_types            text/plain text/css application/json text/xml application/xml application/xml+rss text/javascript application/javascript application/x-javascript;
+
+    ## The following includes are specified for virtual hosts
+    include          vhosts/*.conf;
+}
+</code></pre></li>
+</ul>
+<pre><code>server
+{
+    listen  443 ssl default; 
+    # server_name silent.live www.silent.live blog.silent.live devops.silent.live;
+    server_name silent.live www.silent.live;
+    root  /data/wwwroot/silent.live/webroot;
+    index index.shtml index.html;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_certificate /etc/letsencrypt/live/silent.live/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/silent.live/privkey.pem;
+
+    ## Specifies that server ciphers should be preferred over client ciphers when the SSLv3 and TLS protocols are used.
+    ssl_prefer_server_ciphers on;
+    # ssl_ciphers &quot;EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH&quot;;
+    ssl_ciphers &apos;ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA&apos;;
+
+    ## Diffie-Hellman parameter for DHE ciphersuites, recommended 2048 bits
+    ssl_dhparam /usr/local/nginx/sslkey/dh_ssl/nginx_dh_2048.pem;
+
+    ## The special value auto (1.11.0) instructs nginx to use a list built into the OpenSSL library when using OpenSSL 1.0.2 or higher, or prime256v1 with older versions.
+    ## Prior to version 1.11.0, the prime256v1 curve was used by default.
+    ssl_ecdh_curve auto;
+
+    ## This will create a cache shared between all worker processes.
+    ## The cache size is specified in bytes (in this example: 50 MB).
+    ## According to the Nginx documentation can 1MB store about 4000 sessions, so for this example, we can store about 200000 sessions, and we will store them for 180 minutes.
+    ## If you expect more traffic, increase the cache size accordingly.
+    ssl_session_timeout 1d;
+    ssl_session_cache shared:SSL:50m;
+
+    ## Requires nginx &gt;= 1.5.9
+    ssl_session_tickets off;
+    # ssl_session_ticket_key /usr/local/nginx/sslkey/tls_session/tls_session_ticket.key;
+
+    ## OCSP Stapling, Requires nginx &gt;= 1.3.7
+    ssl_stapling on;
+    ssl_stapling_verify on;
+
+    ## verify chain of trust of OCSP response using Root CA and Intermediate certs.
+    # ssl_trusted_certificate /path/to/signed_cert_plus_intermediates;
+
+    resolver 8.8.8.8 8.8.4.4 valid=300s;
+    resolver_timeout 5s;
+
+    ssi on; 
+    ssi_silent_errors off;
+    ssi_types text/shtml;
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {   
+        expires 30d;
+        access_log off;
+    }   
+
+    location = /favicon.ico {
+        rewrite (.*) /static/favicon.ico;
+    }
+
+    # location = /robots.txt {
+    #     rewrite (.*) /static/robots.txt;
+    # }
+
+    location / {
+        add_header Cache-Control no-cache;
+
+        ## HSTS
+        # add_header Strict-Transport-Security &quot;max-age=63072000; includeSubDomains; preload&quot;;
+        add_header Strict-Transport-Security &quot;max-age=63072000&quot;;
+
+        add_header X-Frame-Options DENY;
+        add_header X-Content-Type-Options nosniff;
+    }
+
+error_page 404 /static/404.html;
+
+access_log  /data/httplog/silent.live_access_ssl.log weblog;
+error_log   /data/httplog/silent.live_error_ssl.log;
+}
+</code></pre>
     </div>
     
         <div class="reward" ontouchstart>
@@ -280,15 +453,15 @@ Valine是一款基于Leancloud的快速、简洁且高...">
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/HTTPS-Certbot.html" class="pre-post btn btn-default" title="HTTPS-Certbot">
+        <a href="/nginx-tcp.html" class="pre-post btn btn-default" title="nginx-tcp">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">HTTPS-Certbot</span>
+            <span class="hidden-xs">nginx-tcp</span>
         </a>
     
     
-        <a href="/hexo-GitHub.html" class="next-post btn btn-default" title="hexo+GitHub">
+        <a href="/jenkins-install.html" class="next-post btn btn-default" title="jenkins-install">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">hexo+GitHub</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">jenkins-install</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -331,7 +504,7 @@ Valine是一款基于Leancloud的快速、简洁且高...">
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hexo-评论页面报错"><span class="toc-text">hexo 评论页面报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于Valine和LeanCloud"><span class="toc-text">关于Valine和LeanCloud</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在snippet主题中启用Valine"><span class="toc-text">在snippet主题中启用Valine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置next主题"><span class="toc-text">配置next主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理评论数据"><span class="toc-text">管理评论数据</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Building-nginx-from-Sources"><span class="toc-text">Building nginx from Sources</span></a></li></ol>
         
     </div>
 </aside>

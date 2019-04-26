@@ -1,0 +1,375 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="nginx ssl">
+
+
+    <meta name="description" content="
+data:modify by lyc at 2018-05-21参考博文：【Nginx的SSL配置优化】https://www.linpx.com/p/ssl-configuration-op...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>nginx-ssl | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="nginx-ssl">
+            
+	            nginx-ssl
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/nginx-ssl/">nginx ssl</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/04/26</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>data:modify by lyc at 2018-05-21<br>参考博文：【Nginx的SSL配置优化】<a href="https://www.linpx.com/p/ssl-configuration-optimization.html">https://www.linpx.com/p/ssl-configuration-optimization.html</a></p>
+</blockquote>
+<h1 id="一、SSL-Labs"><a href="#一、SSL-Labs" class="headerlink" title="一、SSL Labs"></a>一、SSL Labs</h1><p>ssllabs：查看https网站的安全级别：  <a href="https://www.ssllabs.com/ssltest/index.html">https://www.ssllabs.com/ssltest/index.html</a></p>
+<h2 id="未加入ssl优化配置的安全级别F"><a href="#未加入ssl优化配置的安全级别F" class="headerlink" title="未加入ssl优化配置的安全级别F"></a>未加入ssl优化配置的安全级别F</h2><p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1556259476/nginx/nginx-ssl1_jink3d.png" alt="image"></p>
+<h2 id="配置了ssl优化参数的安全级别A"><a href="#配置了ssl优化参数的安全级别A" class="headerlink" title="配置了ssl优化参数的安全级别A+"></a>配置了ssl优化参数的安全级别A+</h2><p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1556259476/nginx/nginx-ssl2_yvtmb2.png" alt="image"></p>
+<h1 id="二、创建dhparam-nginx-pem秘钥"><a href="#二、创建dhparam-nginx-pem秘钥" class="headerlink" title="二、创建dhparam nginx.pem秘钥"></a>二、创建dhparam nginx.pem秘钥</h1><ul>
+<li>一般网站使用的SSL证书都是RSA证书，这种证书基本都是2048位的密钥，但是证书密钥交换密钥必须要比证书密钥更长才能安全。</li>
+<li>而默认的创建dhparam.pem只有1024位，所以我们需要手动生成一个更强的密钥4096位。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 执行时间很长，建议使用screen生成</span><br><span class="line">mkdir -p /usr/local/nginx/ssl-key/dh_ssl</span><br><span class="line">cd /usr/local/nginx/ssl-key/dh_ssl</span><br><span class="line">openssl dhparam -out nginx.pem 4096</span><br></pre></td></tr></table></figure>
+<h1 id="三、ssl配置及优化"><a href="#三、ssl配置及优化" class="headerlink" title="三、ssl配置及优化"></a>三、ssl配置及优化</h1><p>配置如下，只包含ssl部分的配置，未包含其他比较重要的配置，如缓存、跳转、防盗链和强制HTTPS等等。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">upstream www.test.com_ssl &#123;</span><br><span class="line">        server 127.0.0.1 weight=20 max_fails=2 fail_timeout=8s;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server</span><br><span class="line">&#123;</span><br><span class="line">        listen  443 ssl;</span><br><span class="line">        server_name www.test.com;</span><br><span class="line"></span><br><span class="line">        # SSL base</span><br><span class="line">        ssl on;</span><br><span class="line">        ssl_certificate /usr/local/nginx/ssl-key/STAR.test.com/STAR.test.com.crt;</span><br><span class="line">        ssl_certificate_key /usr/local/nginx/ssl-key/STAR.test.com/STAR.test.com.key;</span><br><span class="line">        ssl_dhparam /usr/local/nginx/ssl-key/dh_ssl/nginx.pem;</span><br><span class="line">        ssl_session_timeout 1d;</span><br><span class="line">        ssl_session_cache shared:SSL:50m;</span><br><span class="line">        ssl_session_tickets on;</span><br><span class="line"></span><br><span class="line">        # SSL ciphers</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        ssl_ciphers &apos;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&apos;;</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line"></span><br><span class="line">        # OCSP Stapling</span><br><span class="line">        #ssl_trusted_certificate /usr/local/nginx/ssl-key/GlobalSign/chain.pem;</span><br><span class="line">        #ssl_stapling on;</span><br><span class="line">        #ssl_stapling_verify on;</span><br><span class="line">        #resolver 8.8.8.8 8.8.4.4 valid=300s;</span><br><span class="line">        #resolver 119.29.29.29 223.5.5.5 valid=300s;</span><br><span class="line">        #resolver_timeout 5s;</span><br><span class="line"></span><br><span class="line">        # HSTS</span><br><span class="line">        add_header Strict-Transport-Security max-age=15768000;</span><br><span class="line">        #add_header X-Frame-Options DENY;</span><br><span class="line">        #add_header X-Content-Type-Options nosniff;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">                proxy_redirect off;</span><br><span class="line">                proxy_pass http://www.test.com_ssl;</span><br><span class="line">                proxy_set_header Host $host;</span><br><span class="line">                proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">                proxy_set_header REMOTE-HOST $remote_addr;</span><br><span class="line">                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">                proxy_next_upstream timeout invalid_header http_500 http_502 http_503 http_504; # http_404;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        client_max_body_size     100m;</span><br><span class="line">        client_body_buffer_size  128k;</span><br><span class="line"></span><br><span class="line">        proxy_connect_timeout    90;</span><br><span class="line">        proxy_read_timeout       90;</span><br><span class="line">        proxy_send_timeout       90;</span><br><span class="line"></span><br><span class="line">        proxy_buffer_size             64k;</span><br><span class="line">        proxy_buffers              32 32k;</span><br><span class="line">        proxy_busy_buffers_size      128k;</span><br><span class="line">        proxy_temp_file_write_size    64k;</span><br><span class="line">        large_client_header_buffers 4 16k;</span><br><span class="line"></span><br><span class="line">        error_log  /data/httplogs/www.test.com-ssl-error.log;</span><br><span class="line">        access_log /data/httplogs/www.test.com-ssl-access.log weblog;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="配置解析"><a href="#配置解析" class="headerlink" title="配置解析"></a>配置解析</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen  443 ssl;</span><br><span class="line">        # listen  443 ssl http2;</span><br><span class="line">        # 使用HTTP/2，需要Nginx1.9.7以上版本</span><br><span class="line">        server_name www.test.com;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # SSL base  ssl基础配置区块，SSL证书文件位置</span><br><span class="line">        ssl on;</span><br><span class="line">        ssl_certificate /usr/local/nginx/ssl-key/STAR.test.com/STAR.test.com.crt;</span><br><span class="line">        # https证书，其实是个公钥，它会被发送到连接服务器的每个客户端</span><br><span class="line">        ssl_certificate_key /usr/local/nginx/ssl-key/STAR.test.com/STAR.test.com.key;</span><br><span class="line">        # 证书私钥是用来解密的，所以它的权限要得到保护。让nginx的主进程能够读取。当然私钥和证书可以放在一个证书文件中，这种方式也只有公钥证书才发送到client</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        # SSL ciphers   加密算法及交换秘钥配置区块</span><br><span class="line">        ssl_dhparam /usr/local/nginx/ssl-key/dh_ssl/nginx.pem;</span><br><span class="line">        # DH-Key交换密钥文件位置</span><br><span class="line">        ssl_ciphers &apos;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&apos;;</span><br><span class="line">        # 选择加密套件，不同的浏览器所支持的套件（和顺序）可能会不同。这里指定的是OpenSSL库能够识别的写法，你可以通过 openssl -v cipher &apos;RC4:HIGH:!aNULL:!MD5&apos;（后面是你所指定的套件加密算法） 来看所支持算法。</span><br><span class="line">        ssl_prefer_server_ciphers on;</span><br><span class="line">        #由服务器协商最佳的加密算法</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line">        # OCSP Stapling     OCSP配置区块</span><br><span class="line">        ssl_trusted_certificate  /usr/local/nginx/ssl-key/GlobalSign/chain.pem;</span><br><span class="line">        # OCSP Stapling的证书位置</span><br><span class="line">        ssl_stapling on;</span><br><span class="line">        # OCSP Stapling开启,OCSP是用于在线查询证书吊销情况的服务，使用OCSP Stapling能将证书有效状态的信息缓存到服务器，提高TLS握手速度</span><br><span class="line">        ssl_stapling_verify on;</span><br><span class="line">        # OCSP Stapling验证开启</span><br><span class="line">        #resolver 8.8.8.8 8.8.4.4 valid=300s;   # 海外dns（美国）</span><br><span class="line">        resolver 119.29.29.29 223.5.5.5 valid=300s; # 国内dns（腾讯和阿里）</span><br><span class="line">        # 用于查询OCSP服务器的DNS</span><br><span class="line">        resolver_timeout 5s;</span><br><span class="line">        # 查询域名超时时间</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # HSTS  配置区块</span><br><span class="line">        add_header Strict-Transport-Security max-age=10886400;</span><br><span class="line">        # 开启HSTS，并设置有效期为“10886400秒”（最低不低于18周）</span><br><span class="line">        # add_header Strict-Transport-Security &quot;max-age=6307200; includeSubdomains; preload&quot;;</span><br><span class="line">        #开启HSTS，并设置有效期为“6307200秒”（6个月），包括子域名(根据情况可删掉)，预加载到浏览器缓存(根据情况可删掉)</span><br><span class="line">        add_header X-Frame-Options DENY;</span><br><span class="line">        # 禁止被嵌入框架</span><br><span class="line">        add_header X-Content-Type-Options nosniff;</span><br><span class="line">        # 防止在IE9、Chrome和Safari中的MIME类型混淆攻击</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # SSL optimize  ssl优化配置区块</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;    </span><br><span class="line">        # 指令用于启动特定的加密协议，nginx在1.1.13和1.0.12版本后默认是ssl_protocols SSLv3 TLSv1 TLSv1.1 TLSv1.2，TLSv1.1与TLSv1.2要确保OpenSSL &gt;= 1.0.1 ，SSLv3 现在还有很多地方在用但有不少被攻击的漏洞。</span><br><span class="line">        ssl_session_cache shared:SSL:50m;</span><br><span class="line">        # Session Cache，将Session缓存到服务器，这可能会占用更多的服务器资源</span><br><span class="line">        # ssl_session_cache builtin:1000 shared:SSL:10m;</span><br><span class="line">        # 设置ssl/tls会话缓存的类型和大小。如果设置了这个参数一般是shared，buildin可能会参数内存碎片，默认是none，和off差不多，停用缓存。如shared:SSL:10m表示我所有的nginx工作进程共享ssl会话缓存，官网介绍说1M可以存放约4000个sessions。</span><br><span class="line">        ssl_session_tickets on;</span><br><span class="line">        # 开启浏览器的Session Ticket缓存</span><br><span class="line">        ssl_session_timeout 1d;</span><br><span class="line">        # SSL session过期时间，系统默认5分钟太短了，可以设成30m即30分钟甚至4h</span><br><span class="line"></span><br><span class="line">……</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ssl-ciphers加密套件配置"><a href="#ssl-ciphers加密套件配置" class="headerlink" title="ssl_ciphers加密套件配置"></a>ssl_ciphers加密套件配置</h1><p>ssl_ciphers加密套件配置可以直接通过这个链接来查看。<br><a href="https://mozilla.github.io/server-side-tls/ssl-config-generator/">https://mozilla.github.io/server-side-tls/ssl-config-generator/</a></p>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/nginx-rewrite.html" class="next-post btn btn-default" title="nginx-rewrite">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">nginx-rewrite</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、SSL-Labs"><span class="toc-text">一、SSL Labs</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#未加入ssl优化配置的安全级别F"><span class="toc-text">未加入ssl优化配置的安全级别F</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置了ssl优化参数的安全级别A"><span class="toc-text">配置了ssl优化参数的安全级别A+</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、创建dhparam-nginx-pem秘钥"><span class="toc-text">二、创建dhparam nginx.pem秘钥</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、ssl配置及优化"><span class="toc-text">三、ssl配置及优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#配置解析"><span class="toc-text">配置解析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ssl-ciphers加密套件配置"><span class="toc-text">ssl_ciphers加密套件配置</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2019
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
