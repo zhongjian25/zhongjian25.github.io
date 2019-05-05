@@ -2,77 +2,91 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.172173.com/nginx-ssl.html</loc>
+    <loc>https://www.172173.com/openswan.html</loc>
+    
+    <lastmod>2019-05-05T11:49:15.966Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.172173.com/Forefront-TMG-2010.html</loc>
+    
+    <lastmod>2019-05-05T10:05:32.676Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.172173.com/nginx-ssl.html</loc>
     
     <lastmod>2019-04-26T06:18:15.395Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/nginx-rewrite.html</loc>
+    <loc>https://www.172173.com/nginx-rewrite.html</loc>
     
     <lastmod>2019-04-26T06:13:13.613Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/nginx-install.html</loc>
+    <loc>https://www.172173.com/nginx-install.html</loc>
     
     <lastmod>2019-04-26T06:09:04.041Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/nginx-tcp.html</loc>
+    <loc>https://www.172173.com/nginx-tcp.html</loc>
     
     <lastmod>2019-04-26T06:08:46.989Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/jenkins-install.html</loc>
+    <loc>https://www.172173.com/jenkins-install.html</loc>
     
     <lastmod>2019-04-26T05:59:48.553Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/kafka-REST-Proxy.html</loc>
+    <loc>https://www.172173.com/kafka-REST-Proxy.html</loc>
     
     <lastmod>2019-04-26T01:57:20.422Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/kafka-install.html</loc>
+    <loc>https://www.172173.com/kafka-install.html</loc>
     
     <lastmod>2019-04-26T01:57:03.051Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/Charles.html</loc>
+    <loc>https://www.172173.com/Charles.html</loc>
     
     <lastmod>2019-04-26T01:56:44.099Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/HTTPS-Certbot.html</loc>
+    <loc>https://www.172173.com/HTTPS-Certbot.html</loc>
     
     <lastmod>2019-04-26T01:56:01.615Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/hexo-valine.html</loc>
+    <loc>https://www.172173.com/hexo-valine.html</loc>
     
     <lastmod>2019-04-26T01:55:31.479Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.172173.com/hexo-GitHub.html</loc>
+    <loc>https://www.172173.com/hexo-GitHub.html</loc>
     
     <lastmod>2019-04-26T01:54:35.904Z</lastmod>
     

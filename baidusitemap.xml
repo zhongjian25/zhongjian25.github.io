@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://www.172173.com/nginx-ssl.html</loc>
+    <loc>https://www.172173.com/openswan.html</loc>
+    <lastmod>2019-05-05</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/Forefront-TMG-2010.html</loc>
+    <lastmod>2019-05-05</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/nginx-ssl.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/nginx-rewrite.html</loc>
+    <loc>https://www.172173.com/nginx-rewrite.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/nginx-install.html</loc>
+    <loc>https://www.172173.com/nginx-install.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/nginx-tcp.html</loc>
+    <loc>https://www.172173.com/nginx-tcp.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/jenkins-install.html</loc>
+    <loc>https://www.172173.com/jenkins-install.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/kafka-REST-Proxy.html</loc>
+    <loc>https://www.172173.com/kafka-REST-Proxy.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/kafka-install.html</loc>
+    <loc>https://www.172173.com/kafka-install.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/Charles.html</loc>
+    <loc>https://www.172173.com/Charles.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/HTTPS-Certbot.html</loc>
+    <loc>https://www.172173.com/HTTPS-Certbot.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/hexo-valine.html</loc>
+    <loc>https://www.172173.com/hexo-valine.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
-    <loc>http://www.172173.com/hexo-GitHub.html</loc>
+    <loc>https://www.172173.com/hexo-GitHub.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>
 </urlset>
