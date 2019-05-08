@@ -4,4 +4,4 @@ Disallow: /fancybox/
 
 Allow: /
 
-Sitemap: http://www.172173.com/sitemap.xml
+Sitemap: https://www.172173.com/baidusitemap.xml
