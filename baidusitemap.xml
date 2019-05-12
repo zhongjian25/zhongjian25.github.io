@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.172173.com/filebeat.html</loc>
+    <lastmod>2019-05-12</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/lsyncd.html</loc>
+    <lastmod>2019-05-12</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/sersync.html</loc>
+    <lastmod>2019-05-12</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/Supervisord.html</loc>
+    <lastmod>2019-05-12</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/php-install.html</loc>
+    <lastmod>2019-05-12</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/HTTPS-Certbot.html</loc>
+    <lastmod>2019-05-10</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/TMG-error.html</loc>
+    <lastmod>2019-05-09</lastmod>
+  </url>  <url>
     <loc>https://www.172173.com/cloud.html</loc>
     <lastmod>2019-05-08</lastmod>
   </url>  <url>
@@ -38,9 +59,6 @@
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
     <loc>https://www.172173.com/Charles.html</loc>
-    <lastmod>2019-04-26</lastmod>
-  </url>  <url>
-    <loc>https://www.172173.com/HTTPS-Certbot.html</loc>
     <lastmod>2019-04-26</lastmod>
   </url>  <url>
     <loc>https://www.172173.com/hexo-valine.html</loc>

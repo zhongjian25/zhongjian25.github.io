@@ -1,0 +1,824 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="PHP install from source">
+
+
+    <meta name="description" content="Building PHP from Sources
+author by CQ
+
+安装环境依赖包$ yum -y install gcc gcc+ gcc-c++ gcc-g77 flex bis...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>php-install | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="php-install">
+            
+	            php-install
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/PHP-install-from-source/">PHP install from source</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/12</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="Building-PHP-from-Sources"><a href="#Building-PHP-from-Sources" class="headerlink" title="Building PHP from Sources"></a><strong>Building PHP from Sources</strong></h2><ul>
+<li>author by <a href="https:www.920430.com">CQ</a></li>
+</ul>
+<h3 id="安装环境依赖包"><a href="#安装环境依赖包" class="headerlink" title="安装环境依赖包"></a><strong><em>安装环境依赖包</em></strong></h3><pre><code>$ yum -y install gcc gcc+ gcc-c++ gcc-g77 flex bison autoconf snmp automake\
+  bzip2-devel zlib-devel readline-devel ncurses-devel libjpeg-devel \
+  libpng-devel libtiff-devel freetype-devel pam-devel openssl-devel \
+  mod_ssl libxml2-devel gettext-devel pcre-devel curl-devel mysql-devel \
+  libevent-devel libtool-ltdl gmp-devel openldap openldap-devel \
+  ImageMagick-devel libtool net-snmp-devel libwebp libwebp-devel
+</code></pre><h3 id="下载编译包"><a href="#下载编译包" class="headerlink" title="下载编译包"></a><strong><em>下载编译包</em></strong></h3><ul>
+<li><p>libiconv</p>
+<pre><code>$ cd /usr/local/src
+$ wget https://ftp.gnu.org/gnu/libiconv/libiconv-1.15.tar.gz
+</code></pre></li>
+<li><p>libmcrypt</p>
+<pre><code>$ wget https://ncu.dl.sourceforge.net/project/mcrypt/Libmcrypt/2.5.8/libmcrypt-2.5.8.tar.gz
+</code></pre></li>
+<li><p>mcrypt</p>
+<pre><code>$ wget https://ncu.dl.sourceforge.net/project/mcrypt/MCrypt/2.6.8/mcrypt-2.6.8.tar.gz
+</code></pre></li>
+<li><p>mhash</p>
+<pre><code>$ wget https://ncu.dl.sourceforge.net/project/mhash/mhash/0.9.9.9/mhash-0.9.9.9.tar.gz
+</code></pre></li>
+<li><p>php</p>
+<pre><code>$ wget http://cn2.php.net/distributions/php-7.1.12.tar.gz
+</code></pre></li>
+<li><p>解压</p>
+<pre><code>$ tar zxf libiconv-1.15.tar.gz
+$ tar zxf libmcrypt-2.5.8.tar.gz
+$ tar zxf mcrypt-2.6.8.tar.gz
+$ tar zxf mhash-0.9.9.9.tar.gz
+$ tar zxf php-7.1.12.tar.gz
+</code></pre></li>
+</ul>
+<h3 id="安装编译包"><a href="#安装编译包" class="headerlink" title="安装编译包"></a><strong><em>安装编译包</em></strong></h3><ul>
+<li><p>加载lib</p>
+<pre><code>$ echo &quot;/usr/lib&quot; &gt;&gt; /etc/ld.so.conf
+$ echo &quot;/usr/lib64&quot; &gt;&gt; /etc/ld.so.conf
+$ echo &quot;/usr/local/lib&quot; &gt;&gt; /etc/ld.so.conf
+$ echo &quot;/usr/local/lib64&quot; &gt;&gt; /etc/ld.so.conf
+$ /sbin/ldconfig
+</code></pre></li>
+<li><p>安装libiconv</p>
+<pre><code>## libiconv库为需要做转换的应用程序提供了一个iconv命令，以实现一个字符编码到另一个字符编码的转换，比如它可以将UTF8编码转换成GB18030编码，反过来也行
+
+  $ cd /usr/local/src/libiconv-1.15
+  $ ./configure --prefix=/usr/local
+  $ make &amp;&amp; make install
+  $ /sbin/ldconfig
+</code></pre></li>
+<li><p>安装libmcrypt</p>
+<pre><code>$ cd /usr/local/src/libmcrypt-2.5.8
+$ ./configure &amp;&amp; make &amp;&amp; make install
+$ /sbin/ldconfig
+$ cd libltdl/
+$ ./configure --prefix=/usr/local --enable-ltdl-install
+$ make &amp;&amp; make install
+$ /sbin/ldconfig
+</code></pre></li>
+<li><p>安装mhash</p>
+<pre><code>$ cd /usr/local/src/libmcrypt-2.5.8
+$ ./configure
+$ make &amp;&amp; make install
+</code></pre></li>
+<li><p>安装mcrypt</p>
+<pre><code>$ cd /usr/local/src/mhash-0.9.9.9
+$ ./configure
+$ make &amp;&amp; make install
+$ /sbin/ldconfig
+</code></pre></li>
+<li><p>安装php</p>
+<ul>
+<li><p>编译php</p>
+<pre><code>$ cd /usr/local/src/php-7.1.12
+$ ./configure --prefix=/usr/local/php-7.1.12 \
+      --with-config-file-path=/usr/local/php-7.1.12/etc \
+      --enable-fpm --enable-pcntl \
+      --with-pear=/usr/share/php \
+      --with-mysql --with-mysqli \
+      --with-pdo_mysql --with-iconv-dir=/usr/local \
+      --with-zlib --with-bz2 \
+      --with-curl --with-libxml-dir \
+      --with-gd --with-jpeg-dir \
+      --with-png-dir --with-zlib-dir \
+      --with-freetype-dir --with-openssl \
+      --with-gettext --with-snmp \
+      --with-mhash --with-mcrypt \
+      --enable-gd-native-ttf --enable-gd-jis-conv \
+      --enable-shmop --enable-sockets \
+      --enable-zip --enable-ftp \
+      --enable-bcmath --enable-soap \
+      --enable-calendar --enable-dba \
+      --disable-ipv6 --enable-opcache
+
+$ make &amp;&amp; make install php.
+
+$ /usr/bin/make ZEND_EXTRA_LIBS=&apos;-liconv&apos; &amp;&amp; /usr/bin/make install
+$ ln -s /usr/local/php-7.1.12 /usr/local/php
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h3 id="安装php-module依赖包"><a href="#安装php-module依赖包" class="headerlink" title="安装php module依赖包"></a><strong><em>安装php module依赖包</em></strong></h3><ul>
+<li><p><strong>ImageMagick</strong></p>
+<pre><code>## 下载ImageMagick
+$ wget http://transloadit.imagemagick.org/download/ImageMagick-7.0.7-11.tar.gz
+  or
+$ wget http://transloadit.imagemagick.org/download/ImageMagick-6.9.9-23.tar.gz
+
+$ ## 编译依赖库ImageMagick，centos自带的ImageMagick版本较低
+$ cd /usr/local/src
+$ tar -zxf ImageMagick-7.0.7-11.tar.gz
+$ cd ImageMagick-7.0.7-11
+$ ./configure
+$ make &amp;&amp; make install
+$ /sbin/ldconfig
+</code></pre></li>
+<li><p><strong><a href="http://libevent.org/">libevent</a></strong></p>
+<pre><code>## 下载libevent
+$ wget https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
+
+## 编译拓展libevent
+$ cd /usr/local/src
+$ tar xzf libevent-${libevent_ver}-stable.tar.gz
+$ cd libevent-${libevent_ver}-stable
+$ ./configure --prefix=/usr/local
+$ make &amp;&amp; make install
+$ /sbin/ldconfig
+</code></pre></li>
+</ul>
+<h3 id="安装php-module"><a href="#安装php-module" class="headerlink" title="安装php module"></a><strong><em>安装php module</em></strong></h3><p>安装php module有两种手动方式，追求最新的功能可以手动编译安装，或者使用pecl(类似于pip) 安装</p>
+<ul>
+<li><p><strong><em>手动安装</em></strong></p>
+<ul>
+<li><p><strong>imagick</strong></p>
+<pre><code>## 下载imagick
+$ cd /usr/local/src
+$ wget http://pecl.php.net/get/imagick-3.4.3.tgz
+
+## 编译拓展imagick
+$ tar zxf imagick-3.4.3.tgz
+$ cd imagick-3.4.3
+$ /usr/local/php/bin/phpize
+$ ./configure --with-php-config=/usr/local/php/bin/php-config
+$ make &amp;&amp; make install
+</code></pre></li>
+<li><p><strong><a href="http://php.net/manual/zh/book.memcache.php">memcache</a></strong></p>
+<pre><code>## 下载memcache
+$ wget http://pecl.php.net/get/memcache-3.0.8.tgz
+
+## 编译拓展memcache
+$ cd /usr/local/src
+$ tar zxf memcache-3.0.8.tgz
+$ cd memcache-3.0.8
+$ /usr/local/php/bin/phpize
+$ ./configure --with-php-config=/usr/local/php/bin/php-config --with-zlib-dir --enable-memcache
+$ make &amp;&amp; make install
+</code></pre></li>
+<li><p><strong>phpredis</strong></p>
+<pre><code>## 下载phpredis
+$ wget https://pecl.php.net/get/redis-3.1.4.tgz
+
+## 编译拓展redis
+$ cd /usr/local/src
+$ tar zxf redis-3.1.4.tgz
+$ cd redis-3.1.4
+$ /usr/local/php/bin/phpize
+$ ./configure --with-php-config=/usr/local/php/bin/php-config --enable-redis
+$ make &amp;&amp; make install
+</code></pre></li>
+<li><p><strong>mongo</strong></p>
+<pre><code>## 下载mongo
+$ wget https://pecl.php.net/get/mongo-1.6.16.tgz
+
+## 编译拓展mongo
+$ cd /usr/local/src
+$ tar xzf mongo-1.6.16.tgz
+$ cd mongo-1.6.16
+$ /usr/local/php/bin/phpize
+$ ./configure --with-php-config=/usr/local/php/bin/php-config
+$ make &amp;&amp; make install
+</code></pre></li>
+<li><p><strong>xdebug</strong></p>
+<pre><code>## 下载xdebug
+$ wget https://xdebug.org/files/xdebug-2.5.5.tgz
+
+## 编译拓展xdebug
+### 如果需要将 Xdebug 扩展和 OPcache 一起使用，必须在 Xdebug 扩展之前加载 OPcache 扩展。
+$ cd /usr/local/src
+$ tar xzf xdebug-2.5.5.tgz
+$ cd xdebug-2.5.5
+$ /usr/local/php/bin/phpize
+$ ./configure --with-php-config=/usr/local/php/bin/php-config
+# make &amp;&amp; make install
+$ make -j `grep processor /proc/cpuinfo | wc -l` &amp;&amp; make install
+</code></pre></li>
+</ul>
+</li>
+<li><p><strong><em>pecl安装</em></strong></p>
+<pre><code>$ /usr/local/php/bin/pecl install imagick
+$ /usr/local/php/bin/pecl install memcache
+$ /usr/local/php/bin/pecl install redis
+$ /usr/local/php/bin/pecl install mongo
+### 如果需要将 Xdebug 扩展和 OPcache 一起使用，必须在 Xdebug 扩展之前加载 OPcache 扩展。
+$ /usr/local/php/bin/pecl install xdebug
+</code></pre></li>
+</ul>
+<h3 id="配置php"><a href="#配置php" class="headerlink" title="配置php"></a><strong>配置php</strong></h3><ul>
+<li><p>配置php</p>
+<pre><code># set php-fpm config file.
+
+$ cp /usr/local/php/etc/php-fpm.conf{.,default}
+$ cat &gt; /usr/local/php/etc/php-fpm.conf &lt;&lt;EOF
+[global]
+pid = /usr/local/php-7.1.12/var/run/php-fpm.pid
+error_log = /usr/local/php-7.1.12/var/log/php-fpm.log
+log_level = error
+[www]
+listen = /usr/local/php/etc/php-cgi.socket
+user = nginx
+group = nginx
+listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660
+pm = static
+pm.max_children = 200
+pm.start_servers = 20
+pm.min_spare_servers = 5
+pm.max_spare_servers = 30
+pm.max_requests = 5000
+request_slowlog_timeout = 5s
+slowlog = /usr/local/php-7.1.12/var/log/php-fpm.log.slow
+rlimit_files = 51200
+EOF
+
+# set php.ini config file.
+
+$ cp /usr/local/src/php-7.1.12/php.ini-production /usr/local/php-7.1.12/etc/php.ini
+$ cp /usr/local/php-7.1.12/etc/php.ini{.,default}
+$ ext_path=`ls /usr/local/php-7.1.12/lib/php/extensions/`
+$ cat &gt;&gt; /usr/local/php-7.1.12/etc/php.ini &lt;&lt;EOF
+extension_dir = /usr/local/php/lib/php/extensions/${ext_path}
+extension = &quot;memcache.so&quot;
+extension = &quot;imagick.so&quot;
+extension = &quot;redis.so&quot;
+zend_extension = &quot;opcache.so&quot;
+output_buffering = On
+cgi.fix_pathinfo=0
+EOF
+
+# 修改文件上传大小
+$ sed -i &quot;s#^upload_max_filesize = 2M#upload_max_filesize = 5M#&quot; /usr/local/php-7.1.12/etc/php.ini
+
+# 限制php运行目录
+$ sed -i &quot;s#^;open_basedir =#open_basedir = /tmp:/data/wwwroot/:/data/ftp/:/www/web#&quot; /usr/local/php-7.1.12/etc/php.ini
+
+# 关闭php版本信息
+$ sed -i &quot;s#^expose_php = On#expose_php = Off#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^allow_url_fopen = On#allow_url_fopen = Off#&quot; /usr/local/php-7.1.12/etc/php.ini
+
+# opcache
+$ sed -i &quot;s#^;opcache.enable=0#opcache.enable=1#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.enable_cli=0#opcache.enable_cli=1#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.memory_consumption=64#opcache.memory_consumption=128#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.interned_strings_buffer=4#opcache.memory_consumption=8#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.max_accelerated_files=2000#opcache.max_accelerated_files=4000#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.revalidate_freq=2#opcache.revalidate_freq=60#&quot; /usr/local/php-7.1.12/etc/php.ini
+$ sed -i &quot;s#^;opcache.fast_shutdown=0#opcache.fast_shutdown=1#&quot; /usr/local/php-7.1.12/etc/php.ini
+
+# disable_functions 本指令允许你基于安全原因禁止某些函数。接受逗号分隔的函数名列表作为参数。
+# disable_functions 不受安全模式的影响。 本指令只能设置在 php.ini 中
+$ sed -i &quot;s#^disable_functions =#disable_functions = passthru,ini_restore,eval#&quot; /usr/local/php-7.1.12/etc/php.ini
+
+# 修改时区,具体时区参考：http://php.net/manual/zh/timezones.php
+$ sed -i &quot;s#^;date.timezone =#date.timezone = Asia/Shanghai#&quot; /usr/local/php-7.1.12/etc/php.ini
+</code></pre></li>
+</ul>
+<ul>
+<li><p>配置php-fpm启动脚本</p>
+<pre><code>$ cat &gt; /etc/init.d/php-fpm &lt;&lt;EOF
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:          php-fpm
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts php-fpm
+# Description:       starts the PHP FastCGI Process Manager daemon
+### END INIT INFO
+
+prefix=/usr/local/php
+exec_prefix=${prefix}
+
+php_fpm_BIN=${exec_prefix}/sbin/php-fpm
+php_fpm_CONF=${prefix}/etc/php-fpm.conf
+php_fpm_PID=${prefix}/var/run/php-fpm.pid
+</code></pre></li>
+</ul>
+<pre><code>php_opts=&quot;--fpm-config=${php_fpm_CONF}&quot;
+
+
+    wait_for_pid () {
+    try=0
+
+    while test $try -lt 35 ; do
+
+            case &quot;$1&quot; in
+                    &apos;created&apos;)
+                    if [ -f &quot;$2&quot; ] ; then
+                            try=&apos;&apos;
+                            break
+                    fi
+                    ;;
+
+                    &apos;removed&apos;)
+                    if [ ! -f &quot;$2&quot; ] ; then
+                            try=&apos;&apos;
+                            break
+                    fi
+                    ;;
+            esac
+
+            echo -n .
+            try=`expr $try + 1`
+            sleep 1
+
+    done
+
+}
+
+case &quot;$1&quot; in
+    start)
+            echo -n &quot;Starting php-fpm &quot;
+
+            $php_fpm_BIN --daemonize $php_opts &amp;&amp; chown -R nginx.nginx ${prefix}/etc/php-cgi.socket
+
+            if [ &quot;$?&quot; != 0 ] ; then
+                    echo &quot; failed&quot;
+                    exit 1
+            fi
+
+            wait_for_pid created $php_fpm_PID
+
+            if [ -n &quot;$try&quot; ] ; then
+                    echo &quot; failed&quot;
+                    exit 1
+            else
+                    echo &quot; done&quot;
+            fi
+    ;;
+
+    stop)
+            echo -n &quot;Gracefully shutting down php-fpm &quot;
+
+            if [ ! -r $php_fpm_PID ] ; then
+                    echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+                    exit 1
+            fi
+
+            kill -QUIT `cat $php_fpm_PID`
+
+            wait_for_pid removed $php_fpm_PID
+
+            if [ -n &quot;$try&quot; ] ; then
+                    echo &quot; failed. Use force-quit&quot;
+                    exit 1
+            else
+                    echo &quot; done&quot;
+            fi
+    ;;
+
+    status)
+            if [ ! -r $php_fpm_PID ] ; then
+                    echo &quot;php-fpm is stopped&quot;
+                    exit 0
+            fi
+
+            PID=`cat $php_fpm_PID`
+            if ps -p $PID | grep -q $PID; then
+                    echo &quot;php-fpm (pid $PID) is running...&quot;
+            else
+                    echo &quot;php-fpm dead but pid file exists&quot;
+            fi
+    ;;
+
+    force-quit)
+            echo -n &quot;Terminating php-fpm &quot;
+
+            if [ ! -r $php_fpm_PID ] ; then
+                    echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+                    exit 1
+            fi
+
+            kill -TERM `cat $php_fpm_PID`
+
+            wait_for_pid removed $php_fpm_PID
+
+            if [ -n &quot;$try&quot; ] ; then
+                    echo &quot; failed&quot;
+                    exit 1
+            else
+                    echo &quot; done&quot;
+            fi
+    ;;
+
+    restart)
+            $0 stop
+            $0 start
+    ;;
+
+    reload)
+
+            echo -n &quot;Reload service php-fpm &quot;
+
+            if [ ! -r $php_fpm_PID ] ; then
+                    echo &quot;warning, no pid file found - php-fpm is not running ?&quot;
+                    exit 1
+            fi
+
+            kill -USR2 `cat $php_fpm_PID`
+
+            echo &quot; done&quot;
+    ;;
+
+    *)
+            echo &quot;Usage: $0 {start|stop|force-quit|restart|reload|status}&quot;
+            exit 1
+    ;;
+
+esac
+EOF
+
+$ chmod 755 /etc/init.d/php-fpm
+$ chkconfig --level 35 php-fpm on
+</code></pre>
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/Supervisord.html" class="pre-post btn btn-default" title="Supervisord">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">Supervisord</span>
+        </a>
+    
+    
+        <a href="/TMG-error.html" class="next-post btn btn-default" title="TMG-error">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">TMG-error</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Building-PHP-from-Sources"><span class="toc-text">Building PHP from Sources</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装环境依赖包"><span class="toc-text">安装环境依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载编译包"><span class="toc-text">下载编译包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装编译包"><span class="toc-text">安装编译包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装php-module依赖包"><span class="toc-text">安装php module依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装php-module"><span class="toc-text">安装php module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置php"><span class="toc-text">配置php</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

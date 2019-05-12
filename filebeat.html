@@ -16,18 +16,10 @@
     <link rel="dns-prefetch" href="https://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="各家云服务器商的对比">
+    <meta name="keywords" content="filebeat install">
 
 
-    <meta name="description" content="
-
-图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。
-
-
-根据个人或者公司的情况，选择合适的云服务商。
-
-按量分
-量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在5...">
+    <meta name="description" content="filebeatfilebeat 是基于原先 logstash-forwarder 的源码改造出来的。换句话说：filebeat 就是新版的 logstash-forwarder，也会是 Ela...">
 
 
 
@@ -39,7 +31,7 @@
     <!--Title-->
 
 
-<title>各家云服务器商的对比 | 云运维</title>
+<title>filebeat | 云运维</title>
 
 
     <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
@@ -186,9 +178,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="各家云服务器商的对比">
+        <h1 id="filebeat">
             
-	            各家云服务器商的对比
+	            filebeat
             
         </h1>
         <div class="post-meta">
@@ -204,7 +196,7 @@
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
                 
-                    <a class="tag-link" href="/tags/各家云服务器商的对比/">各家云服务器商的对比</a>
+                    <a class="tag-link" href="/tags/filebeat-install/">filebeat install</a>
                 
             </span>
         </span>
@@ -214,7 +206,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/08</span>
+            <span class="date-meta">2019/05/13</span>
         </span>
         
             <span class="fa-wrap">
@@ -229,22 +221,35 @@
     </div>
     
     <div class="post-body post-content">
-        <p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1557284180/cloud_gxdymd.png" alt="image"></p>
-<blockquote>
-<p>图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。</p>
-</blockquote>
-<blockquote>
-<p>根据个人或者公司的情况，选择合适的云服务商。</p>
-</blockquote>
-<h3 id="按量分"><a href="#按量分" class="headerlink" title="按量分"></a>按量分</h3><blockquote>
-<p>量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在50万以上）（服务好，技术全）</p>
-</blockquote>
-<blockquote>
-<p>量中等就选择金山云，白山云, ucloud等（技术还行，服务好）</p>
-</blockquote>
-<h3 id="友情介绍"><a href="#友情介绍" class="headerlink" title="友情介绍"></a>友情介绍</h3><blockquote>
-<p>需要的朋友，可以发邮件给我<a href="mailto:zj@s3v.cn">zj@s3v.cn</a>, 可以给你们介绍，目前可以介绍金山云，腾讯云，白山云，七牛云, ucloud。这边因为公司有量，拿到不错的折扣。折扣可以对比，选择低的就好。</p>
-</blockquote>
+        <h1 id="filebeat"><a href="#filebeat" class="headerlink" title="filebeat"></a>filebeat</h1><p>filebeat 是基于原先 logstash-forwarder 的源码改造出来的。换句话说：filebeat 就是新版的 logstash-forwarder，也会是 Elastic Stack 在 shipper 端的第一选择。<br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1557678161/filebeat_maiptb.png" alt="image"></p>
+<h1 id="安装部署"><a href="#安装部署" class="headerlink" title="安装部署"></a>安装部署</h1><ul>
+<li><p>deb:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://download.elastic.co/beats/filebeat/filebeat_5.0.0_amd64.deb</span><br><span class="line">sudo dpkg -i filebeat_5.0.0_amd64.deb</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rpm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://download.elastic.co/beats/filebeat/filebeat-5.0.0-x86_64.rpm</span><br><span class="line">包可以去官网从新下载过</span><br><span class="line">https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-5.2.2-x86_64.rpm</span><br><span class="line">sudo rpm -vi filebeat-5.0.0-x86_64.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>mac:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -L -O https://download.elastic.co/beats/filebeat/filebeat-5.0.0-darwin.tgz</span><br><span class="line">tar xzvf filebeat-5.0.0-darwin.tgz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>win:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">下载 https://download.elastic.co/beats/filebeat/filebeat-5.0.0-windows.zip</span><br><span class="line">解压到 C:\Program Files</span><br><span class="line">重命名 filebeat-5.0.0-windows 目录为 Filebeat</span><br><span class="line">右键点击 PowerSHell 图标，选择『以管理员身份运行』</span><br><span class="line">运行下列命令，将 Filebeat 安装成 windows 服务：</span><br><span class="line">PS &gt; cd &apos;C:\Program Files\Filebeat&apos;</span><br><span class="line">PS C:\Program Files\Filebeat&gt; .\install-service-filebeat.ps1</span><br><span class="line">注意</span><br><span class="line"></span><br><span class="line">可能需要额外授予执行权限。命令为：PowerShell.exe -ExecutionPolicy RemoteSigned -File .\install-service-filebeat.ps1.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="filebeat-配置"><a href="#filebeat-配置" class="headerlink" title="filebeat 配置"></a>filebeat 配置</h1><p>所有的 beats 组件在 output 方面的配置都是一致的，之前章节已经介绍过。这里只介绍 filebeat 在 input 段的配置，如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">filebeat:</span><br><span class="line">    spool_size: 1024                                    # 最大可以攒够 1024 条数据一起发送出去</span><br><span class="line">    idle_timeout: &quot;5s&quot;                                  # 否则每 5 秒钟也得发送一次</span><br><span class="line">    registry_file: &quot;.filebeat&quot;                          # 文件读取位置记录文件，会放在当前工作目录下。所以如果你换一个工作目录执行 filebeat 会导致重复传输！</span><br><span class="line">    config_dir: &quot;path/to/configs/contains/many/yaml&quot;    # 如果配置过长，可以通过目录加载方式拆分配置</span><br><span class="line">    prospectors:                                        # 有相同配置参数的可以归类为一个 prospector</span><br><span class="line">        -</span><br><span class="line">            fields:</span><br><span class="line">                ownfield: &quot;mac&quot;                         # 类似 logstash 的 add_fields</span><br><span class="line">            paths:</span><br><span class="line">                - /var/log/system.log                   # 指明读取文件的位置</span><br><span class="line">                - /var/log/wifi.log</span><br><span class="line">            include_lines: [&quot;^ERR&quot;, &quot;^WARN&quot;]            # 只发送包含这些字样的日志</span><br><span class="line">            exclude_lines: [&quot;^OK&quot;]                      # 不发送包含这些字样的日志</span><br><span class="line">        -</span><br><span class="line">            document_type: &quot;apache&quot;                     # 定义写入 ES 时的 _type 值</span><br><span class="line">            ignore_older: &quot;24h&quot;                         # 超过 24 小时没更新内容的文件不再监听。在 windows 上另外有一个配置叫 force_close_files，只要文件名一变化立刻关闭文件句柄，保证文件可以被删除，缺陷是可能会有日志还没读完</span><br><span class="line">            scan_frequency: &quot;10s&quot;                       # 每 10 秒钟扫描一次目录，更新通配符匹配上的文件列表</span><br><span class="line">            tail_files: false                           # 是否从文件末尾开始读取</span><br><span class="line">            harvester_buffer_size: 16384                # 实际读取文件时，每次读取 16384 字节</span><br><span class="line">            backoff: &quot;1s&quot;                               # 每 1 秒检测一次文件是否有新的一行内容需要读取</span><br><span class="line">            paths:</span><br><span class="line">                - &quot;/var/log/apache/*&quot;                   # 可以使用通配符</span><br><span class="line">            exclude_files: [&quot;/var/log/apache/error.log&quot;]</span><br><span class="line">        -</span><br><span class="line">            input_type: &quot;stdin&quot;                         # 除了 &quot;log&quot;，还有 &quot;stdin&quot;</span><br><span class="line">            multiline:                                  # 多行合并</span><br><span class="line">                pattern: &apos;^[[:space:]]&apos;</span><br><span class="line">                negate: false</span><br><span class="line">                match: after</span><br><span class="line">output:</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure></p>
+<p>我们已完成了配置，当 sudo service filebeat start 之后，你就可以在 kibana 上看到你的日志了。</p>
+<h1 id="字段"><a href="#字段" class="headerlink" title="字段"></a>字段</h1><p>Filebeat 发送的日志，会包含以下字段：</p>
+<ul>
+<li>beat.hostname beat 运行的主机名</li>
+<li>beat.name shipper 配置段设置的 name，如果没设置，等于 beat.hostname</li>
+<li>@timestamp 读取到该行内容的时间</li>
+<li>type 通过 document_type 设定的内容</li>
+<li>input_type 来自 “log” 还是 “stdin”</li>
+<li>source 具体的文件名全路径</li>
+<li>offset 该行日志的起始偏移量</li>
+<li>message 日志内容</li>
+<li>fields 添加的其他固定字段都存在这个对象里面</li>
+</ul>
 
     </div>
     
@@ -278,15 +283,10 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/TMG-error.html" class="pre-post btn btn-default" title="TMG-error">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">TMG-error</span>
-        </a>
     
-    
-        <a href="/python-re.html" class="next-post btn btn-default" title="python-re">
+        <a href="/sersync.html" class="next-post btn btn-default" title="sersync">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">python-re</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">sersync</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -339,7 +339,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#按量分"><span class="toc-text">按量分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友情介绍"><span class="toc-text">友情介绍</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#filebeat"><span class="toc-text">filebeat</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装部署"><span class="toc-text">安装部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#filebeat-配置"><span class="toc-text">filebeat 配置</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字段"><span class="toc-text">字段</span></a></li></ol>
         
     </div>
 </aside>

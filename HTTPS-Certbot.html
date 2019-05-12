@@ -339,7 +339,7 @@
 <p>更新命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot renew</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>计划任务自动更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/cron.d</span><br><span class="line">echo &quot;15 2 20 */2 * certbot renew &quot; &gt; certbot-auto-renew-cron</span><br></pre></td></tr></table></figure></p>
+<p>计划任务自动更新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line">15 2 20 */2 * certbot renew</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>如果使用了nginx plugin，则更新时需要使用certbot renew –quiet –installer node，否则会自动安装证书导致错误。</p>

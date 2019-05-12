@@ -16,18 +16,14 @@
     <link rel="dns-prefetch" href="https://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="各家云服务器商的对比">
+    <meta name="keywords" content="VPN 错误原因: 找不到证书">
 
 
-    <meta name="description" content="
+    <meta name="description" content="错误原因: 找不到证书。使用通过 IPSec 的 L2TP 协议的连接要求安装一个机器证书
+window 2008 r2 系统安装TMG 2010 VPN 服务器报错，查看日志
 
-图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。
 
-
-根据个人或者公司的情况，选择合适的云服务商。
-
-按量分
-量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在5...">
+错误原因: ...">
 
 
 
@@ -39,7 +35,7 @@
     <!--Title-->
 
 
-<title>各家云服务器商的对比 | 云运维</title>
+<title>TMG-error | 云运维</title>
 
 
     <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
@@ -186,9 +182,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="各家云服务器商的对比">
+        <h1 id="TMG-error">
             
-	            各家云服务器商的对比
+	            TMG-error
             
         </h1>
         <div class="post-meta">
@@ -204,7 +200,7 @@
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
                 
-                    <a class="tag-link" href="/tags/各家云服务器商的对比/">各家云服务器商的对比</a>
+                    <a class="tag-link" href="/tags/VPN-错误原因-找不到证书/">VPN 错误原因: 找不到证书</a>
                 
             </span>
         </span>
@@ -214,7 +210,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/08</span>
+            <span class="date-meta">2019/05/09</span>
         </span>
         
             <span class="fa-wrap">
@@ -229,21 +225,53 @@
     </div>
     
     <div class="post-body post-content">
-        <p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1557284180/cloud_gxdymd.png" alt="image"></p>
-<blockquote>
-<p>图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。</p>
+        <h3 id="错误原因-找不到证书。使用通过-IPSec-的-L2TP-协议的连接要求安装一个机器证书"><a href="#错误原因-找不到证书。使用通过-IPSec-的-L2TP-协议的连接要求安装一个机器证书" class="headerlink" title="错误原因: 找不到证书。使用通过 IPSec 的 L2TP 协议的连接要求安装一个机器证书"></a>错误原因: 找不到证书。使用通过 IPSec 的 L2TP 协议的连接要求安装一个机器证书</h3><blockquote>
+<p>window 2008 r2 系统安装TMG 2010 VPN 服务器报错，查看日志</p>
 </blockquote>
 <blockquote>
-<p>根据个人或者公司的情况，选择合适的云服务商。</p>
-</blockquote>
-<h3 id="按量分"><a href="#按量分" class="headerlink" title="按量分"></a>按量分</h3><blockquote>
-<p>量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在50万以上）（服务好，技术全）</p>
+<p>错误原因: 找不到证书。使用通过 IPSec 的 L2TP 协议的连接要求安装一个机器证书，它也叫做计算机证书</p>
 </blockquote>
 <blockquote>
-<p>量中等就选择金山云，白山云, ucloud等（技术还行，服务好）</p>
+<p>客户只用到PPTP的连接，没用L2TP，于是决定将L2TP的IPsec策略禁用掉</p>
 </blockquote>
-<h3 id="友情介绍"><a href="#友情介绍" class="headerlink" title="友情介绍"></a>友情介绍</h3><blockquote>
-<p>需要的朋友，可以发邮件给我<a href="mailto:zj@s3v.cn">zj@s3v.cn</a>, 可以给你们介绍，目前可以介绍金山云，腾讯云，白山云，七牛云, ucloud。这边因为公司有量，拿到不错的折扣。折扣可以对比，选择低的就好。</p>
+<blockquote>
+<p>开始-运行regedit.exe,打开注册表，找到</p>
+</blockquote>
+<blockquote>
+<p>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Rasman\Parameters</p>
+</blockquote>
+<blockquote>
+<p>新建一个DWORD值ProhibitIPsec，值设置为1</p>
+</blockquote>
+<h3 id="金山云搭建TMG-遇见的坑"><a href="#金山云搭建TMG-遇见的坑" class="headerlink" title="金山云搭建TMG 遇见的坑"></a>金山云搭建TMG 遇见的坑</h3><blockquote>
+<p>问题1、内网地址是通过DHCP 获取的。</p>
+</blockquote>
+<blockquote>
+<p>解决方案：</p>
+</blockquote>
+<blockquote>
+<p>一、TMG-防火墙策略-需要添加允许DHCP 的协议 DHCP(答复) DHCP(允许)</p>
+</blockquote>
+<blockquote>
+<p>二、开启启动时禁用和启用网卡<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">C:\boot.bat （隐藏文件）</span><br><span class="line">set vif_name=lan(网卡名字)</span><br><span class="line">ping -n 20 127.0.0.1&gt;1.txt</span><br><span class="line">netsh interface ip set interface &quot;%vif_name%&quot; disabled</span><br><span class="line">netsh interface ip set interface &quot;%vif_name%&quot; enabled</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>问题2、VPN网络无法访问其他主机，因为金山云没有回路由，现象就过去了，没反应。</p>
+</blockquote>
+<blockquote>
+<p>解决方案: </p>
+</blockquote>
+<blockquote>
+<p>增加路由</p>
+</blockquote>
+<blockquote>
+<p>登入金山云控制台—虚拟私有网络—路由—新建路由</p>
+</blockquote>
+<blockquote>
+<p>虚拟私有网络选择，云主机网段，目前网络写分配给VPN 自动获取的网段</p>
+</blockquote>
+<blockquote>
+<p>下一条选择TMG 云主机</p>
 </blockquote>
 
     </div>
@@ -278,15 +306,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/TMG-error.html" class="pre-post btn btn-default" title="TMG-error">
+        <a href="/php-install.html" class="pre-post btn btn-default" title="php-install">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">TMG-error</span>
+            <span class="hidden-xs">php-install</span>
         </a>
     
     
-        <a href="/python-re.html" class="next-post btn btn-default" title="python-re">
+        <a href="/cloud.html" class="next-post btn btn-default" title="各家云服务器商的对比">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">python-re</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">各家云服务器商的对比</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -339,7 +367,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#按量分"><span class="toc-text">按量分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友情介绍"><span class="toc-text">友情介绍</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#错误原因-找不到证书。使用通过-IPSec-的-L2TP-协议的连接要求安装一个机器证书"><span class="toc-text">错误原因: 找不到证书。使用通过 IPSec 的 L2TP 协议的连接要求安装一个机器证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#金山云搭建TMG-遇见的坑"><span class="toc-text">金山云搭建TMG 遇见的坑</span></a></li></ol>
         
     </div>
 </aside>

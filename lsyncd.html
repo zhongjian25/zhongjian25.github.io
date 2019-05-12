@@ -1,0 +1,460 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="lsyncd">
+
+
+    <meta name="description" content="
+Write by zjModify by lyc官网文档：https://axkibe.github.io/lsyncd/
+
+一、lsyncd 介绍 Lysncd 实际上是lua语言封装了 i...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>lsyncd | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="lsyncd">
+            
+	            lsyncd
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/lsyncd/">lsyncd</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/13</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>Write by zj<br>Modify by lyc<br>官网文档：<a href="https://axkibe.github.io/lsyncd/">https://axkibe.github.io/lsyncd/</a></p>
+</blockquote>
+<h1 id="一、lsyncd-介绍"><a href="#一、lsyncd-介绍" class="headerlink" title="一、lsyncd 介绍"></a>一、lsyncd 介绍</h1><p> Lysncd 实际上是lua语言封装了 inotify 和 rsync 工具，采用了 Linux 内核（2.6.13 及以后）里的 inotify 触发机制，然后通过rsync去差异同步，达到实时的效果。我认为它最令人称道的特性是，完美解决了 inotify + rsync海量文件同步带来的文件频繁发送文件列表的问题 —— 通过时间延迟或累计触发事件次数实现。另外，它的配置方式很简单，lua本身就是一种配置语言，可读性非常强。lsyncd也有多种工作模式可以选择，本地目录cp，本地目录rsync，远程目录rsyncssh。</p>
+<h1 id="二、lsyncd安装"><a href="#二、lsyncd安装" class="headerlink" title="二、lsyncd安装"></a>二、lsyncd安装</h1><h3 id="ubuntu"><a href="#ubuntu" class="headerlink" title="ubuntu"></a>ubuntu</h3><p>安装lsyncd极为简单，已经收录在ubuntu的官方镜像源里，直接通过(安装的版本是2.1.5)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install lsyncd</span><br></pre></td></tr></table></figure>
+<h3 id="Redhat"><a href="#Redhat" class="headerlink" title="Redhat"></a>Redhat</h3><p>可以手动去下载lsyncd-2.1.5-6.fc21.x86_64.rpm，但首先你得安装两个依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install lua lua-devel -y</span><br></pre></td></tr></table></figure>
+<p>也可以通过在线安装，需要epel-release扩展包：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</span><br><span class="line">yum install lsyncd -y</span><br></pre></td></tr></table></figure>
+<h3 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h3><p><a href="https://github.com/axkibe/lsyncd">github</a>上下载lsyncd-master.zip 的2.2.2版本使用的是 cmake 编译工具，无法./configure：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uzip lsyncd-master.zip</span><br><span class="line">cd lsyncd-master</span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/usr/local/lsyncd</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h1 id="三、lsyncd配置"><a href="#三、lsyncd配置" class="headerlink" title="三、lsyncd配置"></a>三、lsyncd配置</h1><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">shell &gt; cat lsyncd.conf.lua</span><br><span class="line">settings &#123;</span><br><span class="line">    logfile      = &quot;/data/logs/lsyncd/lsyncd.log&quot;,</span><br><span class="line">    statusFile   = &quot;/data/logs/lsyncd/lsyncd.status&quot;,</span><br><span class="line">    inotifyMode  = &quot;CloseWrite or Modify&quot;,</span><br><span class="line">    maxProcesses = 8,</span><br><span class="line">    -- nodaemon =true,</span><br><span class="line">    &#125;</span><br><span class="line">sync &#123;</span><br><span class="line">    default.rsync,</span><br><span class="line">    source    = &quot;/data/rsyslog&quot;,</span><br><span class="line">    target    = &quot;x.x.x.x::bgo_log_server&quot;,</span><br><span class="line">    -- excludeFrom = &quot;/etc/rsyncd.d/rsync_exclude.lst&quot;,</span><br><span class="line">    delay = 30,</span><br><span class="line">    init = false,</span><br><span class="line">    rsync     = &#123;</span><br><span class="line">        binary    = &quot;/usr/bin/rsync&quot;,</span><br><span class="line">        archive   = true,</span><br><span class="line">        compress  = true,</span><br><span class="line">        verbose   = true,</span><br><span class="line">        append    = true</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="配置文件说明"><a href="#配置文件说明" class="headerlink" title="配置文件说明"></a>配置文件说明</h3><hr>
+<h4 id="settings"><a href="#settings" class="headerlink" title="settings"></a>settings</h4><p>里面是全局设置，–开头表示注释，下面是几个常用选项说明：</p>
+<ul>
+<li>logfile 定义日志文件</li>
+<li>stausFile 定义状态文件</li>
+<li>nodaemon=true 表示不启用守护模式，默认</li>
+<li>statusInterval 将lsyncd的状态写入上面的statusFile的间隔，默认10秒</li>
+<li>inotifyMode 指定inotify监控的事件，默认是CloseWrite，还可以是Modify或CloseWrite or Modify</li>
+<li>maxProcesses 同步进程的最大个数。假如同时有20个文件需要同步，而maxProcesses = 8，则最大能看到有8个rysnc进程</li>
+<li>maxDelays 累计到多少所监控的事件激活一次同步，即使后面的delay延迟时间还未到</li>
+</ul>
+<hr>
+<h4 id="sync"><a href="#sync" class="headerlink" title="sync"></a>sync</h4><p>里面是定义同步参数，可以继续使用maxDelays来重写settings的全局变量。  </p>
+<ul>
+<li>一般第一个参数指定lsyncd以什么模式运行：rsync、rsyncssh、direct三种模式：<ul>
+<li>default.rsync ：本地目录间同步，使用rsync，也可以达到使用ssh形式的远程rsync效果，或daemon方式连接远程rsyncd进程；</li>
+<li>default.direct ：本地目录间同步，使用cp、rm等命令完成差异文件备份；</li>
+<li>default.rsyncssh ：同步到远程主机目录，rsync的ssh模式，需要使用key来认证</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>source 同步的源目录，使用绝对路径。</p>
+</li>
+<li><p>target 定义目的地址.对应不同的模式有几种写法：</p>
+<ul>
+<li>/tmp/dest ：本地目录同步，可用于direct和rsync模式</li>
+<li>ip:/tmp/dest ：同步到远程服务器目录，可用于rsync和rsyncssh模式，拼接的命令类似于/usr/bin/rsync -ltsd –delete –include-from=- –exclude=* SOURCE TARGET，剩下的就是rsync的内容了，比如指定username，免密码同步</li>
+<li>ip::module ：同步到远程服务器目录，用于rsync模式</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>init 这是一个优化选项，当init = false，只同步进程启动以后发生改动事件的文件，原有的目录即使有差异也不会同步。默认是true</p>
+</li>
+<li><p>delay 累计事件，等待rsync同步延时时间，默认15秒（最大累计到1000个不可合并的事件）。也就是15s内监控目录下发生的改动，会累积到一次rsync同步，避免过于频繁的同步。（可合并的意思是，15s内两次修改了同一文件，最后只同步最新的文件）</p>
+</li>
+<li><p>excludeFrom 排除选项，后面指定排除的列表文件，如excludeFrom = “/etc/lsyncd.exclude”，如果是简单的排除，可以使用exclude = LIST。<br>这里的排除规则写法与原生rsync有点不同，更为简单：</p>
+<ul>
+<li>监控路径里的任何部分匹配到一个文本，都会被排除，例如/bin/foo/bar可以匹配规则foo  </li>
+<li>如果规则以斜线/开头，则从头开始要匹配全部</li>
+<li>如果规则以/结尾，则要匹配监控路径的末尾</li>
+<li>?匹配任何字符，但不包括/</li>
+<li>*匹配0或多个字符，但不包括/</li>
+<li>**匹配0或多个字符，可以是/</li>
+</ul>
+</li>
+<li>delete 为了保持target与souce完全同步，Lsyncd默认会delete = true来允许同步删除。它除了false，还有startup、running值。</li>
+</ul>
+<hr>
+<h3 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG=/etc/lsyncd/lsyncd.conf.lua</span><br></pre></td></tr></table></figure>
+<h1 id="四、启动"><a href="#四、启动" class="headerlink" title="四、启动"></a>四、启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/lsyncd/bin/lsyncd -pidfile /var/run/lsyncd.pid /etc/lsyncd/lsyncd.conf.lua</span><br><span class="line"># 或者</span><br><span class="line">/etc/init.d/lsyncd start</span><br></pre></td></tr></table></figure>
+<h1 id="五、遇到问题IO过大"><a href="#五、遇到问题IO过大" class="headerlink" title="五、遇到问题IO过大"></a>五、遇到问题IO过大</h1><ul>
+<li>运用场景 日志实时写，做到实时同步</li>
+<li>每次同步，多会重新同步一次文件，造成io过高</li>
+<li>解决方案</li>
+<li>升级lsyncd 到2.x 版本 2.x版本才支持rsync append (追加同步减少io)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/lsyncd stop</span><br><span class="line">git clone https://github.com/axkibe/lsyncd.git</span><br><span class="line">apt-get remove lsyncd</span><br><span class="line">apt-get install liblua5.1-0-dev</span><br><span class="line">cd lsyncd/</span><br><span class="line">cmake -DCMAKE_INSTALL_PREFIX=/usr/local/lsyncd</span><br><span class="line">make</span><br><span class="line">make install</span><br><span class="line"># 修改配置文件sync - rsync</span><br><span class="line">vim /etc/lsyncd/lsyncd.conf.lua</span><br><span class="line">append    = true, </span><br><span class="line"># 修改启动文件 bin 路径</span><br><span class="line">vim /etc/init.d/lsyncd </span><br><span class="line"># 启动</span><br><span class="line">/etc/init.d/lsyncd start</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/sersync.html" class="pre-post btn btn-default" title="sersync">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">sersync</span>
+        </a>
+    
+    
+        <a href="/Supervisord.html" class="next-post btn btn-default" title="Supervisord">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Supervisord</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、lsyncd-介绍"><span class="toc-text">一、lsyncd 介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、lsyncd安装"><span class="toc-text">二、lsyncd安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ubuntu"><span class="toc-text">ubuntu</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Redhat"><span class="toc-text">Redhat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编译安装"><span class="toc-text">编译安装</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#三、lsyncd配置"><span class="toc-text">三、lsyncd配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件说明"><span class="toc-text">配置文件说明</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#settings"><span class="toc-text">settings</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sync"><span class="toc-text">sync</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建配置文件"><span class="toc-text">创建配置文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、启动"><span class="toc-text">四、启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、遇到问题IO过大"><span class="toc-text">五、遇到问题IO过大</span></a></li>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

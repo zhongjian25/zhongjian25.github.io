@@ -16,18 +16,15 @@
     <link rel="dns-prefetch" href="https://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="各家云服务器商的对比">
+    <meta name="keywords" content="sersync">
 
 
     <meta name="description" content="
+date:Write by lyc at 2018-08-10 
 
-图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。
+1.sersync介绍sersync的实时数据同步：
 
-
-根据个人或者公司的情况，选择合适的云服务商。
-
-按量分
-量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在5...">
+sersync监控指定的目录，对监控路径下变化的文件进行实时同步到r...">
 
 
 
@@ -39,7 +36,7 @@
     <!--Title-->
 
 
-<title>各家云服务器商的对比 | 云运维</title>
+<title>sersync | 云运维</title>
 
 
     <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
@@ -186,9 +183,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="各家云服务器商的对比">
+        <h1 id="sersync">
             
-	            各家云服务器商的对比
+	            sersync
             
         </h1>
         <div class="post-meta">
@@ -204,7 +201,7 @@
             <i class="fa fa-tags"></i>
             <span class="tags-meta">
                 
-                    <a class="tag-link" href="/tags/各家云服务器商的对比/">各家云服务器商的对比</a>
+                    <a class="tag-link" href="/tags/sersync/">sersync</a>
                 
             </span>
         </span>
@@ -214,7 +211,7 @@
         
         <span class="fa-wrap">
             <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/08</span>
+            <span class="date-meta">2019/05/13</span>
         </span>
         
             <span class="fa-wrap">
@@ -229,22 +226,23 @@
     </div>
     
     <div class="post-body post-content">
-        <p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1557284180/cloud_gxdymd.png" alt="image"></p>
-<blockquote>
-<p>图仅共参考，在当下（随着时间，各家云都会发生变化），个人觉得还是比较靠谱的。</p>
+        <blockquote>
+<p>date:Write by lyc at 2018-08-10 </p>
 </blockquote>
-<blockquote>
-<p>根据个人或者公司的情况，选择合适的云服务商。</p>
+<h1 id="1-sersync介绍"><a href="#1-sersync介绍" class="headerlink" title="1.sersync介绍"></a>1.sersync介绍</h1><p><code>sersync</code>的实时数据同步：</p>
+<ul>
+<li><code>sersync</code>监控指定的目录，对监控路径下变化的文件进行实时同步到rsync的服务端。</li>
+<li>整个过程相当于<code>rsync+inotify</code>，并且推送是通过<code>rsync --delete</code>的，所以使用的时候要谨慎。</li>
+</ul>
+<h1 id="2-下载安装"><a href="#2-下载安装" class="headerlink" title="2.下载安装"></a>2.下载安装</h1><blockquote>
+<p>部署前需要在被同步端（rsync服务端）开启响应的ip allow权限，以及增加rsync demon模式的区块配置。一个区块配置对应一个sersync的进程。</p>
 </blockquote>
-<h3 id="按量分"><a href="#按量分" class="headerlink" title="按量分"></a>按量分</h3><blockquote>
-<p>量大就选择阿里腾讯，可以拿到比较好的折扣（月消耗在50万以上）（服务好，技术全）</p>
-</blockquote>
-<blockquote>
-<p>量中等就选择金山云，白山云, ucloud等（技术还行，服务好）</p>
-</blockquote>
-<h3 id="友情介绍"><a href="#友情介绍" class="headerlink" title="友情介绍"></a>友情介绍</h3><blockquote>
-<p>需要的朋友，可以发邮件给我<a href="mailto:zj@s3v.cn">zj@s3v.cn</a>, 可以给你们介绍，目前可以介绍金山云，腾讯云，白山云，七牛云, ucloud。这边因为公司有量，拿到不错的折扣。折扣可以对比，选择低的就好。</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/src</span><br><span class="line">wget -S http://nagios.bytech.boyihuyu.com/linux/tools/sersync/sersync2.5.4_64bit_binary_stable_final.tar.gz</span><br><span class="line">tar xvf sersync2.5.4_64bit_binary_stable_final.tar.gz -C /usr/local/</span><br><span class="line">ln -s /usr/local/sersync2.5.4 /usr/local/sersync</span><br></pre></td></tr></table></figure>
+<h1 id="3-配置文件"><a href="#3-配置文件" class="headerlink" title="3.配置文件"></a>3.配置文件</h1><p>如果想要监控多个目录，拷贝多个配置文件对应起多个进程来实时监控。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/sersync/conf/</span><br><span class="line">cp confxml.xml yd_vhosts.xml</span><br></pre></td></tr></table></figure>
+<p>只需要配置配置文件<code>yd_vhosts.xml</code>下的<code>&lt;sersync&gt;</code>区块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;sersync&gt;</span><br><span class="line">    &lt;localpath watch=&quot;/usr/local/nginx/conf/vhosts/&quot;&gt;</span><br><span class="line">        &lt;remote ip=&quot;x.x.x.x&quot; name=&quot;yd_web_nginx_config&quot;/&gt;    # rsync服务端ip，区块名</span><br><span class="line">        &lt;!--&lt;remote ip=&quot;192.168.8.39&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span><br><span class="line">        &lt;!--&lt;remote ip=&quot;192.168.8.40&quot; name=&quot;tongbu&quot;/&gt;--&gt;</span><br><span class="line">    &lt;/localpath&gt;</span><br><span class="line">    &lt;rsync&gt;</span><br><span class="line">        &lt;commonParams params=&quot;-artuz&quot;/&gt;</span><br><span class="line">        &lt;auth start=&quot;false&quot; users=&quot;root&quot; passwordfile=&quot;/etc/rsync.pas&quot;/&gt;     # 如果需要密码，改成true，对应密码文件600</span><br><span class="line">        &lt;userDefinedPort start=&quot;false&quot; port=&quot;874&quot;/&gt;&lt;!-- port=874 --&gt;</span><br><span class="line">        &lt;timeout start=&quot;true&quot; time=&quot;100&quot;/&gt;&lt;!-- timeout=100 --&gt;     # 超时时间，可开可不开。</span><br><span class="line">        &lt;ssh start=&quot;false&quot;/&gt;</span><br><span class="line">    &lt;/rsync&gt;    # 错误日志路径</span><br><span class="line">    &lt;failLog path=&quot;/usr/local/sersync/log/yd_vhosts_fail_log.sh&quot; timeToExecute=&quot;60&quot;/&gt;&lt;!--default every 60mins execute once--&gt;</span><br><span class="line">    &lt;crontab start=&quot;false&quot; schedule=&quot;600&quot;&gt;&lt;!--600mins--&gt;</span><br><span class="line">        &lt;crontabfilter start=&quot;false&quot;&gt;</span><br><span class="line">            &lt;exclude expression=&quot;*.php&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">            &lt;exclude expression=&quot;info/*&quot;&gt;&lt;/exclude&gt;</span><br><span class="line">        &lt;/crontabfilter&gt;</span><br><span class="line">    &lt;/crontab&gt;</span><br><span class="line">    &lt;plugin start=&quot;false&quot; name=&quot;command&quot;/&gt;</span><br><span class="line">&lt;/sersync&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="4-启动"><a href="#4-启动" class="headerlink" title="4.启动"></a>4.启动</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/sersync/bin/sersync2 -r -d -o /usr/local/sersync/conf/yd_vhosts.xml</span><br><span class="line"></span><br><span class="line"># -r    第一次启动进行一次推送</span><br><span class="line"># -d    守护进程</span><br><span class="line"># -o    指定配置文件</span><br></pre></td></tr></table></figure>
 
     </div>
     
@@ -278,15 +276,15 @@
 
 <div class="article-nav prev-next-wrap clearfix">
     
-        <a href="/TMG-error.html" class="pre-post btn btn-default" title="TMG-error">
+        <a href="/filebeat.html" class="pre-post btn btn-default" title="filebeat">
             <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">TMG-error</span>
+            <span class="hidden-xs">filebeat</span>
         </a>
     
     
-        <a href="/python-re.html" class="next-post btn btn-default" title="python-re">
+        <a href="/lsyncd.html" class="next-post btn btn-default" title="lsyncd">
             <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">python-re</span><i class="fa fa-angle-right fa-fw"></i>
+            <span class="hidden-xs">lsyncd</span><i class="fa fa-angle-right fa-fw"></i>
         </a>
     
 </div>
@@ -339,7 +337,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#按量分"><span class="toc-text">按量分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友情介绍"><span class="toc-text">友情介绍</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-sersync介绍"><span class="toc-text">1.sersync介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-下载安装"><span class="toc-text">2.下载安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-配置文件"><span class="toc-text">3.配置文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-启动"><span class="toc-text">4.启动</span></a></li></ol>
         
     </div>
 </aside>
