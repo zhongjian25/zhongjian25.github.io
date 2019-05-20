@@ -1,0 +1,479 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>Pure-ftp-install | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Pure-ftp-install">
+            
+	            Pure-ftp-install
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Pure-ftp/">Pure ftp</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/19</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="Install-Pure-ftp"><a href="#Install-Pure-ftp" class="headerlink" title="Install Pure-ftp"></a><strong>Install Pure-ftp</strong></h1><h2 id="FTP-簡介"><a href="#FTP-簡介" class="headerlink" title="FTP 簡介"></a><strong>FTP 簡介</strong></h2><p>　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。</p>
+<p>　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。</p>
+<p>　用来架设 FTP Server 的软件有好几种，其中最老牌的算是 wu-ftpd，不过也由于其树大招风的关系，使得在安全性方面会有比较大的隐忧。不过还好后来又陆续发展出一些安全性较佳的服务器软件，比方像 proftpd、vsftpd 及 pure-ftpd 等，而本章将会针对 pure-ftpd 及 vsftpd 这两个服务器软件来做介绍。</p>
+<h2 id="FTP-的联机流程"><a href="#FTP-的联机流程" class="headerlink" title="FTP 的联机流程"></a><strong>FTP 的联机流程</strong></h2><p>　在还没开始介绍流程之前，要先来了解一下两台计算机间 TCP 联机建立的过程：</p>
+<p>　 当 Client 向 Server 提出主动联机请求时，会送出联机过程的第一个 TCP 封包给对方，而此时 TCP 封包中的 SYN (同步旗标) 位值设定为 1，代表的是一个联机的启动 ﹔接着 Server 端也必须启动自己的联机并做响应的确认，因此会向 Client 端送出联机过程的第二个封包，此时该封包的 SYN 及 ACK (回应确认旗标) 位值皆设定为 1 ﹔最后在 Client 端收到对方的封包后，必须做响应确认的动作，因此会送出联机过程的第三个封包给 Server，此时封包的 ACK 位值设定为 1。至此双方的联机才正式建立起来，这就是所谓的 TCP Three-Way Handshake ( TCP 三段式交握 )。</p>
+<p>　 了解了 TCP 联机建立的观念后，底下就来说明 FTP 联机的过程。不过在此之前，要先了解的是，FTP Client 能采取的联机模式有两种，分别是主动模式 (Active mode) 及被动模式 (Passive mode)，所以接着会以这两种不同模式来叙述联机过程。</p>
+<ul>
+<li><p><strong>主动模式下的 FTP 联机</strong></p>
+<p>  当 FTP Client 一开始要连上 FTP Server 时，会先随机产生一个大于 1024 的 port ( 假设 3000 port )，来主动对 FTP Server 的 21 port 做联机，等完成了 TCP 三段式交握后，联机才正式建立起来，而这个 3000 port 与 21 port 所建立的联机信道，就叫做命令信道 (command channel )。之所以会称其为命令通道，当然是只能执行一些基本指令而已啰。</p>
+<p>  现在若是 Client 端想要下载或上传数据时，还要另外建立起一条数据信道 (data channel ) 来作为数据传输使用。由于 Client 是采取主动模式 (可以想象 Client 要求 Server 做主动联机，也就是 Server 主动连 Client )，因此本身会再开启另一个大于 1024 的 port ( 假设 5000 port )，然后透过命令通道通知 Server 已准备好这个 data channel 的端口，接着 Server 就以 20 port 来主动与 Client 端的 5000 port 建立联机，就在完成了另一次的三段式交握后，此 data channel 便建立起来，至此 Client 方可开始做数据传输。</p>
+</li>
+<li><p><strong>被动模式下的 FTP 联机</strong></p>
+<p>  一开始 command channel 的建立，与上面所述相同，不再重复，这里只针对 data channel 的建立做说明。由于此时 Client 是希望采取被动模式 (可以想象 Client 要求 Server 做被动联机，也就是 Client 主动连 Server)，所以会先透过 command channel 来通知 Server 这个讯息，Sever 收到后就随机开启一个大于 1024 的 port (假设 8000 port)，并经由 command channel 知会 Client 已准备好 data channel 的端口，接着 Client 也随机开启一个大于 1024 的 port (假设 9000 port) 来主动与 Server 建立联机，而完成的三段式交握后，此 8000 port 与 9000 port 之间的 data channel 便建立起来了。</p>
+</li>
+</ul>
+<h2 id="编译安装Pure-ftp"><a href="#编译安装Pure-ftp" class="headerlink" title="编译安装Pure-ftp"></a><strong>编译安装Pure-ftp</strong></h2><pre><code>$ cd /usr/local/src/
+$ wget ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/pure-ftpd-1.0.45.tar.gz
+$ tar xf pure-ftpd-1.0.45.tar.gz &amp;&amp; cd pure-ftpd-1.0.45
+$ ./configure --prefix=/usr/local/pure-ftpd-1.0.45 \
+    --with-cookie --with-throttling \
+    --with-ratios --with-quotas --with-sysquotas \
+    --with-tls --with-welcomemsg \
+    --with-uploadscript --with-virtualhosts \
+    --with-virtualchroot --with-puredb \
+    --with-diraliases --with-peruserlimits \
+    --with-paranoidmsg --with-altlog --with-nonroot
+$ make &amp;&amp; make install
+
+$ ln -s /usr/local/pure-ftpd-1.0.45 /usr/local/pure-ftpd
+
+$ cp -pv /usr/local/pure-ftpd/etc/pure-ftpd.conf{,.default}
+$ vim /usr/local/pure-ftpd-1.0.45/etc/pure-ftpd.conf
+ ChrootEveryone              yes         # 启用chroot          
+ BrokenClientsCompatibility  no          # 兼容不同客户端
+ MaxClientsNumber            100         # 客户端最大连接数
+ Daemonize                   yes         # 后台运行
+ MaxClientsPerIP             16           # 每个ip最大连接数
+ VerboseLog                  no           # 记录日志
+ DisplayDotFiles             no           # 显示隐藏文件
+ AnonymousOnly               no           # 只允许匿名用户访问
+ NoAnonymous                 yes          # 不允许匿名用户连接
+ SyslogFacility              none         # 不将日志在syslog日志中显示     
+ AltLog                      clf:/var/log/pureftpd.log # clf格式日志文件位置
+ DontResolve                 yes          # 不进行客户端DNS解析
+ MaxIdleTime                 5            # 最大空闲时间
+ #MySQLConfigFile             /usr/local/pure-ftpd/etc/pureftpd-mysql.conf # 用户数据库文件 MySQL
+ PureDB                      /usr/local/pure-ftpd/etc/pureftpd.pdb # 用户数据库文件 
+ PIDFile                     /var/run/pure-ftpd.pid
+ PAMAuthentication           no            # 取消使用PAM验证
+ UnixAuthentication          yes           # /etc/passwd 文件验证
+ #MinUID                     500           # 验证登录用户的最小UID
+ LimitRecursion              30000 8       # 浏览限制，文件30000，目录8层
+ AnonymousCanCreateDirs      no            # 不允许匿名用户创建目录
+ MaxLoad                     10            # 超出负载后禁止下载
+ PassivePortRange            49000 50000   # 被动模式端口范围
+ AntiWarez                   yes           # 禁止下载匿名用户上传但未经验证的文件
+ UserBandwidth               1024          # 所有用户最大带宽（KB）
+ Umask                       133:022       # 创建文件/目录默认掩码
+ AllowUserFXP                yes           # 仅运行用户进行FXP传输
+ AllowAnonymousFXP           no            # 不能删除/写入隐藏文件
+ ProhibitDotFilesWrite       no            # 不能删除/写入隐藏文件
+ ProhibitDotFilesRead        no            # 禁止读取隐藏文件
+ AutoRename                  no            # 有同名文件时自动重新命名
+ AnonymousCantUpload         yes            # 不允许匿名用户上传文件
+ MaxDiskUsage                90             # 当磁盘使用量打到90%时禁止上传
+ CreateHomeDir               yes            # 如果虚拟用户的目录不存在则自动创建#需要ftp根目录权限为755
+ CustomerProof               yes            # 防止命令误操作
+ Bind                        0.0.0.0,52759  # 绑定端口
+</code></pre><h2 id="yum-安装"><a href="#yum-安装" class="headerlink" title="yum 安装"></a><strong>yum 安装</strong></h2><pre><code>$ yum -y install pure-ftpd
+</code></pre><h2 id="设置系统用户"><a href="#设置系统用户" class="headerlink" title="设置系统用户"></a>设置系统用户</h2><pre><code>$ useradd -s /sbin/nologin  -u 600 -d ${ftpdir} -M vftp
+$ chown -R vftp.vftp ${ftpdir}
+$ # 或者
+$ groupadd ftpgroup
+$ useradd -g ftpgroup -d /dev/null -s /sbin/nologin ftpuser
+$ mkdir /data/ftpdata
+$ chown ftpuser.ftpgroup /data/ftpdata
+</code></pre><h2 id="设置Pure-ftp虚拟用户"><a href="#设置Pure-ftp虚拟用户" class="headerlink" title="设置Pure-ftp虚拟用户"></a><strong>设置Pure-ftp虚拟用户</strong></h2><pre><code>$  /usr/local/pure-ftpd/bin/pure-pw useradd ftpuser -u 600 -g 600 -d ${ftpdir} -m 
+$ 或者
+$ sudo pure-pw mkdb
+$ ./pure-pw useradd 虚拟用户名 -u 系统用户 -g 系统组 -d 目录 -m
+
+$ # 当使用pure-pw 生成虚拟用户之后一定要使用pure-pw mkdb命令生成数据库文件， 否则pure-ftp启动之后也无法验证虚拟用户
+$ /usr/local/pure-ftpd/bin/pure-pw mkdb /usr/local/pure-ftpd/etc/pureftpd.pdb -f /usr/local/pure-ftpd/etc/pureftpd.passwd
+</code></pre><h2 id="查看用户"><a href="#查看用户" class="headerlink" title="查看用户"></a><strong>查看用户</strong></h2><pre><code>比如创建好的用户为someuser，则
+
+ $ pure-pw show someuser
+</code></pre><h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a><strong>修改用户密码</strong></h2><pre><code>$ sudo pure-pw passwd someuser
+之后，通过更新来提交更改
+$ sudo pure-pw 
+</code></pre><h2 id="启动pure-ftpd"><a href="#启动pure-ftpd" class="headerlink" title="启动pure-ftpd"></a><strong>启动pure-ftpd</strong></h2><pre><code>/usr/local/pure-ftpd/sbin/pure-ftpd  /usr/local/pure-ftpd/etc/pure-ftpd.conf
+or
+/etc/init.d/pure-ftpd start
+</code></pre><h2 id="重启"><a href="#重启" class="headerlink" title="重启"></a><strong>重启</strong></h2><pre><code>/etc/init.d/pure-ftpd restart
+</code></pre><p><a href="https://wiki.archlinux.org/index.php/Pure-FTPd">https://wiki.archlinux.org/index.php/Pure-FTPd</a></p>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/mac-python-error-matplotlib.html" class="pre-post btn btn-default" title="mac-python-error-matplotlib">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">mac-python-error-matplotlib</span>
+        </a>
+    
+    
+        <a href="/yum-errno-256.html" class="next-post btn btn-default" title="yum-errno-256">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">yum-errno-256</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Install-Pure-ftp"><span class="toc-text">Install Pure-ftp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#FTP-簡介"><span class="toc-text">FTP 簡介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FTP-的联机流程"><span class="toc-text">FTP 的联机流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译安装Pure-ftp"><span class="toc-text">编译安装Pure-ftp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yum-安装"><span class="toc-text">yum 安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置系统用户"><span class="toc-text">设置系统用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置Pure-ftp虚拟用户"><span class="toc-text">设置Pure-ftp虚拟用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看用户"><span class="toc-text">查看用户</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改用户密码"><span class="toc-text">修改用户密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动pure-ftpd"><span class="toc-text">启动pure-ftpd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重启"><span class="toc-text">重启</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

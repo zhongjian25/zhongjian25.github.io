@@ -16,7 +16,7 @@
     <link rel="dns-prefetch" href="https://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="https Certbot Let’s Encrypt">
+    <meta name="keywords" content="{{ page.keywords }}">
 
 
     <meta name="description" content="HTTPS-使用Certbot自动配置Let’s Encrypt证书1. HTTPS基本介绍
@@ -225,7 +225,7 @@
         <h2 id="HTTPS-使用Certbot自动配置Let’s-Encrypt证书"><a href="#HTTPS-使用Certbot自动配置Let’s-Encrypt证书" class="headerlink" title="HTTPS-使用Certbot自动配置Let’s Encrypt证书"></a>HTTPS-使用Certbot自动配置Let’s Encrypt证书</h2><h3 id="1-HTTPS基本介绍"><a href="#1-HTTPS基本介绍" class="headerlink" title="1. HTTPS基本介绍"></a>1. HTTPS基本介绍</h3><blockquote>
 <p>现在各大厂商都在推行HTTPS，比如谷歌要求多个顶级域名要用HTTPS来加密，苹果要求开发者全部采用HTTPS等等。那什么是HTTPS呢？其实HTTPS只是HTTP的一个拓展，是在HTTP的基础上利用SSL/TLS来加密数据包的。工作流程如下：</p>
 </blockquote>
-<p><img src="HTTPS-Certbot/https1.png" alt="image"></p>
+<p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1558349368/https1_vnmhfg.png" alt="image"></p>
 <blockquote>
 <p>An overview of the SSL or TLS handshake</p>
 </blockquote>
@@ -291,7 +291,7 @@
 <p>centos 6<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://dl.eff.org/certbot-auto</span><br><span class="line">sudo mv certbot-auto   /usr/local/bin/certbot</span><br><span class="line">sudo chown root /usr/local/bin/certbot</span><br><span class="line">sudo chmod 0755 /usr/local/bin/certbot</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>centos 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python2-certbot-apache</span><br></pre></td></tr></table></figure></p>
+<p>centos 7<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install python2-certbot-nginx</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h4 id="3-4-获取证书"><a href="#3-4-获取证书" class="headerlink" title="3.4 获取证书"></a>3.4 获取证书</h4><blockquote>
 <p>对于nginx可以使用certbot –nginx来获取和安装证书。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot --nginx certonly</span><br></pre></td></tr></table></figure></p>
@@ -308,6 +308,12 @@
 </blockquote>
 <blockquote>
 <p>解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -s /usr/local/nginx/conf /etc/nginx</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">certbot --nginx certonly</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File &quot;/usr/bin/certbot&quot;, line 9, in &lt;module&gt;</span><br><span class="line">    load_entry_point(&apos;certbot==0.24.0&apos;, &apos;console_scripts&apos;, &apos;certbot&apos;)()</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/pkg_resources.py&quot;, line 378, in load_entry_point</span><br><span class="line">    return get_distribution(dist).load_entry_point(group, name)</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/pkg_resources.py&quot;, line 2566, in load_entry_point</span><br><span class="line">    return ep.load()</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/pkg_resources.py&quot;, line 2260, in load</span><br><span class="line">    entry = __import__(self.module_name, globals(),globals(), [&apos;__name__&apos;])</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/certbot/main.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">    from certbot import account</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/certbot/account.py&quot;, line 17, in &lt;module&gt;</span><br><span class="line">    from acme import messages</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/acme/messages.py&quot;, line 7, in &lt;module&gt;</span><br><span class="line">    from acme import challenges</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/acme/challenges.py&quot;, line 11, in &lt;module&gt;</span><br><span class="line">    import requests</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/requests/__init__.py&quot;, line 58, in &lt;module&gt;</span><br><span class="line">    from . import utils</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/requests/utils.py&quot;, line 32, in &lt;module&gt;</span><br><span class="line">    from .exceptions import InvalidURL</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/requests/exceptions.py&quot;, line 10, in &lt;module&gt;</span><br><span class="line">    from .packages.urllib3.exceptions import HTTPError as BaseHTTPError</span><br><span class="line">  File &quot;/usr/lib/python2.7/site-packages/requests/packages/__init__.py&quot;, line 95, in load_module</span><br><span class="line">    raise ImportError(&quot;No module named &apos;%s&apos;&quot; % (name,))</span><br><span class="line">ImportError: No module named &apos;requests.packages.urllib3&apos;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>解决<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip2.7 install --upgrade --force-reinstall &apos;requests==2.6.0&apos; urllib3</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
 <p>获取完之后可以通过certbot certificates命令查看证书：</p>

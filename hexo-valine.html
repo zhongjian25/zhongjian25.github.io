@@ -16,7 +16,7 @@
     <link rel="dns-prefetch" href="https://www.172173.com">
     <!--SEO-->
 
-    <meta name="keywords" content="hexo valine LeanCloud">
+    <meta name="keywords" content="{{ page.keywords }}">
 
 
     <meta name="description" content="hexo 评论页面报错
@@ -238,10 +238,10 @@ Valine是一款基于Leancloud的快速、简洁且高...">
 <p>　　本人使用的是Hexo博客系统的snippet（v6.0.5）版本主题，所有操作设置仅对应该系统和主题版本，其他博客系统或主题请参考官方说明。在此提一下next主题现在主要有v5.1.x和v6.x两个版本，其中v5.1.x版本现已停止更新并迁移到新的仓库升级为v6.x，具体请参考官方说明。<a href="https://github.com/shenliyang/hexo-theme-snippet">https://github.com/shenliyang/hexo-theme-snippet</a></p>
 </blockquote>
 <blockquote>
-<p>获取APP ID 和 APP Key<br><a href="https://leancloud.cn/">注册LeanCloud</a> （过程跳过），注册后请到注册邮箱内验证邮箱。登录后点击页面右上角的控制台，进去后点击创建应用，应用名称随便填(如valine)并创建，之后将鼠标移到应用标签上并点击设置按钮<br><img src="hexo-valine/valine1.png" alt="image"></p>
+<p>获取APP ID 和 APP Key<br><a href="https://leancloud.cn/">注册LeanCloud</a> （过程跳过），注册后请到注册邮箱内验证邮箱。登录后点击页面右上角的控制台，进去后点击创建应用，应用名称随便填(如valine)并创建，之后将鼠标移到应用标签上并点击设置按钮<br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1558349211/hexo/valine1_hdsgk7.jpg" alt="image"></p>
 </blockquote>
 <blockquote>
-<p>进去后点击设置中的“应用Key”，就可以看到APP ID 和 APP Key了。<br><img src="hexo-valine/valine2.png" alt="image"></p>
+<p>进去后点击设置中的“应用Key”，就可以看到APP ID 和 APP Key了。<br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1558349211/hexo/valine2_ohfwy6.jpg" alt="image"></p>
 </blockquote>
 <h3 id="配置next主题"><a href="#配置next主题" class="headerlink" title="配置next主题"></a>配置next主题</h3><blockquote>
 <p>请打开next的配置文件_config.yml，搜索valine找到下面的字段，复制上面的APP ID和APP Key分别粘贴到appid和appkey，注意ID和Key是可以复制的，冒号后面空一格再粘贴。将enable: false改为enable: true即可启用Valine评论，其他的选项除非你知道是什么，否则请保持默认设置。如果已开启其他评论，请先关闭。然后执行hexo clean和 hexo s 两个命令进行本地预览，查看是否正常启用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">## Valine评论</span><br><span class="line">valine:</span><br><span class="line">   enable: true</span><br><span class="line">   appId: ID</span><br><span class="line">   appKey: Key</span><br><span class="line">   placeholder: 说点什么吧</span><br><span class="line">   notify: false</span><br><span class="line">   verify: false</span><br><span class="line">   avatar: mm</span><br><span class="line">   meta: nick,mail</span><br><span class="line">   pageSize: 10</span><br></pre></td></tr></table></figure></p>
