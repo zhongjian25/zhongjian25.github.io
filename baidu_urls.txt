@@ -1,3 +1,9 @@
+https://www.172173.com/linux-base.html
+https://www.172173.com/IPSec-VPN.html
+https://www.172173.com/window-2016-mstsc.html
+https://www.172173.com/django-form.html
+https://www.172173.com/Rsyslog-log-forwarding.html
+https://www.172173.com/windows-multi-user.html
 https://www.172173.com/mac-python-error-matplotlib.html
 https://www.172173.com/Pure-ftp-install.html
 https://www.172173.com/yum-errno-256.html

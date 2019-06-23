@@ -1,0 +1,501 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="!参考由于之前的线上的版本是CentOS6，鉴于该系统实在老旧目前正慢慢的往CentOS7和Ubuntu16上升级。
+一般如果使用云服务器，厂商都会对镜像做一些优化，不太需要我们怎么操心。
+新版...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>linux-base | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/django/"><i class="fa "></i>Django</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="linux-base">
+            
+	            linux-base
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Linux主机初始化/">Linux主机初始化</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/06/21</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><a href="https://www.920430.com/archives/2600817402.html">!参考</a><br>由于之前的线上的版本是CentOS6，鉴于该系统实在老旧目前正慢慢的往CentOS7和Ubuntu16上升级。</p>
+<p>一般如果使用云服务器，厂商都会对镜像做一些优化，不太需要我们怎么操心。</p>
+<p>新版的系统CentOS7和Ubuntu16对比CentOS6进步不是一点点，至少烦人的Python2和Gcc版本过低问题，在这里是完全没有了。</p>
+<h3 id="一、SSHD调整"><a href="#一、SSHD调整" class="headerlink" title="一、SSHD调整"></a>一、SSHD调整</h3><h4 id="1-1、配置文件"><a href="#1-1、配置文件" class="headerlink" title="1.1、配置文件"></a>1.1、配置文件</h4><ul>
+<li><p>备份配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cp -pv /etc/ssh/sshd_config&#123;,.old&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i &quot;s/#Port 22$/Port 5831/g&quot; /etc/ssh/sshd_config</span><br><span class="line">$ sed -i &quot;s/Port 22$/Port 5831/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁用 DNS查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ -i &quot;s/#UseDNS yes/UseDNS no/g&quot; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line">$ sed -i &quot;s/#PubkeyAuthentication yes/PubkeyAuthentication yes/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>密钥登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i &quot;s/#AuthorizedKeysFile/AuthorizedKeysFile/g&quot; /etc/ssh/sshd_config</span><br><span class="line"></span><br><span class="line"># 设置ssh在接收登录请求之前是否检查用户家目录和rhosts文件的权限和所有权。这通常是必要的，因为新手经常会把自己的目录和文件设成任何人都有写权限。</span><br><span class="line"></span><br><span class="line">$ sed -i &quot;s/#StrictModes yes/StrictModes yes/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启或者禁止密码登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 建议是能用密钥，就不需要在用密码了。如果是个人用户，保存好密钥，修改好端口那么服务器正常 就不会被人从SSHD这边攻破；</span><br><span class="line"># 如果是独立IP的企业用户或者有堡垒机，那么在开启密码登陆的时候 应该要做好IP/权限限制</span><br><span class="line">$ sed -i &quot;s/#PasswordAuthentication yes/PasswordAuthentication yes/g&quot; /etc/ssh/sshd_config$</span><br><span class="line">$ sed -i &quot;s/PasswordAuthentication no/PasswordAuthentication yes/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>禁止空密码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i &quot;s/PermitEmptyPasswords yes/PermitEmptyPasswords no/g&quot; /etc/ssh/sshd_config</span><br><span class="line">$ sed -i &quot;s/#PermitEmptyPasswords no/PermitEmptyPasswords no/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启或者禁止root登陆</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 现有的Redhat系的Linux都是默认允许root登陆的;</span><br><span class="line"># Ubuntu的Linux默认都是禁止root登陆(但是大部分的云服务器商，在初始化的时候都会默认开)。</span><br><span class="line">$ sed -i &quot;s/#PermitRootLogin yes/PermitRootLogin yes/g&quot; /etc/ssh/sshd_config</span><br><span class="line">$ sed -i &quot;s/PermitRootLogin no/PermitRootLogin yes/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最新版本的Redhat/CentOS 7.4已经弃用RSAAuthentication，这里就提一下。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sed -i &quot;s/#RSAAuthentication yes/RSAAuthentication yes/g&quot; /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="二、SSHD密钥生成"><a href="#二、SSHD密钥生成" class="headerlink" title="二、SSHD密钥生成"></a>二、SSHD密钥生成</h3><ul>
+<li><p>直接使用ssh-keygen生成密钥</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -b 4096</span><br><span class="line">or</span><br><span class="line">$ ssh-keygen -t rsa -b 4096</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将生成好的私钥自己保存好，公钥复制到机器上去，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ssh_rsa=&quot;ssh-dss AAAAB3NzaC1k ... Zk=&quot;</span><br><span class="line">$ mkdir /root/.ssh</span><br><span class="line">$ chmod 700 /root/.ssh</span><br><span class="line">$ echo $&#123;ssh_rsa&#125; &gt;&gt; /root/.ssh/authorized_keys</span><br><span class="line">$ chmod 600 /root/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="三、常用的软件"><a href="#三、常用的软件" class="headerlink" title="三、常用的软件"></a>三、常用的软件</h3><p>现在的云厂商在他们默认的镜像里面已经安装好大部分的软件包。</p>
+<ul>
+<li>Redhat/CentOS</li>
+</ul>
+<p>Redhat默认没有的依赖包还是很多的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#常用的epel源一般是要安装上去，如果你不放心这种非官方维护的源，那么就不要安装了。</span><br><span class="line">$ yum -y install epel-release</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 生成缓存</span><br><span class="line">$ yum makecache</span><br><span class="line"></span><br><span class="line">#常用的工具包</span><br><span class="line">$ yum -y install wget bash-completion zsh git mlocate man unzip procps-ng\</span><br><span class="line">    net-tools bind-utils tcpdump nmap mtr psmisc tree screen dmidecode\</span><br><span class="line">    at openssl openssl-devel readline-devel telnet ntpdate coreutils\</span><br><span class="line">    deltarpm nss</span><br><span class="line"></span><br><span class="line">#接下是开发工具全家桶，基本上这些安装完，后面编译什么东西都很顺利了。。。</span><br><span class="line">$ yum -y install vim gcc gcc-c++ make cmake autoconf automake \</span><br><span class="line">   texinfo pcre pcre-devel zlib-devel zlib ncurses ncurses-devel\</span><br><span class="line">   bison bison-devel curl curl-devel glibc glibc-devel glib2 glib2-devel\</span><br><span class="line">   bzip2 bzip2-devel libxslt libxslt-devel libxml2 libxml2-devel \</span><br><span class="line">   libxml2-static gd gd-devel freetype freetype-devel libjpeg libjpeg-devel\</span><br><span class="line">   libpng libpng-devel openldap openldap-devel openssl openssl-devel \</span><br><span class="line">   readline-devel expat-devel gettext-devel libicu-devel perl-Digest-SHA \</span><br><span class="line">   deltarpm perl-devel nss</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Ubuntu</li>
+</ul>
+<p>Ubuntu/Debian默认安装的依赖包基本是完全满足我们正常的需求了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line"></span><br><span class="line">#development tools</span><br><span class="line">$ apt-get -y install build-essential git autoconf automake cmake pkg-config \</span><br><span class="line">    libperl-dev python-dev python3-dev python-pip python3-pip libssl-dev \</span><br><span class="line">    libpcre3-dev libpcrecpp0 libxslt1-dev libcurl4-openssl-dev libxml2 \</span><br><span class="line">    libxml2-dev libreadline-dev libreadline6-dev libtinfo-dev</span><br><span class="line"></span><br><span class="line">#Security tools</span><br><span class="line">$ apt-get -y install nmap libpam-pwquality</span><br><span class="line"></span><br><span class="line">#network tools</span><br><span class="line">$ apt-get -y install traceroute tcpdump nload</span><br><span class="line"></span><br><span class="line">#imgs &amp; font</span><br><span class="line">$ apt-get -y install imagemagick libjpeg-dev libjpeg8-dev libpng12-dev libgd2-dev \</span><br><span class="line">    libfreetype6 libfreetype6-dev</span><br><span class="line"></span><br><span class="line">#常用的工具</span><br><span class="line">$ apt-get -y install unzip lrzsz screen tree sysv-rc-conf unattended-upgrades</span><br><span class="line"></span><br><span class="line">$ apt-get -y autoremove</span><br><span class="line">$ update-grub</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>更新CA证书</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ update-ca-certificates --fresh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置自动更新安全补丁(可选)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/apt/apt.conf.d/10periodic</span><br><span class="line">  APT::Periodic::Update-Package-Lists &quot;1&quot;;</span><br><span class="line">  APT::Periodic::Download-Upgradeable-Packages &quot;1&quot;;</span><br><span class="line">  APT::Periodic::AutocleanInterval &quot;7&quot;;</span><br><span class="line">  APT::Periodic::Unattended-Upgrade &quot;1&quot;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="四、修改sudo-支持sudo无密码-可选"><a href="#四、修改sudo-支持sudo无密码-可选" class="headerlink" title="四、修改sudo, 支持sudo无密码(可选)"></a>四、修改sudo, 支持sudo无密码(可选)</h3><p>主要是针对Ubuntu的用户，大部分的Redhat/CentOS用户都喜欢root。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp -pv /etc/sudoers /etc/sudoers.old</span><br><span class="line"># 建议是用visudo来修改/etc/sudoers。</span><br><span class="line">$ sudo vim /etc/sudoers</span><br><span class="line">  xiaoqiang    ALL=(ALL)   NOPASSWD: ALL</span><br></pre></td></tr></table></figure></p>
+<h3 id="五、网络"><a href="#五、网络" class="headerlink" title="五、网络"></a>五、网络</h3><ul>
+<li>时间同步</li>
+</ul>
+<p>时间同步的话，建议如果对时间敏感的业务要做一个计划任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ /usr/sbin/ntpdate -u pool.ntp.org &gt;/dev/null 2&gt;&amp;1;/sbin/hwclock --systohc &gt;/dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>修改DNS</li>
+</ul>
+<p>如果使用云服务器，正常是不建议直接修改他们已经配置好的DNS。</p>
+<p>我们可以在原先的基础上加上几条用来备份。</p>
+<ul>
+<li><p>Redhat/CentOS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/resolv.conf</span><br><span class="line">  dns-nameservers 1.1.1.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Ubuntu</p>
+</li>
+</ul>
+<p>不能直接修改/etc/resolv.conf(你下一次重启或者重启网络服务之后，就会失效，如果你需要一个临时的连接一个dns的话，那么这是一个好的选择)</p>
+<p>方法1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/network/interfaces</span><br><span class="line">    dns-nameservers 1.1.1.1</span><br></pre></td></tr></table></figure></p>
+<p>方法2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo vim /etc/resolvconf/resolv.conf.d/base</span><br><span class="line">    nameserver 1.1.1.1</span><br></pre></td></tr></table></figure></p>
+<p>修改完之后保存，然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo resolvconf -u</span><br></pre></td></tr></table></figure></p>
+<p>然后，你会发现/etc/resolv.conf文件中多了几行，这几行是resolve程序自动写入的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Dynamic resolv.conf(5) file for glibc resolver(3) generated by resolvconf(8)</span><br><span class="line">#     DO NOT EDIT THIS FILE BY HAND -- YOUR CHANGES WILL BE OVERWRITTEN</span><br><span class="line">nameserver 1.1.1.1</span><br></pre></td></tr></table></figure></p>
+<h3 id="六、系统优化"><a href="#六、系统优化" class="headerlink" title="六、系统优化"></a>六、系统优化</h3><ul>
+<li>limits.conf</li>
+</ul>
+<p>修改open files , 默认为1024<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">先使用`ulimit -n`查看当前的open files，如果是默认的值,则修改</span><br><span class="line">$ sudo ulimit -n</span><br><span class="line">$ sudo ulimit -n 65535</span><br><span class="line">$ sudo vim /etc/security/limits.conf</span><br><span class="line">  *    soft    nofile    65535</span><br><span class="line">  *    hard    nofile    65535</span><br><span class="line">  *    soft    nproc    65535</span><br><span class="line">  *    hard    nproc    65535</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>swapfile分区</li>
+</ul>
+<p>小内存的机器，难免会用到swap，这里先看看怎么创建swap分区<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dd if=/dev/zero of=/tmp/swapfile06 bs=1M count=4000</span><br><span class="line">$ sudo chmod 600 /tmp/swapfile06</span><br><span class="line">$ sudo mkswap /tmp/swapfile06</span><br><span class="line">$ sudo swapon /tmp/swapfile06</span><br></pre></td></tr></table></figure></p>
+<p>然后我们应该让系统优先使用内存，这样可以有效的避免OOM。</p>
+<p>修改vm.swappiness，这个系统默认值为30。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sysctl -a | grep vm.swappines</span><br><span class="line">$ sysctl -w vm.swappiness = 1</span><br><span class="line">$ vim /etc/sysctl.conf</span><br><span class="line">  vm.swappiness = 1</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>sysctl.conf(可选)</li>
+</ul>
+<p>sysctl.conf的调优就复杂了。网络上有很多关于sysctl.conf的调优教程。</p>
+<p>个人认为那些教程有点误人子弟的味道，因为sysctl.conf涉及到内存，网络带宽，TCP/IP堆栈和虚拟内存系统等高级选项，用sysctl可以读取设置超过五百个系统变量。而且不同德内核版本sysctl.conf里面的参数也不一定相同。</p>
+<p>在这种情况下其实是很难有一个通用的sysctl.conf来应对全部的业务场景。</p>
+<p>下面是金山云Ubuntun16系统的sysctl.conf，经供参考。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$ cat sysctl.conf</span><br><span class="line">net.ipv4.ip_forward = 1</span><br><span class="line">net.ipv4.conf.default.rp_filter = 1</span><br><span class="line">net.ipv4.conf.default.accept_source_route = 0</span><br><span class="line">kernel.sysrq = 0</span><br><span class="line">kernel.core_uses_pid = 1</span><br><span class="line">net.ipv4.tcp_syncookies = 1</span><br><span class="line">net.bridge.bridge-nf-call-ip6tables = 0</span><br><span class="line">net.bridge.bridge-nf-call-iptables = 0</span><br><span class="line">net.bridge.bridge-nf-call-arptables = 0</span><br><span class="line">kernel.msgmnb = 65536</span><br><span class="line">kernel.msgmax = 65536</span><br><span class="line">kernel.shmmax = 68719476736</span><br><span class="line">kernel.shmall = 4294967296</span><br><span class="line">net.ipv4.tcp_keepalive_time = 1200</span><br><span class="line">net.ipv4.ip_local_port_range = 1024 65535</span><br><span class="line"></span><br><span class="line">net.ipv4.conf.all.rp_filter = 0</span><br><span class="line">net.ipv4.conf.default.rp_filter = 0</span><br><span class="line">net.ipv4.conf.eth0.rp_filter = 0</span><br><span class="line">net.ipv4.conf.eth1.rp_filter = 0</span><br><span class="line">net.ipv4.conf.all.arp_announce = 2</span><br><span class="line">net.ipv4.conf.default.arp_announce = 2</span><br><span class="line">net.ipv4.conf.eth0.arp_announce = 2</span><br><span class="line">net.ipv4.conf.eth1.arp_announce = 2</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>IP欺骗防护<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ /etc/host.conf</span><br><span class="line">order hosts,bind</span><br><span class="line">multi on</span><br><span class="line">nospoof on</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="七、密码复杂度"><a href="#七、密码复杂度" class="headerlink" title="七、密码复杂度"></a>七、密码复杂度</h3><ul>
+<li><p>CentOS/Redhat的密码复杂度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">是通过配置/etc/pam.d/system-auth-ac或者/etc/pam.d/system-auth来实现的,下面是一个例子</span><br><span class="line"></span><br><span class="line">设置密码复杂度：密码至少14位;与前一次密码至少有三个位不同;大、小写字母，字数都至少2个。</span><br><span class="line"></span><br><span class="line">$ cp -rvp /etc/pam.d/system-auth&#123;,.old&#125;</span><br><span class="line">$ sed -i &apos;s/password    requisite/#password    requisite/&apos;  /etc/pam.d/system-auth</span><br><span class="line">$ sed -i &apos;/pam_cracklib.so/a  \password    requisite     pam_cracklib.so try_first_pass retry=6  type= minlen=14 difok=3 ucredit=2 lcredit=2 dcredit=2&apos; /etc/pam.d/system-auth</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Ubuntu使用crablib实现系统密码复杂度管理</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">安装软件包：</span><br><span class="line"></span><br><span class="line">$ apt-get install libpam-cracklib</span><br><span class="line"></span><br><span class="line">修改PAM配置文件：</span><br><span class="line"></span><br><span class="line">$ vim /etc/pam.d/common-password</span><br><span class="line"></span><br><span class="line">在 &quot;password    requisite    pam_cracklib.so&quot;后加上参数</span><br><span class="line">retry=N：用户最多可以几次输入密码后报错。默认是1次。</span><br><span class="line">difok=N：新密码有几个字符不能和旧密码相同，默认是5个。另外如果新密码有1/2的字符于旧不同，也会被接受。</span><br><span class="line">diginore=N：默认当新密码有23个字符时，difok选项会被忽略。</span><br><span class="line">minlen=N：最小密码长度。</span><br><span class="line">dcredit=N：阿拉伯数字个数。N&gt;=0，代表新密码最多可以有多少个阿拉伯数字；N&lt;0，最少要有多少个数字。</span><br><span class="line">ucredit=N：大写字母个数。N&gt;=0，代表新密码最多可以有多少大写字母；N&lt;0，最少要有多少个大写字母。</span><br><span class="line">lcredit=N：小写字母个数。N&gt;=0，代表新密码最多可以有多少小写字母；N&lt;0，最少要有多少个小写字母。</span><br><span class="line">ocredit=N：特殊字符个数。N&gt;=0，代表新密码最多可以有多少特殊字符；N&lt;0，最少要有多少个特殊字符。</span><br><span class="line"></span><br><span class="line">例如： 密码最多尝试3次，新密码最短8个字符，要有3个字符不能与旧密码相同，最少要有1个数字、1个大写字母、1个小写字母、1个特殊字符。</span><br><span class="line">password requisite pam_cracklib.so retry=3 minlen=8 difok=3 dcredit=-1 lcredit=-1 ocredit=-1 ucredit=-1</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="八、防火墙-selinux"><a href="#八、防火墙-selinux" class="headerlink" title="八、防火墙/selinux"></a>八、防火墙/selinux</h3><p>防火墙学问就很深，改天写点教程吧，这里写不完的。。。</p>
+<p>说说怎么临时和永久关闭Selinux(Selinux目前是redhat系的Linux预装的安全软件，功能十分强大，但是对新手还是要有一段时间的学习期)</p>
+<ul>
+<li><p>临时关闭</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ getenforce</span><br><span class="line">  Enforcing</span><br><span class="line"></span><br><span class="line">$ setenforce 0</span><br><span class="line">$ getenforce</span><br><span class="line">  Permissive</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>永久关闭：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ vim /etc/sysconfig/selinux</span><br><span class="line"></span><br><span class="line">SELINUX=enforcing 改为 SELINUX=disabled</span><br><span class="line"></span><br><span class="line">重启系统reboot</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/IPSec-VPN.html" class="next-post btn btn-default" title="IPSec VPN">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">IPSec VPN</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、SSHD调整"><span class="toc-text">一、SSHD调整</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1、配置文件"><span class="toc-text">1.1、配置文件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、SSHD密钥生成"><span class="toc-text">二、SSHD密钥生成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、常用的软件"><span class="toc-text">三、常用的软件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、修改sudo-支持sudo无密码-可选"><span class="toc-text">四、修改sudo, 支持sudo无密码(可选)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#五、网络"><span class="toc-text">五、网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#六、系统优化"><span class="toc-text">六、系统优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七、密码复杂度"><span class="toc-text">七、密码复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#八、防火墙-selinux"><span class="toc-text">八、防火墙/selinux</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

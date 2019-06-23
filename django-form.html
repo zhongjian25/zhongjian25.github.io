@@ -1,0 +1,529 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="Field
+    required=True,               是否允许为空
+    widget=None,                 HTML插件
+    label=N...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>django-form | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/django/"><i class="fa "></i>Django</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="django-form">
+            
+	            django-form
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/django/">django</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Django基础之form表单的所有内置字段/">Django基础之form表单的所有内置字段</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/31</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <pre><code>Field
+    required=True,               是否允许为空
+    widget=None,                 HTML插件
+    label=None,                  用于生成Label标签或显示内容
+    initial=None,                初始值
+    help_text=&apos;&apos;,                帮助信息(在标签旁边显示)
+    error_messages=None,         错误信息 {&apos;required&apos;: &apos;不能为空&apos;, &apos;invalid&apos;: &apos;格式错误&apos;}
+    validators=[],               自定义验证规则
+    localize=False,              是否支持本地化
+    disabled=False,              是否可以编辑
+    label_suffix=None            Label内容后缀
+
+
+CharField(Field)
+    max_length=None,             最大长度
+    min_length=None,             最小长度
+    strip=True                   是否移除用户输入空白
+
+IntegerField(Field)
+    max_value=None,              最大值
+    min_value=None,              最小值
+
+FloatField(IntegerField)
+    ...
+
+DecimalField(IntegerField)
+    max_value=None,              最大值
+    min_value=None,              最小值
+    max_digits=None,             总长度
+    decimal_places=None,         小数位长度
+
+BaseTemporalField(Field)
+    input_formats=None          时间格式化  
+
+DateField(BaseTemporalField)    格式：2015-09-01
+TimeField(BaseTemporalField)    格式：11:12
+DateTimeField(BaseTemporalField)格式：2015-09-01 11:12
+
+DurationField(Field)            时间间隔：%d %H:%M:%S.%f
+    ...
+
+RegexField(CharField)
+    regex,                      自定制正则表达式
+    max_length=None,            最大长度
+    min_length=None,            最小长度
+    error_message=None,         忽略，错误信息使用 error_messages={&apos;invalid&apos;: &apos;...&apos;}
+
+EmailField(CharField)     
+    ...
+
+FileField(Field)
+    allow_empty_file=False     是否允许空文件
+
+ImageField(FileField)     
+    ...
+    注：需要PIL模块，pip3 install Pillow
+    以上两个字典使用时，需要注意两点：
+        - form表单中 enctype=&quot;multipart/form-data&quot;
+        - view函数中 obj = MyForm(request.POST, request.FILES)
+
+URLField(Field)
+    ...
+
+
+BooleanField(Field) 
+    ...
+
+NullBooleanField(BooleanField)
+    ...
+
+ChoiceField(Field)
+    ...
+    choices=(),                选项，如：choices = ((0,&apos;上海&apos;),(1,&apos;北京&apos;),)
+    required=True,             是否必填
+    widget=None,               插件，默认select插件
+    label=None,                Label内容
+    initial=None,              初始值
+    help_text=&apos;&apos;,              帮助提示
+
+
+ModelChoiceField(ChoiceField)
+    ...                        django.forms.models.ModelChoiceField
+    queryset,                  # 查询数据库中的数据
+    empty_label=&quot;---------&quot;,   # 默认空显示内容
+    to_field_name=None,        # HTML中value的值对应的字段
+    limit_choices_to=None      # ModelForm中对queryset二次筛选
+
+ModelMultipleChoiceField(ModelChoiceField)
+    ...                        django.forms.models.ModelMultipleChoiceField
+
+
+
+TypedChoiceField(ChoiceField)
+    coerce = lambda val: val   对选中的值进行一次转换
+    empty_value= &apos;&apos;            空值的默认值
+
+MultipleChoiceField(ChoiceField)
+    ...
+
+TypedMultipleChoiceField(MultipleChoiceField)
+    coerce = lambda val: val   对选中的每一个值进行一次转换
+    empty_value= &apos;&apos;            空值的默认值
+
+ComboField(Field)
+    fields=()                  使用多个验证，如下：即验证最大长度20，又验证邮箱格式
+                               fields.ComboField(fields=[fields.CharField(max_length=20), fields.EmailField(),])
+
+MultiValueField(Field)
+    PS: 抽象类，子类中可以实现聚合多个字典去匹配一个值，要配合MultiWidget使用
+
+SplitDateTimeField(MultiValueField)
+    input_date_formats=None,   格式列表：[&apos;%Y--%m--%d&apos;, &apos;%m%d/%Y&apos;, &apos;%m/%d/%y&apos;]
+    input_time_formats=None    格式列表：[&apos;%H:%M:%S&apos;, &apos;%H:%M:%S.%f&apos;, &apos;%H:%M&apos;]
+
+FilePathField(ChoiceField)     文件选项，目录下文件显示在页面中
+    path,                      文件夹路径
+    match=None,                正则匹配
+    recursive=False,           递归下面的文件夹
+    allow_files=True,          允许文件
+    allow_folders=False,       允许文件夹
+    required=True,
+    widget=None,
+    label=None,
+    initial=None,
+    help_text=&apos;&apos;
+
+GenericIPAddressField
+    protocol=&apos;both&apos;,           both,ipv4,ipv6支持的IP格式
+    unpack_ipv4=False          解析ipv4地址，如果是::ffff:192.0.2.1时候，可解析为192.0.2.1， PS：protocol必须为both才能启用
+
+SlugField(CharField)           数字，字母，下划线，减号（连字符）
+    ...
+
+UUIDField(CharField)           uuid类型
+
+Django Form内置字段
+</code></pre><p><a href="https://www.cnblogs.com/yang-wei/p/10003648.html">参考</a></p>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/window-2016-mstsc.html" class="pre-post btn btn-default" title="window-2016-mstsc">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">window-2016-mstsc</span>
+        </a>
+    
+    
+        <a href="/Rsyslog-log-forwarding.html" class="next-post btn btn-default" title="Rsyslog log forwarding">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Rsyslog log forwarding</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <p>暂无目录</p>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>

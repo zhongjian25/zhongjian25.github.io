@@ -1,0 +1,575 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="wriren by: CQhttps://www.920430.com
+rsyslog 日志转发前言使用rsyslog日志收集是尽量保证日志的原始性不去做任何处理 ，直接收集入到队列，如kafk...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>Rsyslog log forwarding | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/django/"><i class="fa "></i>Django</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Rsyslog log forwarding">
+            
+	            Rsyslog log forwarding
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Rsyslog/">Rsyslog</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/05/28</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p><strong><em>wriren by: CQ</em></strong><br><strong><em><a href="https://www.920430.com">https://www.920430.com</a></em></strong></p>
+<h1 id="rsyslog-日志转发"><a href="#rsyslog-日志转发" class="headerlink" title="rsyslog 日志转发"></a><strong><em>rsyslog 日志转发</em></strong></h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>使用rsyslog日志收集是尽量保证日志的原始性不去做任何处理 ，直接收集入到队列，如kafka、redis，这样做的的好处时，减少日志客户端rsyslog的性能压力，从而不影响所在服务器上正常业务，并且保持原始日志也便于各自业务方处理，自己写的日志自己最熟悉。</p>
+<p>日志收集客户端rsyslog 可以使用守护进程的工具做守护,如supervisor、monit等</p>
+<p>rsyslog提供三个远程日志传输方式：</p>
+<pre><code>UDP: 数据包传输可信度不高
+TCP: 数据包传输可信度比较高
+RELP: 数据包传输可信度最高，避免数据丢失，比较新的协议，目前应用较少
+</code></pre><p>下面介绍的RELP方式</p>
+<h2 id="rsyslog-client"><a href="#rsyslog-client" class="headerlink" title="rsyslog client:"></a><strong>rsyslog client:</strong></h2><h3 id="查看rsyslog版本"><a href="#查看rsyslog版本" class="headerlink" title="查看rsyslog版本"></a>查看rsyslog版本</h3><pre><code>$ sudo rsyslogd -v
+    rsyslogd 7.4.4, compiled with:
+        FEATURE_REGEXP:                Yes
+        FEATURE_LARGEFILE:            No
+        GSSAPI Kerberos 5 support:        Yes
+        FEATURE_DEBUG (debug build, slow code):    No
+        32bit Atomic operations supported:    Yes
+        64bit Atomic operations supported:    Yes
+        Runtime Instrumentation (slow code):    No
+        uuid support:                Yes
+</code></pre><h3 id="备份原先的配置"><a href="#备份原先的配置" class="headerlink" title="备份原先的配置"></a>备份原先的配置</h3><pre><code>$ sudo cp -pv /etc/rsyslog.conf{,.old}
+$ sudo cp -pv /etc/rsyslog.d/20-ufw.conf{,.old}
+$ sudo cp -pv /etc/rsyslog.d/50-default.conf{,.old}
+</code></pre><h3 id="安装rsyslog-relp"><a href="#安装rsyslog-relp" class="headerlink" title="安装rsyslog-relp"></a>安装rsyslog-relp</h3><pre><code># CentOS
+# yum install rsyslog-relp
+
+# Ubuntu
+$ sudo apt-get install rsyslog-relp
+</code></pre><h3 id="修改rsyslog-conf"><a href="#修改rsyslog-conf" class="headerlink" title="修改rsyslog.conf"></a>修改rsyslog.conf</h3><p>CentOS</p>
+<pre><code>$ sudo vim /etc/rsyslog.conf
+$ModLoad omrelp
+
+$SystemLogRateLimitInterval 0
+$SystemLogRateLimitBurst 0
+
+$MaxMessageSize 16k
+# $MaxOpenFiles 5000
+</code></pre><p>Ubuntu</p>
+<pre><code>$ sudo vim /etc/rsyslog.conf
+$ModLoad omrelp
+
+$SystemLogRateLimitInterval 0
+$SystemLogRateLimitBurst 0
+
+$ActionQueueFileName locals      # unique name prefix for spool files
+$ActionQueueMaxDiskSpace 15g     # 15gb space limit (use as much as possible)
+$ActionQueueSaveOnShutdown on    # save messages to disk on shutdown
+$ActionQueueType LinkedList      # run asynchronously
+$ActionResumeRetryCount -1       # infinite retries if host is down
+$ActionQueueTimeoutEnqueue 0     # discard messages instead of throttling the log emitter when the queue has reached its limit
+$ActionQueueDequeueSlowdown 0    # no slowdown of the log emitter
+$ActionQueueDiscardSeverity 6    # discard info level messages when reaching discard mark
+
+$MaxMessageSize 16k
+# $MaxOpenFiles 5000
+</code></pre><h3 id="禁止日志写到-var-log-syslog，同时启用local3。-none表示什么都不记录"><a href="#禁止日志写到-var-log-syslog，同时启用local3。-none表示什么都不记录" class="headerlink" title="禁止日志写到/var/log/syslog，同时启用local3。 none表示什么都不记录"></a>禁止日志写到/var/log/syslog，同时启用local3。 none表示什么都不记录</h3><p>ubuntu:</p>
+<pre><code>$ sudo vim /etc/rsyslog.d/50-default.conf
+#*.*;auth,authpriv.none     -/var/log/syslog
+*.*;auth,authpriv.none,local3.none      -/var/log/syslog
+
+# local3.*                         @@192.168.99.200:514
+local3.*                           :omrelp:192.168.99.200:20514
+</code></pre><p>centos:</p>
+<pre><code>*.info;mail.none;authpriv.none;cron.none,local3.none                 /var/log/messages
+# local3.*                         @@x.x.243.239:514
+local3.*                           :omrelp:x.x.243.239:20514
+</code></pre><h3 id="验证rsyslog配置"><a href="#验证rsyslog配置" class="headerlink" title="验证rsyslog配置"></a>验证rsyslog配置</h3><pre><code>$ sudo rsyslogd -N 1
+rsyslogd: version 7.4.4, config validation run (level 1), master config /etc/rsyslog.conf
+rsyslogd: End of config validation run. Bye
+</code></pre><h3 id="重启rsyslogd"><a href="#重启rsyslogd" class="headerlink" title="重启rsyslogd"></a>重启rsyslogd</h3><pre><code>$ sudo service rsyslog restart
+</code></pre><h2 id="rsyslog-server"><a href="#rsyslog-server" class="headerlink" title="rsyslog server:"></a><strong>rsyslog server:</strong></h2><h3 id="查看rsyslog版本-1"><a href="#查看rsyslog版本-1" class="headerlink" title="查看rsyslog版本"></a>查看rsyslog版本</h3><pre><code>$ sudo rsyslogd -v
+    rsyslogd 7.4.4, compiled with:
+        FEATURE_REGEXP:                Yes
+        FEATURE_LARGEFILE:            No
+        GSSAPI Kerberos 5 support:        Yes
+        FEATURE_DEBUG (debug build, slow code):    No
+        32bit Atomic operations supported:    Yes
+        64bit Atomic operations supported:    Yes
+        Runtime Instrumentation (slow code):    No
+        uuid support:                Yes
+</code></pre><h3 id="备份原先的配置-1"><a href="#备份原先的配置-1" class="headerlink" title="备份原先的配置"></a>备份原先的配置</h3><pre><code>$ sudo cp -pv /etc/rsyslog.conf{,.old}
+$ sudo cp -pv /etc/rsyslog.d/20-ufw.conf{,.old}
+$ sudo cp -pv /etc/rsyslog.d/50-default.conf{,.old}
+</code></pre><h3 id="安装rsyslog-relp-1"><a href="#安装rsyslog-relp-1" class="headerlink" title="安装rsyslog-relp"></a>安装rsyslog-relp</h3><pre><code># CentOS
+# yum install rsyslog-relp
+
+# Ubuntu
+$ sudo apt-get install rsyslog-relp
+</code></pre><h3 id="修改rsyslog-conf-1"><a href="#修改rsyslog-conf-1" class="headerlink" title="修改rsyslog.conf"></a>修改rsyslog.conf</h3><pre><code>$ sudo vim /etc/rsyslog.conf
+
+# provides UDP syslog reception
+# $ModLoad imudp
+# $UDPServerRun 514
+
+$ModLoad imrelp
+$InputRELPServerRun 20514
+
+# provides TCP syslog reception
+$ModLoad imtcp
+$InputTCPServerRun 514
+
+$MaxMessageSize 16k
+# $MaxOpenFiles 5000
+$InputTCPMaxSessions 1024
+$EscapeControlCharactersOnReceive off
+</code></pre><h3 id="禁止日志写到-var-log-syslog，同时启用local3-none表示什么都不记录"><a href="#禁止日志写到-var-log-syslog，同时启用local3-none表示什么都不记录" class="headerlink" title="禁止日志写到/var/log/syslog，同时启用local3, none表示什么都不记录"></a>禁止日志写到/var/log/syslog，同时启用local3, none表示什么都不记录</h3><pre><code>$ sudo vim /etc/rsyslog.d/50-default.conf
+#*.*;auth,authpriv.none     -/var/log/syslog
+*.*;auth,authpriv.none,local3.none      -/var/log/syslog
+</code></pre><h3 id="自定义配置文件"><a href="#自定义配置文件" class="headerlink" title="自定义配置文件"></a>自定义配置文件</h3><pre><code>$ sudo vim /etc/rsyslog.d/51-gamelog.conf
+
+$template cocsFormat, &quot;%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag%%msg%\n&quot;
+$template COCS, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/cocs_%$year%%$month%%$day%.log
+$template BUGS, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/bug_%$year%%$month%%$day%.log
+$template UNKNOWN, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/unknown_%$year%%$month%%$day%.log&quot;
+
+# http://www.rsyslog.com/doc/master/configuration/properties.html
+if $programname startswith &apos;cocs&apos; then ?COCS;cocsFormat
+&amp; stop
+if $programname startswith &apos;bugs&apos; then ?BUGS
+&amp; stop
+
+if $syslogfacility-text == &apos;local3&apos; then ?UNKNOWN
+</code></pre><h3 id="验证rsyslog配置-1"><a href="#验证rsyslog配置-1" class="headerlink" title="验证rsyslog配置"></a>验证rsyslog配置</h3><pre><code>$ sudo rsyslogd -N 1
+rsyslogd: version 7.4.4, config validation run (level 1), master config /etc/rsyslog.conf
+rsyslogd: End of config validation run. Bye
+</code></pre><h3 id="目录权限"><a href="#目录权限" class="headerlink" title="目录权限"></a>目录权限</h3><pre><code>sudo chown -R syslog.syslog /data/rsyslog
+</code></pre><h3 id="重启rsyslogd-1"><a href="#重启rsyslogd-1" class="headerlink" title="重启rsyslogd"></a>重启rsyslogd</h3><pre><code>$ sudo service rsyslog restart
+</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a><strong>测试</strong></h2><h3 id="logger命令"><a href="#logger命令" class="headerlink" title="logger命令"></a><strong>logger命令</strong></h3><p>可以使用系统自带的logger命令来测试</p>
+<pre><code>$ logger -it bugs  -p local3.info &apos;{&quot;@timestamp&quot;:&quot;2017-2-22T15:40:53.820Z&quot;,&quot;beat&quot;:{&quot;hostname&quot;:&quot;12.10.x.x&quot;,&quot;name&quot;:&quot;x.x.231.98&quot;,&quot;version&quot;:&quot;5.0.2&quot;},&quot;category&quot;:&quot;game_user_rank_record&quot;,&quot;db_name&quot;:&quot;androidxxx&quot;,&quot;input_type&quot;:&quot;log&quot;,&quot;level&quot;:&quot;ERROR&quot;,&quot;log&quot;:&quot;{\&quot;i_user_id\&quot;:1432320,\&quot;i_ser_id\&quot;:8012,\&quot;gamekey\&quot;:\&quot;210_16_3_33\&quot;,\&quot;account_id\&quot;:145439,\&quot;user_name\&quot;:\&quot;时间歌声\&quot;,\&quot;user_level\&quot;:1,\&quot;vip_level\&quot;:0,\&quot;user_power\&quot;:331792,\&quot;rank_type\&quot;:3,\&quot;rank\&quot;:140,\&quot;add_time\&quot;:1490716793,\&quot;parama\&quot;:\&quot;342\&quot;}&quot;,&quot;offset&quot;:75196044,&quot;source&quot;:&quot;/data/xxxx/logs/game_user_rank_record_2017-03-28.log&quot;,&quot;time&quot;:&quot;2017-03-28 23:59:53&quot;,&quot;type&quot;:&quot;22222&quot;}&apos;
+</code></pre><h3 id="logger命令解释"><a href="#logger命令解释" class="headerlink" title="logger命令解释"></a>logger命令解释</h3><pre><code>-i 在每行都记录进程ID
+-t bugs 每行记录都加上“bugs”这个标签,即syslogtag
+-p local3.notice 设置记录的设备和级别
+</code></pre><h3 id="调试模式"><a href="#调试模式" class="headerlink" title="调试模式"></a><strong>调试模式</strong></h3><pre><code>$ sudo rsyslogd -nd
+</code></pre><h3 id="配置列子"><a href="#配置列子" class="headerlink" title="配置列子"></a><strong>配置列子</strong></h3><pre><code># $template cocsFormat, &quot;%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag%%msg%\n&quot;
+# $template DEBUG, &quot;/data/rsyslog/%fromhost-ip%/DEBUG_%$year%%$month%%$day%.log&quot;
+
+$template USER_ONLINE_AMOUNT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_user_online_amount_%$year%%$month%%$day%.log&quot;
+$template ACTION_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_action_%$year%%$month%%$day%.log&quot;
+$template LOGIN_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_login_%$year%%$month%%$day%.log&quot;
+$template PAYMENT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_payment_%$year%%$month%%$day%.log&quot;
+$template RESOURCE_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_resource_%$year%%$month%%$day%.log&quot;
+$template REGISTER_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_register_%$year%%$month%%$day%.log&quot;
+$template PETS_EDIT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_pets_edit_%$year%%$month%%$day%.log&quot;
+$template PROPS_EDIT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_props_edit_%$year%%$month%%$day%.log&quot;
+$template CURRENCY_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_currency_%$year%%$month%%$day%.log&quot;
+$template HERO_EDIT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_hero_edit_%$year%%$month%%$day%.log&quot;
+$template EQUIPMENT_EDIT_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_equipment_edit_%$year%%$month%%$day%.log&quot;
+$template MSG_PROCESS_TIME_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_msg_process_time_%$year%%$month%%$day%.log&quot;
+$template GAMEKEY_STATIC_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_gamekey_static_%$year%%$month%%$day%.log&quot;
+$template SERVER_ID_STATIC_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_server_id_static_%$year%%$month%%$day%.log&quot;
+
+$template UNKNOWN_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_unknown_%$year%%$month%%$day%.log&quot;
+$template BUGS_LOG, &quot;/data/rsyslog/%fromhost-ip%/%$year%%$month%%$day%/xxxgame_bugs_%$year%%$month%%$day%.log&quot;
+
+
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;register_log&apos; then ?REGISTER_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;login_log&apos; then ?LOGIN_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;resource_log&apos; then ?RESOURCE_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;payment_log&apos; then ?PAYMENT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;action_log&apos; then ?ACTION_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;online_amount_log&apos; then ?USER_ONLINE_AMOUNT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;pets_edit_log&apos; then ?PETS_EDIT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;props_edit_log&apos; then ?PROPS_EDIT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;currency_log&apos; then ?CURRENCY_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;hero_edit_log&apos; then ?HERO_EDIT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;equipment_edit_log&apos; then ?EQUIPMENT_EDIT_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;msg_process_time&apos; then ?MSG_PROCESS_TIME_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;gamekey_static_log&apos; then ?GAMEKEY_STATIC_LOG
+&amp; stop
+if $programname startswith &apos;xxx&apos; and $msg contains &apos;server_id_static_log&apos; then ?SERVER_ID_STATIC_LOG
+&amp; stop
+
+if $syslogfacility-text == &apos;local3&apos; and $syslogseverity &lt;= &apos;5&apos; then ?BUGS_LOG
+&amp; stop
+if $syslogfacility-text == &apos;local3&apos; then ?UNKNOWN_LOG
+</code></pre>
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/django-form.html" class="pre-post btn btn-default" title="django-form">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">django-form</span>
+        </a>
+    
+    
+        <a href="/windows-multi-user.html" class="next-post btn btn-default" title="windows-multi-user">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">windows-multi-user</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#rsyslog-日志转发"><span class="toc-text">rsyslog 日志转发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rsyslog-client"><span class="toc-text">rsyslog client:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看rsyslog版本"><span class="toc-text">查看rsyslog版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备份原先的配置"><span class="toc-text">备份原先的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装rsyslog-relp"><span class="toc-text">安装rsyslog-relp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改rsyslog-conf"><span class="toc-text">修改rsyslog.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#禁止日志写到-var-log-syslog，同时启用local3。-none表示什么都不记录"><span class="toc-text">禁止日志写到/var/log/syslog，同时启用local3。 none表示什么都不记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证rsyslog配置"><span class="toc-text">验证rsyslog配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启rsyslogd"><span class="toc-text">重启rsyslogd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rsyslog-server"><span class="toc-text">rsyslog server:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看rsyslog版本-1"><span class="toc-text">查看rsyslog版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#备份原先的配置-1"><span class="toc-text">备份原先的配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装rsyslog-relp-1"><span class="toc-text">安装rsyslog-relp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改rsyslog-conf-1"><span class="toc-text">修改rsyslog.conf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#禁止日志写到-var-log-syslog，同时启用local3-none表示什么都不记录"><span class="toc-text">禁止日志写到/var/log/syslog，同时启用local3, none表示什么都不记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义配置文件"><span class="toc-text">自定义配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证rsyslog配置-1"><span class="toc-text">验证rsyslog配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录权限"><span class="toc-text">目录权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启rsyslogd-1"><span class="toc-text">重启rsyslogd</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#logger命令"><span class="toc-text">logger命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logger命令解释"><span class="toc-text">logger命令解释</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调试模式"><span class="toc-text">调试模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置列子"><span class="toc-text">配置列子</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
