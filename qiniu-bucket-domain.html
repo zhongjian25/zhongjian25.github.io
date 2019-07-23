@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="环境需求
+cdn 在腾讯云
+存储在七牛云
+每次配置cdn,都需要找七牛云配置源站域名绑定到相应的存储上面。
+但七牛云的控制台上并没有这个信息。
+只能更具API 来获取
+
+七牛API获取 Buck...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>qiniu_bucket_domain | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/django/"><i class="fa "></i>Django</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="qiniu_bucket_domain">
+            
+	            qiniu_bucket_domain
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/python/">python</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/七牛云-Bucket-空间域名/">七牛云 Bucket 空间域名</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/23</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="环境需求"><a href="#环境需求" class="headerlink" title="环境需求"></a>环境需求</h3><ul>
+<li>cdn 在腾讯云</li>
+<li>存储在七牛云</li>
+<li>每次配置cdn,都需要找七牛云配置源站域名绑定到相应的存储上面。</li>
+<li>但七牛云的控制台上并没有这个信息。</li>
+<li>只能更具API 来获取</li>
+</ul>
+<h3 id="七牛API"><a href="#七牛API" class="headerlink" title="七牛API"></a>七牛API</h3><p><a href="https://developer.qiniu.com/kodo/api/3949/get-the-bucket-space-domain">获取 Bucket 空间域名</a></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><ul>
+<li>Python2.7<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line"></span><br><span class="line">from qiniu import Auth</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># import bucket</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import platform</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line"># from requests.auth import AuthBase</span><br><span class="line"></span><br><span class="line">from qiniu.compat import is_py2, is_py3</span><br><span class="line">from qiniu import config</span><br><span class="line">import qiniu.auth</span><br><span class="line"></span><br><span class="line">### 版本号可能会变,https://github.com/qiniu/python-sdk/blob/master/qiniu/__init__.py 这边去确认</span><br><span class="line">__version__ = &apos;7.2.6&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">_sys_info = &apos;&#123;0&#125;; &#123;1&#125;&apos;.format(platform.system(), platform.machine())</span><br><span class="line">_python_ver = platform.python_version()</span><br><span class="line"></span><br><span class="line">USER_AGENT = &apos;QiniuPython/&#123;0&#125; (&#123;1&#125;; ) Python/&#123;2&#125;&apos;.format(</span><br><span class="line">    __version__, _sys_info, _python_ver)</span><br><span class="line"></span><br><span class="line">_session = None</span><br><span class="line">_headers = &#123;&apos;User-Agent&apos;: USER_AGENT&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">access_key = &apos;填入ak&apos;</span><br><span class="line">secret_key = &apos;填入sk&apos;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">bucket_name = &quot;存储空间名&quot;</span><br><span class="line"></span><br><span class="line">auth = Auth(access_key, secret_key)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def _get(url, params, auth):</span><br><span class="line">    try:</span><br><span class="line">        r = requests.get(</span><br><span class="line">            url,</span><br><span class="line">            params=params,</span><br><span class="line">            auth=qiniu.auth.RequestsAuth(auth) if auth is not None else None,</span><br><span class="line">            timeout=config.get_default(&apos;connection_timeout&apos;),</span><br><span class="line">            headers=_headers)</span><br><span class="line">    except Exception as e:</span><br><span class="line">        return None, ResponseInfo(None, e)</span><br><span class="line">    return __return_wrapper(r)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def __return_wrapper(resp):</span><br><span class="line">    if resp.status_code != 200 or resp.headers.get(&apos;X-Reqid&apos;) is None:</span><br><span class="line">        return None, ResponseInfo(resp)</span><br><span class="line">    resp.encoding = &apos;utf-8&apos;</span><br><span class="line">    ret = resp.json(encoding=&apos;utf-8&apos;) if resp.text != &apos;&apos; else &#123;&#125;</span><br><span class="line">    if ret is None:  # json null</span><br><span class="line">        ret = &#123;&#125;</span><br><span class="line">    return ret, ResponseInfo(resp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class ResponseInfo(object):</span><br><span class="line">    &quot;&quot;&quot;七牛HTTP请求返回信息类</span><br><span class="line"></span><br><span class="line">    该类主要是用于获取和解析对七牛发起各种请求后的响应包的header和body。</span><br><span class="line"></span><br><span class="line">    Attributes:</span><br><span class="line">        status_code: 整数变量，响应状态码</span><br><span class="line">        text_body:   字符串变量，响应的body</span><br><span class="line">        req_id:      字符串变量，七牛HTTP扩展字段，参考 http://developer.qiniu.com/docs/v6/api/reference/extended-headers.html</span><br><span class="line">        x_log:       字符串变量，七牛HTTP扩展字段，参考 http://developer.qiniu.com/docs/v6/api/reference/extended-headers.html</span><br><span class="line">        error:       字符串变量，响应的错误内容</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">    def __init__(self, response, exception=None):</span><br><span class="line">        &quot;&quot;&quot;用响应包和异常信息初始化ResponseInfo类&quot;&quot;&quot;</span><br><span class="line">        self.__response = response</span><br><span class="line">        self.exception = exception</span><br><span class="line">        if response is None:</span><br><span class="line">            self.status_code = -1</span><br><span class="line">            self.text_body = None</span><br><span class="line">            self.req_id = None</span><br><span class="line">            self.x_log = None</span><br><span class="line">            self.error = str(exception)</span><br><span class="line">        else:</span><br><span class="line">            self.status_code = response.status_code</span><br><span class="line">            self.text_body = response.text</span><br><span class="line">            self.req_id = response.headers.get(&apos;X-Reqid&apos;)</span><br><span class="line">            self.x_log = response.headers.get(&apos;X-Log&apos;)</span><br><span class="line"></span><br><span class="line">            if self.status_code &gt;= 400:</span><br><span class="line">                ret = response.json() if response.text != &apos;&apos; else None</span><br><span class="line">                if ret is None or ret[&apos;error&apos;] is None:</span><br><span class="line">                    self.error = &apos;unknown&apos;</span><br><span class="line">                else:</span><br><span class="line">                    self.error = ret[&apos;error&apos;]</span><br><span class="line">            if self.req_id is None and self.status_code == 200:</span><br><span class="line">                self.error = &apos;server is not qiniu&apos;</span><br><span class="line"></span><br><span class="line">    def ok(self):</span><br><span class="line">        return self.status_code == 200 and self.req_id is not None</span><br><span class="line"></span><br><span class="line">    def need_retry(self):</span><br><span class="line">        if self.__response is None or self.req_id is None:</span><br><span class="line">            return True</span><br><span class="line">        code = self.status_code</span><br><span class="line">        if (code // 100 == 5 and code != 579) or code == 996:</span><br><span class="line">            return True</span><br><span class="line">        return False</span><br><span class="line"></span><br><span class="line">    def connect_failed(self):</span><br><span class="line">        return self.__response is None or self.req_id is None</span><br><span class="line"></span><br><span class="line">    def __str__(self):</span><br><span class="line">        if is_py2:</span><br><span class="line">            return &apos;, &apos;.join(</span><br><span class="line">                [&apos;%s:%s&apos; % item for item in self.__dict__.items()]).encode(&apos;utf-8&apos;)</span><br><span class="line">        elif is_py3:</span><br><span class="line">            return &apos;, &apos;.join([&apos;%s:%s&apos; %</span><br><span class="line">                              item for item in self.__dict__.items()])</span><br><span class="line"></span><br><span class="line">    def __repr__(self):</span><br><span class="line">        return self.__str__()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    options = &#123;</span><br><span class="line">            &apos;tbl&apos;: bucket_name,</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    url = &apos;http://api.qiniu.com/v6/domain/list&apos;</span><br><span class="line">    print(bucket_name)</span><br><span class="line">    ret, info = _get(url, options, auth)</span><br><span class="line">    print(info)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/window-disk.html" class="next-post btn btn-default" title="window-disk">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">window-disk</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境需求"><span class="toc-text">环境需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#七牛API"><span class="toc-text">七牛API</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
