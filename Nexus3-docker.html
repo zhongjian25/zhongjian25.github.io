@@ -1,0 +1,548 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="云运维">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="https://www.172173.com">
+    <!--SEO-->
+
+    <meta name="keywords" content="{{ page.keywords }}">
+
+
+    <meta name="description" content="使用nexus3.x配置docker镜像仓库及仓库代理前言我们一直使用 docker registry 作为docker的镜像仓库，但docker registry只能作为私有仓库，当需要Doc...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+
+    <!--Title-->
+
+
+<title>Nexus3-docker | 云运维</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+    
+
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+
+
+
+
+    
+	<div class="hide">
+		<script type="text/javascript">
+			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+	</div>
+
+
+
+
+
+	<script>
+		(function(i, s, o, g, r, a, m) {
+		    i['GoogleAnalyticsObject'] = r;
+		    i[r] = i[r] || function() {
+		        (i[r].q = i[r].q || []).push(arguments)
+		    }, i[r].l = 1 * new Date();
+		    a = s.createElement(o),
+		    m = s.getElementsByTagName(o)[0];
+		    a.async = 1;
+		    a.src = g;
+		    m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+		ga('create', 'UA-139064963-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+
+
+    
+
+    <script>
+        (function(){
+            var bp = document.createElement('script');
+            var curProtocol = window.location.protocol.split(':')[0];
+            if (curProtocol === 'https') {
+                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+            }
+            else {
+                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+            }
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(bp, s);
+        })();
+    </script>
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-7288533661448713",
+          enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+
+<body>
+    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="zj">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                <h2> 越努力越幸运 </h2>
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa "></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/python/"><i class="fa "></i>Python</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/django/"><i class="fa "></i>Django</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/archives/"><i class="fa "></i>时间轴</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Nexus3-docker">
+            
+	            Nexus3-docker
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/运维/">运维</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Nexus3-docker/">Nexus3 docker</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2019/07/24</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="使用nexus3-x配置docker镜像仓库及仓库代理"><a href="#使用nexus3-x配置docker镜像仓库及仓库代理" class="headerlink" title="使用nexus3.x配置docker镜像仓库及仓库代理"></a><strong>使用nexus3.x配置docker镜像仓库及仓库代理</strong></h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a><strong>前言</strong></h2><p>我们一直使用 docker registry 作为docker的镜像仓库，但docker registry只能作为私有仓库，当需要Docker Hub 或 Google Cloud Containers 上的镜像时，我们只能自己手动pull，重新打tag，再push到docker registry上。</p>
+<p>当需要拉取多个镜像时，这样相当麻烦，尤其是我们使用Kubespray来部署Kubernetes集群，仅仅准备镜像就需要花费很多时间。</p>
+<p>我们希望有一个Docker仓库，能同时托管私有镜像，还能代理访问公共的镜像仓库。</p>
+<p>正好我们在使用Nexus作为Maven的仓库，同时nexus3提供了Docker, yum, apt, npm, ruby gems, pypi 等诸多类型的仓库功能。</p>
+<p>经过技术调研，Nexus3完全可以达到我们的预期。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a><strong>注意事项</strong></h2><p>Nexus3 提供了的3种类型的Docker仓库，前两者都可以创建多个仓库，最后一个则可以将他们全部聚合到一个URL来访问。</p>
+<ul>
+<li>docker (hosted): 自托管</li>
+<li>docker (proxy): 代理</li>
+<li>docker (group): 聚合</li>
+</ul>
+<p>建议为你想要创建的每个新仓库创建一个新的blob store。这样，每个仓库的数据都将位于/nexus-data中的不同文件夹中（在Docker容器内）</p>
+<p>需要注意的重要事项：Docker repo需要2个不同的端口。我们将使用5001端口从代理仓库获取镜像，5002端口用于拉动并推送到私人仓库。</p>
+<h2 id="创建docker仓库"><a href="#创建docker仓库" class="headerlink" title="创建docker仓库"></a><strong>创建docker仓库</strong></h2><h3 id="1-为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。"><a href="#1-为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。" class="headerlink" title="1. 为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。"></a><strong><em>1. 为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。</em></strong></h3><ul>
+<li><p>Name：填写一个易于辨认的名字</p>
+</li>
+<li><p>Path：会自动生成并补全。默认在Nexus安装目录下面的sonatype-work/nexus3/blobs/下，也可以修改到其它目录或磁盘，甚至可以是NFS或者cephfs的目录。</p>
+<p>  分别创建三个blobs: docker-hub-hosted, docker-hub-proxy, docker-hub-group<br>  <img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960256/nexus3-docker/01_ulchll.jpg" alt="image"><br>  <img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960256/nexus3-docker/02_i2w7fx.jpg" alt="image"></p>
+</li>
+</ul>
+<h3 id="2-创建一个hosted类型的docker仓库"><a href="#2-创建一个hosted类型的docker仓库" class="headerlink" title="2. 创建一个hosted类型的docker仓库"></a><strong><em>2. 创建一个hosted类型的docker仓库</em></strong></h3><p>Hosted类型仓库用作我们的私有仓库<br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960257/nexus3-docker/03_iycbqv.jpg" alt="image"></p>
+<ul>
+<li><p>点击 Repository下面的 Repositories - Create repository - docker(hosted) :</p>
+</li>
+<li><p>Name: 输入一个简洁直观的名字</p>
+</li>
+<li><p>Online: 勾选。这个开关可以设置这个Docker repo是在线还是离线。</p>
+</li>
+<li><p>Repository Connectors</p>
+<p>  下面包含HTTP和HTTPS两种类型的port。</p>
+<p>  有什么用呢？说明讲得很清楚：</p>
+<p>  连接器允许docker客户端直接连接到docker仓库，并实现一些请求操作，如docker pull, docker push, API查询等。</p>
+<p>  因此，这里我们勾选http并且填写端口 15002， Nexus就会启动一个监听到15002端口的连接器。</p>
+</li>
+<li><p>Force basic authentication</p>
+<p>  勾选。这样的话就不允许匿名访问了，执行docker pull或 docker push之前，都要先登录：docker login</p>
+</li>
+<li><p>Docker Registry API Support</p>
+<p>  Docker registry默认使用的是API v2, 但是为了兼容性，我们可以勾选启用API v1。</p>
+</li>
+<li><p>Storage</p>
+<p>  Blob store，我们下拉选择前面创建好的专用blob：docker-hub-hosted</p>
+</li>
+<li><p>Hosted</p>
+<p>  开发环境，我们运行重复发布，因此Delpoyment policy 我们选择Allow redeploy。</p>
+</li>
+</ul>
+<h3 id="3-创建一个proxy类型的docker仓库"><a href="#3-创建一个proxy类型的docker仓库" class="headerlink" title="3. 创建一个proxy类型的docker仓库"></a><strong><em>3. 创建一个proxy类型的docker仓库</em></strong></h3><p>proxy类型仓库，可以帮助我们访问不能直接到达的网络，如另一个私有仓库，或者国外的公共仓库，如Google cloud registry。<br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960258/nexus3-docker/04_ycvrxy.jpg" alt="image"><br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960257/nexus3-docker/05_rku3nw.jpg" alt="image"></p>
+<p>对于代理Docker hub, 官方有简要的文档可以参考<a href="https://help.sonatype.com/repomanager3/private-registry-for-docker/proxy-repository-for-docker">Proxy Repository for Docker</a></p>
+<ul>
+<li>点击 Repository下面的 Repositories - Create repository - docker(proxy) :</li>
+<li>Name: 输入一个简洁直观的名字</li>
+<li>Online: 勾选。这个开关可以设置这个Docker repo是在线还是离线。</li>
+<li>Repository Connectors: 不设置。</li>
+<li><p>Proxy</p>
+<p>  Remote Storage: 当配置docker hub的proxy时，这里填写: <a href="https://registry-1.docker.io">https://registry-1.docker.io</a></p>
+<p>  Docker Index: 当配置docker hub的Docker Index时，点选Use Docker Hub或者填写：<a href="https://index.docker.io/">https://index.docker.io/</a></p>
+</li>
+<li><p>Storage</p>
+<p>  Blob store，我们下拉选择前面创建好的专用blob：docker-hub-proxy</p>
+</li>
+</ul>
+<h3 id="4-创建一个group类型的docker仓库"><a href="#4-创建一个group类型的docker仓库" class="headerlink" title="4. 创建一个group类型的docker仓库"></a><strong><em>4. 创建一个group类型的docker仓库</em></strong></h3><p>group类型的docker仓库，是一个聚合类型的仓库。它可以将前面我们创建的3个仓库聚合成一个URL对外提供服务，可以屏蔽后端的差异性，实现类似透明代理的功能。</p>
+<p><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960257/nexus3-docker/06_ycqqs4.jpg" alt="image"><br><img src="https://res.cloudinary.com/www-172173-com/image/upload/v1563960258/nexus3-docker/07_cpafof.jpg" alt="image"></p>
+<ul>
+<li>点击 Repository下面的 Repositories - Create repository - docker(group) :</li>
+<li>Name: 输入一个简洁直观的名字,</li>
+<li>Online: 勾选。这个开关可以设置这个Docker repo是在线还是离线。</li>
+<li><p>Repository Connectors</p>
+<p>  这里我们勾选http并且填写端口 15001， Nexus就会启动一个监听到15001端口的连接器。</p>
+</li>
+<li><p>Storage：选择专用的blob存储docker-hub-hosted</p>
+</li>
+<li>group : 将左边选择需要添加的仓库，添加到右边的members下；</li>
+</ul>
+<h2 id="设置SSL（可选）"><a href="#设置SSL（可选）" class="headerlink" title="设置SSL（可选）"></a><strong>设置SSL（可选）</strong></h2><p>默认情况下，Docker客户端是使用HTTPS与repo通信，但是这不是必须的。</p>
+<p>Nexus3上SSL有两种方式Nginx反向代理和JAVA Keytool。</p>
+<ul>
+<li><p>JAVA Keytool</p>
+<p>  这个建议参考官网的文档: <a href="https://help.sonatype.com/repomanager3/security/configuring-ssl">Configuring SSL</a></p>
+</li>
+<li><p>Nginx反向代理</p>
+<p>  使用Nginx反向代理，需要配置前面定义好的 5001和5002。</p>
+<p>  参考配置如下:</p>
+<pre><code>upstream register_5000
+{
+    server 127.0.0.1:5001;
+}
+
+server {
+    listen       15001 ssl;
+    server_name your-repo;
+
+    ssl_certificate /usr/local/nginx/conf/ssl-key/STAR.your-repo.crt;
+    ssl_certificate_key /usr/local/nginx/conf/ssl-key/STAR.your-repo.key;
+
+    ssl_session_timeout  5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers  HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers   on;
+    large_client_header_buffers 4 32k;
+
+    client_max_body_size 1000m;
+    client_body_buffer_size 512k;
+    proxy_connect_timeout 600;
+    proxy_read_timeout   600;
+    proxy_send_timeout   600;
+    proxy_buffer_size    128k;
+    proxy_buffers       4 64k;
+    proxy_busy_buffers_size 128k;
+    proxy_temp_file_write_size 512k;
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_redirect off;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://register_5000;
+        proxy_read_timeout 900s;
+    }
+
+    #error_page   500 502 503 504  /50x.html;
+    access_log  /data/httplogs/your-repo-access.log weblog;
+    error_log  /data/httplogs/your-repo-error.log;
+}
+</code></pre></li>
+</ul>
+<h2 id="配置客户端和项目以使用Nexus存储库"><a href="#配置客户端和项目以使用Nexus存储库" class="headerlink" title="配置客户端和项目以使用Nexus存储库"></a><strong>配置客户端和项目以使用Nexus存储库</strong></h2><h3 id="1-配置-etc-docker-daemon-json，并重启docker。"><a href="#1-配置-etc-docker-daemon-json，并重启docker。" class="headerlink" title="1. 配置/etc/docker/daemon.json，并重启docker。"></a><strong><em>1. 配置/etc/docker/daemon.json，并重启docker。</em></strong></h3><ul>
+<li><p>http</p>
+<pre><code>$ vim /etc/docker/daemon.json
+{
+&quot;insecure-registries&quot;: [
+    &quot;http://your-repo:5001&quot;,
+    &quot;http://your-repo:5002&quot;
+    ],
+&quot;disable-legacy-registry&quot;: true
+}
+</code></pre></li>
+<li><p>https</p>
+<pre><code>$ vim /etc/docker/daemon.json
+{
+&quot;registry-mirrors&quot;: [
+    &quot;https://your-repo:15001&quot;,
+    &quot;https://your-repo:15002&quot;
+    ]
+}
+</code></pre></li>
+</ul>
+<h3 id="2-登陆docker。"><a href="#2-登陆docker。" class="headerlink" title="2. 登陆docker。"></a><strong><em>2. 登陆docker。</em></strong></h3><p>需要登陆两次</p>
+<pre><code>$ docker login -u docker-user -p XXXXX https://your-repo:15001
+
+$ docker login -u docker-user -p XXXXX https://your-repo:15002
+</code></pre><h3 id="3-使用docker。"><a href="#3-使用docker。" class="headerlink" title="3. 使用docker。"></a><strong><em>3. 使用docker。</em></strong></h3><pre><code>$ docker pull your-repo:15001/rabbitmq:3.7
+
+$ docker tag abd3fc84b335 your-repo:15002/rabbitmq:3.7
+$ docker push your-repo:15002/rabbitmq:3.7
+</code></pre><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a><strong>参考链接</strong></h2><p><a href="https://segmentfault.com/a/1190000015629878">https://segmentfault.com/a/1190000015629878</a></p>
+<p><a href="https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images">https://blog.sonatype.com/using-nexus-3-as-your-repository-part-3-docker-images</a></p>
+<p><a href="https://help.sonatype.com/repomanager3/private-registry-for-docker/proxy-repository-for-docker">https://help.sonatype.com/repomanager3/private-registry-for-docker/proxy-repository-for-docker</a></p>
+<p><a href="https://blog.csdn.net/sinat_31908303/article/details/79799654">https://blog.csdn.net/sinat_31908303/article/details/79799654</a></p>
+
+    </div>
+    
+        <div class="reward" ontouchstart>
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
+</div>
+
+
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/Nexus3.html" class="next-post btn btn-default" title="Nexus3">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">Nexus3</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+-->
+
+
+    <div id="comments">
+        
+	
+    <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
+            appKey: 'wn426D29iJpKjYczYLBPPCiP',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+
+
+    </div>
+
+
+
+
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#使用nexus3-x配置docker镜像仓库及仓库代理"><span class="toc-text">使用nexus3.x配置docker镜像仓库及仓库代理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意事项"><span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建docker仓库"><span class="toc-text">创建docker仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。"><span class="toc-text">1. 为了仓库数据的独立性和安全性，我们可以给每一个repository创建一个独立的Blob块存储。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建一个hosted类型的docker仓库"><span class="toc-text">2. 创建一个hosted类型的docker仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-创建一个proxy类型的docker仓库"><span class="toc-text">3. 创建一个proxy类型的docker仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-创建一个group类型的docker仓库"><span class="toc-text">4. 创建一个group类型的docker仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置SSL（可选）"><span class="toc-text">设置SSL（可选）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置客户端和项目以使用Nexus存储库"><span class="toc-text">配置客户端和项目以使用Nexus存储库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-配置-etc-docker-daemon-json，并重启docker。"><span class="toc-text">1. 配置/etc/docker/daemon.json，并重启docker。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-登陆docker。"><span class="toc-text">2. 登陆docker。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-使用docker。"><span class="toc-text">3. 使用docker。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<span>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+
+
+
+</span>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+
+            </div>
+            <div class="col-sm-12">
+               
+                <span>Copyright &copy; 2019
+                </span> |
+                 <span>
+                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
+P备18011948号</a>
+        	</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+
+</body>
+</html>
