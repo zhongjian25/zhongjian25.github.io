@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>nginx-ocsp | 云运维</title>
+  
+  <meta name="keywords" content="nginx ocsp, 云运维 运维 技术 云 172173">
+  
+  
+  <meta name="description" content="创新云技术">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+<!--<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>-->
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class="cover post half">
+      
+        
+  <h1 class="title">172173.com</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder>
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class="menu navgation">
+  <ul class="h-list">
+    
+      
+        <li>
+          <a class="nav home" href="/" id="home">
+            <i class="fas fa-rss fa-fw"></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/" id="categories">
+            <i class="fas fa-code-branch fa-fw"></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/friends/" rel="nofollow" id="friends">
+            <i class="fas fa-link fa-fw"></i>&nbsp;友链
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/" rel="nofollow" id="about">
+            <i class="fas fa-info-circle fa-fw"></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          云运维
+        
+      </a>
+			<div class="menu navgation">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/categories/Linux" id="categoriesLinux">
+									<i class="fas fa-grin fa-fw"></i>&nbsp;Linux
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Windows" rel="nofollow" id="categoriesWindows">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;Windows
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Python" rel="nofollow" id="categoriesPython">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;Python
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/工具" rel="nofollow" id="categories工具">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;工具
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+        
+          <li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/" id="home">
+								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+								<i class="fas fa-archive fa-fw"></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categores/" id="categores">
+								<i class="fas fa-code-branch fa-fw"></i>&nbsp;文档分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/" rel="nofollow" id="friends">
+								<i class="fas fa-link fa-fw"></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/" rel="nofollow" id="https:xaoxuu.comwikimaterial-x">
+								<i class="fas fa-book fa-fw"></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/" rel="nofollow" id="about">
+								<i class="fas fa-info-circle fa-fw"></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class="l_main">
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/nginx-ocsp.html">
+        nginx-ocsp
+      </a>
+    </h1>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://www.172173.com" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>zj</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-08-10</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Linux/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Linux</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <blockquote>
+<p>OCSP是更轻量级的，因为它一次只获取一条记录。但是副作用是，当连接到服务器的时候，OCSP请求必须发送到第三方响应者，这增加了延迟，以及失败的可能。实际上，OCSP响应者由CA操控，由于它常常不可靠，导致浏览器由于收不到适时的响应而失败。这减少了安全性，因为它允许攻击者对OCSP响应者进行DoS攻击来取消验证。</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="nginx-配置文件"><a href="#nginx-配置文件" class="headerlink" title="nginx 配置文件"></a>nginx 配置文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ssl_dhparam /usr/local/nginx/ssl-key/dh_ssl/nginx.pem;</span><br><span class="line">ssl_certificate /usr/local/nginx/ssl-key/_.yd.cc/STAR.yd.cc.crt;</span><br><span class="line">ssl_certificate_key /usr/local/nginx/ssl-key/_.yd.cc/STAR.yd.cc.key;</span><br><span class="line">ssl_trusted_certificate </span><br><span class="line"></span><br><span class="line"># ocsp</span><br><span class="line">ssl_stapling               on;</span><br><span class="line">ssl_stapling_verify        on;</span><br><span class="line">ssl_trusted_certificate /usr/local/nginx/ssl-key/GlobalSign/chain.pem;</span><br><span class="line"># 国内国外 dns 不一样</span><br><span class="line">resolver 8.8.8.8 8.8.4.4 223.5.5.5 valid=300s;</span><br><span class="line">resolver_timeout 5s;</span><br></pre></td></tr></table></figure>
+<h2 id="配置项-说明"><a href="#配置项-说明" class="headerlink" title="配置项 说明"></a>配置项 说明</h2><ul>
+<li>ssl_dhparam<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">所有的nginx版本在往Diffiel-Hellman输入参数时依赖OpenSSL。不幸的时，这就意味着Ephemeral Diffiel-Hellman（DHE）会使用OpenSSL的这一缺陷，包括一个1024位的交换密钥。由于我们正在使用一个2048位的证书，DHE客户端比非ephemeral客户端将使用一个更弱的密钥交换。</span><br><span class="line"></span><br><span class="line">我们需要产生一个更强的DHE参数：</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cd /etc/ssl/certs</span><br><span class="line">openssl dhparam -out dhparam.pem 4096</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>ssl_certificate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">网站证书</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ssl_certificate_key</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">证书私钥</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ssl_trusted_certificate</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OCSP是更轻量级的，因为它一次只获取一条记录。但是副作用是，当连接到服务器的时候，OCSP请求必须发送到第三方响应者，这增加了延迟，以及失败的可能。实际上，OCSP响应者由CA操控，由于它常常不可靠，导致浏览器由于收不到适时的响应而失败。这减少了安全性，因为它允许攻击者对OCSP响应者进行DoS攻击来取消验证。</span><br><span class="line"></span><br><span class="line">解决方案是在TLS握手期间，允许服务器发送缓存的OCSP记录，这样来绕过OCSP响应者。这个技术节省了在客户端和OCSP响应者之间的一个来回，称为OCSP闭合（OCSP Stapling）。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="检查ocsp-是否开启"><a href="#检查ocsp-是否开启" class="headerlink" title="检查ocsp 是否开启"></a>检查ocsp 是否开启</h1><p>服务端启用 OCSP Stapling 之后，客户端还需要在建立 TLS 时，在 Client Hello 中启用 status_request 这个 TLS 扩展，告诉服务端自己希望得到 OCSP Response。目前主流浏览器都会带上 status_request，而在 openssl 中需要指定 -status 参数。完整命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl s_client -connect imququ.com:443 -status -tlsextdebug &lt; /dev/null 2&gt;&amp;1 | grep -i &quot;OCSP response&quot;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>如果你的服务器上部署了多个 HTTPS 站点，可能还需要加上 -servername 参数启用 SNI：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ openssl s_client -connect imququ.com:443 -servername imququ.com -status -tlsextdebug &lt; /dev/null 2&gt;&amp;1 | grep -i &quot;OCSP response&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果结果是下面这样，说明 OCSP Stapling 已开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OCSP response:</span><br><span class="line">OCSP Response Data:</span><br><span class="line">    OCSP Response Status: successful (0x0)</span><br><span class="line">    Response Type: Basic OCSP Response</span><br></pre></td></tr></table></figure></p>
+<p>而这样显然是未开启：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OCSP response: no response sent</span><br></pre></td></tr></table></figure></p>
+<h1 id="获取证书-OCSP-Response"><a href="#获取证书-OCSP-Response" class="headerlink" title="获取证书 OCSP Response"></a>获取证书 OCSP Response</h1><p>了解如何通过 openssl 验证 OCSP Stapling 状态后，我们再来看看 OCSP Response 的完整内容，去掉前面命令中的 grep 就可以看到。例如这是本站的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">$ openssl s_client -connect imququ.com:443 -status -tlsextdebug &lt; /dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">OCSP response:</span><br><span class="line">======================================</span><br><span class="line">OCSP Response Data:</span><br><span class="line">    OCSP Response Status: successful (0x0)</span><br><span class="line">    Response Type: Basic OCSP Response</span><br><span class="line">    Version: 1 (0x0)</span><br><span class="line">    Responder Id: 87BAEBE8F7B12700EC9CD1A04EE0E123E57D809E</span><br><span class="line">    Produced At: Mar 11 07:56:56 2016 GMT</span><br><span class="line">    Responses:</span><br><span class="line">    Certificate ID:</span><br><span class="line">      Hash Algorithm: sha1</span><br><span class="line">      Issuer Name Hash: 7C8E4E54532DB74C235073AAF1CDCF2C2423F86B</span><br><span class="line">      Issuer Key Hash: F3B5560CC409B0B4CF1FAAF9DD2356F077E8A1F9</span><br><span class="line">      Serial Number: 5A26</span><br><span class="line">    Cert Status: good</span><br><span class="line">    This Update: Mar 11 07:56:56 2016 GMT</span><br><span class="line">    Next Update: Mar 18 07:56:56 2016 GMT</span><br><span class="line"></span><br><span class="line">    Signature Algorithm: sha1WithRSAEncryption</span><br><span class="line">         8a:81:d6:a5:aa:8a:92:05:6f:39:97:f5:da:d0:bc:06:86:f2:</span><br><span class="line">         ... ...</span><br><span class="line">Certificate:</span><br><span class="line">    Data:</span><br><span class="line">        Version: 3 (0x2)</span><br><span class="line">        Serial Number: 8 (0x8)</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">        Issuer: C=US, O=GeoTrust Inc., CN=RapidSSL SHA256 CA - G4</span><br><span class="line">        Validity</span><br><span class="line">            Not Before: Jul 10 18:18:29 2015 GMT</span><br><span class="line">            Not After : May 22 18:18:29 2016 GMT</span><br><span class="line">        Subject: CN=RapidSSL SHA256 CA - G4 OCSP Responder</span><br><span class="line">        Subject Public Key Info:</span><br><span class="line">            Public Key Algorithm: rsaEncryption</span><br><span class="line">                Public-Key: (2048 bit)</span><br><span class="line">                Modulus:</span><br><span class="line">                    00:9d:e9:7b:75:81:1e:00:ab:b3:b4:cc:3f:a3:2d:</span><br><span class="line">                    ... ...</span><br><span class="line">                Exponent: 65537 (0x10001)</span><br><span class="line">        X509v3 extensions:</span><br><span class="line">            X509v3 Authority Key Identifier:</span><br><span class="line">                keyid:F3:B5:56:0C:C4:09:B0:B4:CF:1F:AA:F9:DD:23:56:F0:77:E8:A1:F9</span><br><span class="line"></span><br><span class="line">            OCSP No Check:</span><br><span class="line"></span><br><span class="line">            X509v3 Subject Key Identifier:</span><br><span class="line">                87:BA:EB:E8:F7:B1:27:00:EC:9C:D1:A0:4E:E0:E1:23:E5:7D:80:9E</span><br><span class="line">            X509v3 Extended Key Usage:</span><br><span class="line">                OCSP Signing</span><br><span class="line">            X509v3 Basic Constraints: critical</span><br><span class="line">                CA:FALSE</span><br><span class="line">            X509v3 Key Usage: critical</span><br><span class="line">                Digital Signature</span><br><span class="line">            X509v3 Subject Alternative Name:</span><br><span class="line">                DirName:/CN=TGV-C-26</span><br><span class="line">    Signature Algorithm: sha256WithRSAEncryption</span><br><span class="line">         bb:ac:c3:3e:8b:20:be:a0:a7:4d:bb:e1:d1:c3:98:17:8e:58:</span><br><span class="line">         ... ...</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIDnTCCAoWgAwIBAgIBCDANBgkqhkiG9w0BAQsFADBHMQswCQYDVQQGEwJVUzEW</span><br><span class="line">... ...</span><br><span class="line">bmgyvaosG4GykSUnasMqfbA=</span><br><span class="line">-----END CERTIFICATE-----</span><br><span class="line">======================================</span><br></pre></td></tr></table></figure>
+<p>可以看到 OCSP Response 由两部分组成：OCSP Response Data 和 Certificate。OCSP Response Data 是本站证书的验证信息；而 Certificate 则是用来验证 OCSP Response Data。本例中的 Certificate 的 Common Name 是 RapidSSL SHA256 CA - G4 OCSP Responder，可以看出它专属于 RapidSSL 的 OCSP 服务。后面我们会发现，并不是每一家 CA 的 OCSP Response 都会提供 Certificate 信息。<br>上面这段 OCSP Response 信息是通过服务端 OCSP Stapling 获取的。下面介绍如何通过 openssl 在本地获取证书 OCSP Response。</p>
+<p>首先需要准备好待验证网站证书链上的所有证书。证书链一般由根证书、一个或多个中间证书、站点证书组成。根证书内置在操作系统或浏览器内（Firefox），可以直接导出，或者去各大 CA 官方下载；中间证书、站点证书在建立 TLS 连接时由服务端发送，可以这样获取：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">$ openssl s_client -connect imququ.com:443 -showcerts &lt; /dev/null 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">CONNECTED(00000003)</span><br><span class="line">depth=2 C = US, O = GeoTrust Inc., OU = (c) 2008 GeoTrust Inc. - For authorized use only, CN = GeoTrust Primary Certification Authority - G3</span><br><span class="line">verify return:1</span><br><span class="line">depth=1 C = US, O = GeoTrust Inc., CN = RapidSSL SHA256 CA - G4</span><br><span class="line">verify return:1</span><br><span class="line">depth=0 CN = www.imququ.com</span><br><span class="line">verify return:1</span><br><span class="line">---</span><br><span class="line">Certificate chain</span><br><span class="line"> 0 s:/CN=www.imququ.com</span><br><span class="line">   i:/C=US/O=GeoTrust Inc./CN=RapidSSL SHA256 CA - G4</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIFMDCCBBigAwIBAgICWiYwDQYJKoZIhvcNAQELBQAwRzELMAkGA1UEBhMCVVMx</span><br><span class="line">... ...</span><br><span class="line">fBv5YysJ/pgFe75P9RVALMiPUPHvH2FGI47pxlvzs5+7Gt2p</span><br><span class="line">-----END CERTIFICATE-----</span><br><span class="line"> 1 s:/C=US/O=GeoTrust Inc./CN=RapidSSL SHA256 CA - G4</span><br><span class="line">   i:/C=US/O=GeoTrust Inc./OU=(c) 2008 GeoTrust Inc. - For authorized use only/CN=GeoTrust Primary Certification Authority - G3</span><br><span class="line">-----BEGIN CERTIFICATE-----</span><br><span class="line">MIIEpjCCA46gAwIBAgIQKByJKWYUQ4BCY1U6MkCuszANBgkqhkiG9w0BAQsFADCB</span><br><span class="line">... ...</span><br><span class="line">nPvdJAq9WZFKQgM4EnEyiHagjny7Mu+IKhvUam9QuVJni6sw+h/94ySa</span><br><span class="line">-----END CERTIFICATE-----</span><br><span class="line">---</span><br><span class="line">Server certificate</span><br><span class="line">subject=/CN=www.imququ.com</span><br><span class="line">issuer=/C=US/O=GeoTrust Inc./CN=RapidSSL SHA256 CA - G4</span><br><span class="line">---</span><br><span class="line">No client certificate CA names sent</span><br><span class="line">Peer signing digest: SHA512</span><br><span class="line">Server Temp Key: ECDH, P-256, 256 bits</span><br><span class="line">---</span><br><span class="line">SSL handshake has read 3460 bytes and written 434 bytes</span><br><span class="line">---</span><br><span class="line">New, TLSv1/SSLv3, Cipher is ECDHE-RSA-AES128-GCM-SHA256</span><br><span class="line">Server public key is 4096 bit</span><br><span class="line">Secure Renegotiation IS supported</span><br><span class="line">Compression: NONE</span><br><span class="line">Expansion: NONE</span><br><span class="line">No ALPN negotiated</span><br><span class="line">SSL-Session:</span><br><span class="line">    Protocol  : TLSv1.2</span><br><span class="line">    Cipher    : ECDHE-RSA-AES128-GCM-SHA256</span><br><span class="line">    Session-ID: B6A0F49F6DAD0BD8AFB63F87D134FFCBC2B1487CD81440C26D165B5738A5C3EC</span><br><span class="line">    Session-ID-ctx:</span><br><span class="line">    Master-Key: 72871B14BC37B08F51F818285264169C512B865D13839C9B824175115F008801781FBAC64D01FC76376BCAB85E6B8F84</span><br><span class="line">    Key-Arg   : None</span><br><span class="line">    PSK identity: None</span><br><span class="line">    PSK identity hint: None</span><br><span class="line">    SRP username: None</span><br><span class="line">    TLS session ticket lifetime hint: 86400 (seconds)</span><br><span class="line">    TLS session ticket:</span><br><span class="line">    0000 - 56 f8 0d dd 0e ea 7d 0b-09 70 0b dd 52 da b7 a8   V.....&#125;..p..R...</span><br><span class="line">    ... ...                                                  ... ...</span><br><span class="line">    00a0 - c2 25 af a9 46 69 64 73-69 16 ea 64 94 c7 f4 a4   .%..Fidsi..d....</span><br><span class="line"></span><br><span class="line">    Start Time: 1457861201</span><br><span class="line">    Timeout   : 300 (sec)</span><br><span class="line">    Verify return code: 0 (ok)</span><br><span class="line">---</span><br><span class="line">DONE</span><br></pre></td></tr></table></figure></p>
+<p>以上内容中 Certificate Chain 这一节，编号为 0 的证书是站点证书；编号为 1 的证书是中间证书。我的证书链一共是三级，服务端只需要发送两个证书，对于四级证书链，服务端就需要发送三个证书了。总之，只有根证书无需发送。</p>
+<p>将站点证书保存为 site.pem；中间证书保存为 intermediate.pem（如果有多个中间证书，按照子证书在上的顺序保存）；再从系统中导出对应的根证书存为 root.pem。这样，证书链上的所有证书都搞定了。为了确保无误，建议再验证一下每个证书的 Common Name：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -in site.pem -noout -subject</span><br><span class="line">subject= /CN=www.imququ.com</span><br><span class="line"></span><br><span class="line">$ openssl x509 -in intermediate.pem -noout -subject</span><br><span class="line">subject= /C=US/O=GeoTrust Inc./CN=RapidSSL SHA256 CA - G4</span><br><span class="line"></span><br><span class="line">$ openssl x509 -in root.pem -noout -subject</span><br><span class="line">subject= /C=US/O=GeoTrust Inc./OU=(c) 2008 GeoTrust Inc. - For authorized use only/CN=GeoTrust Primary Certification Authority - G3</span><br></pre></td></tr></table></figure>
+<p>接着，获取站点证书的 OCSP 服务地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ openssl x509 -in site.pem -noout -ocsp_uri</span><br><span class="line">http://gz.symcd.com</span><br></pre></td></tr></table></figure></p>
+<h1 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Error querying OCSP responsder</span><br><span class="line">140292167403336:error:27076072:OCSP routines:PARSE_HTTP_LINE1:server response error:ocsp_ht.c:250:Code=403,Reason=Forbidden</span><br></pre></td></tr></table></figure>
+<p>需要参数<br> -header “HOST” “ocsp.int-x3.letsencrypt.org” </p>
+<h1 id="验证方式"><a href="#验证方式" class="headerlink" title="验证方式"></a>验证方式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl ocsp -no_nonce -issuer intermediate.pem -cert ../_.yd.cc/STAR.yd.cc.crt -CAfile chain.pem -text -url http://ocsp2.globalsign.com/gsdomainvalg2 -header Host ocsp2.globalsign.com</span><br><span class="line"></span><br><span class="line">openssl ocsp -no_nonce -issuer intermediate.pem -cert ../_.app-fame.com/_.app-fame.com.crt -CAfile chain.pem -text -url http://gn.symcd.com -header Host &quot;http://gn.symcd.com&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="HA-证书"><a href="#HA-证书" class="headerlink" title="HA 证书"></a>HA 证书</h1><p>HA 证书 =  证书.cer + 证书.key</p>
+<h1 id="ginx开启ssl-dhparam"><a href="#ginx开启ssl-dhparam" class="headerlink" title="ginx开启ssl_dhparam"></a>ginx开启ssl_dhparam</h1><p>参考文档： <a href="https://weakdh.org/sysadmin.html">https://weakdh.org/sysadmin.html</a></p>
+<p>一般地，Nginx 会使用来自 Openssl 默认的 DHE 参数 (Ephemeral Diffie-Hellman)，其加密性能弱。我们可以在终端命令生成一个新的来代替它。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; mkdir /etc/letsencrypt/dh_ssl &amp;&amp; cd /etc/letsencrypt/dh_ssl</span><br><span class="line">shell&gt; openssl dhparam  -out xxx.com.pem 2048</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-14T17:39:04+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年8月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/nginx-ocsp/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>nginx ocsp</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/nginx-ocsp.html&title=nginx-ocsp | 云运维&summary=
+OCSP是更轻量级的，因为它一次只获取一条记录。但是副作用是，当连接到服务器的时候，OCSP请求必须发送到第三方响应者，这增加了延迟，以及失败的可能。实际上，OCSP响应者由CA操控，由于它常常不可靠，导致浏览器由于收不到适时的响应而失败。这减少了安全性，因为它允许攻击者对OCSP响应者进行DoS攻击来取消验证。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/nginx-ocsp.html&title=nginx-ocsp | 云运维&summary=
+OCSP是更轻量级的，因为它一次只获取一条记录。但是副作用是，当连接到服务器的时候，OCSP请求必须发送到第三方响应者，这增加了延迟，以及失败的可能。实际上，OCSP响应者由CA操控，由于它常常不可靠，导致浏览器由于收不到适时的响应而失败。这减少了安全性，因为它允许攻击者对OCSP响应者进行DoS攻击来取消验证。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/nginx-ocsp.html&title=nginx-ocsp | 云运维&summary=
+OCSP是更轻量级的，因为它一次只获取一条记录。但是副作用是，当连接到服务器的时候，OCSP请求必须发送到第三方响应者，这增加了延迟，以及失败的可能。实际上，OCSP响应者由CA操控，由于它常常不可靠，导致浏览器由于收不到适时的响应而失败。这减少了安全性，因为它允许攻击者对OCSP响应者进行DoS攻击来取消验证。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/Shadowsocks.html" rel="prev" title="Shadowsocks">
+                                  
+                                      Shadowsocks
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Shadowsocks/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Shadowsocks</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/Ubuntu-safe.html" rel="prev" title="Ubuntu-safe">
+                                    
+                                        Ubuntu-safe
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/Ubuntu-安全/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>Ubuntu 安全</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'nginx-ocsp',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class="l_side">
+  
+    
+    
+      
+        
+          
+          
+            <section class="widget author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://res.cloudinary.com/www-172173-com/image/upload/v1565838363/IMG_1014_ctdjly.jpg">
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#nginx-配置文件"><span class="toc-text">nginx 配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#配置项-说明"><span class="toc-text">配置项 说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#检查ocsp-是否开启"><span class="toc-text">检查ocsp 是否开启</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#获取证书-OCSP-Response"><span class="toc-text">获取证书 OCSP Response</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#错误"><span class="toc-text">错误</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#验证方式"><span class="toc-text">验证方式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HA-证书"><span class="toc-text">HA 证书</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ginx开启ssl-dhparam"><span class="toc-text">ginx开启ssl_dhparam</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class="widget grid">
+  
+<header class="pure">
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class="content pure">
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/" id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/" rel="nofollow" id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories" href="/categories" id="categories">
+          
+            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
+          
+          文章分类
+        </a></li>
+      
+        <li><a class="flat-box" title="/friends/" href="/friends/" rel="nofollow" id="friends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/" rel="nofollow" id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/categories/" title="blog/categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(29)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class="name">Python</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Redis/" href="/categories/Redis/"><div class="name">Redis</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/SVN/" href="/categories/SVN/"><div class="name">SVN</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ubuntu/" href="/categories/Ubuntu/"><div class="name">Ubuntu</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(7)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/tags/" title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright © 2019 | 版权所有 <a href="http://fj.beian.miit.gov.cn/publish/query/indexFirst.action;jsessionid=075DA6F247D146C9201341C9B5A740CF">闽IC P备18011948号</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://www.172173.com/about" target="_blank" class="codename">172173.com</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+<script type="text/javascript" src="/cool/banner.js"></script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz",
+    appKey: "wn426D29iJpKjYczYLBPPCiP",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'false'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "[object Object]";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

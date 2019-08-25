@@ -1,235 +1,355 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
+<!DOCTYPE html>
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-    <!--Setting-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="no-transform">
-    <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <meta name="apple-mobile-web-app-capable" content="云运维">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no,email=no,adress=no">
-    <meta name="browsermode" content="application">
-    <meta name="screen-orientation" content="portrait">
-    <link rel="dns-prefetch" href="https://www.172173.com">
-    <!--SEO-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>openswan | 云运维</title>
+  
+  <meta name="keywords" content="openswan vpn, 云运维 运维 技术 云 172173">
+  
+  
+  <meta name="description" content="创新云技术">
+  
 
-    <meta name="keywords" content="{{ page.keywords }}">
+  
 
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
 
-    <meta name="description" content="安装 openswan 及其环境一、openswan 介绍
-OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持和ipsec相关的大多数的扩展（RFC+IETF d...">
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
 
+  
 
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
 
-<meta name="robots" content="all">
-<meta name="google" content="all">
-<meta name="googlebot" content="all">
-<meta name="verify" content="all">
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
 
-    <!--Title-->
-
-
-<title>openswan | 云运维</title>
-
-
-    <link rel="alternate" href="/atom.xml" title="云运维" type="application/atom+xml">
-
-
-    <link rel="icon" href="/favicon.ico">
-
-    
-
-
-
-<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
-<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.5.0">
-<link rel="stylesheet" href="/css/style.css?rev=@@hash">
-
-
-
-
-    
-	<div class="hide">
-		<script type="text/javascript">
-			var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-		</script>
-	</div>
-
-
-
-
-
-	<script>
-		(function(i, s, o, g, r, a, m) {
-		    i['GoogleAnalyticsObject'] = r;
-		    i[r] = i[r] || function() {
-		        (i[r].q = i[r].q || []).push(arguments)
-		    }, i[r].l = 1 * new Date();
-		    a = s.createElement(o),
-		    m = s.getElementsByTagName(o)[0];
-		    a.async = 1;
-		    a.src = g;
-		    m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-		ga('create', 'UA-139064963-1', 'auto');
-		ga('send', 'pageview');
-	</script>
-
-
-    
-
-    <script>
-        (function(){
-            var bp = document.createElement('script');
-            var curProtocol = window.location.protocol.split(':')[0];
-            if (curProtocol === 'https') {
-                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-            }
-            else {
-                bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-            }
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(bp, s);
-        })();
-    </script>
-
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <script>
-      (adsbygoogle = window.adsbygoogle || []).push({
-          google_ad_client: "ca-pub-7288533661448713",
-          enable_page_level_ads: true
-      });
-    </script>
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+<!--<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>-->
 </head>
 
-</html>
-<!--[if lte IE 8]>
-<style>
-    html{ font-size: 1em }
-</style>
-<![endif]-->
-<!--[if lte IE 9]>
-<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
-<![endif]-->
-
 <body>
-    <header class="main-header" style="background-image:url(https://res.cloudinary.com/www-172173-com/image/upload/v1556197753/banner_y3vilj.jpg)">
-    <div class="main-header-box">
-        <a class="header-avatar" href="/" title="zj">
-            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
-        </a>
-        <div class="branding">
-        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
-            
-                <h2> 越努力越幸运 </h2>
-            
-    	</div>
-    </div>
-</header>
-    <nav class="main-navigation">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
-                    <span class="sr-only"></span>
-                        <i class="fa fa-bars"></i>
-                    </span>
-                    <a class="navbar-brand" href="https://www.172173.com">云运维</a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-menu">
-                    <ul class="menu">
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/"><i class="fa "></i>首页</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/运维/"><i class="fa "></i>运维</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/python/"><i class="fa "></i>Python</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/django/"><i class="fa "></i>Django</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/自动化/"><i class="fa "></i>自动化</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/categories/工具/"><i class="fa "></i>工具</a>
-                            </li>
-                        
-                            <li role="presentation" class="text-center">
-                                <a href="/archives/"><i class="fa "></i>时间轴</a>
-                            </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-    <section class="content-wrap">
-        <div class="container">
-            <div class="row">
-                <main class="col-md-8 main-content m-post">
-                    <p id="process"></p>
-<article class="post">
-    <div class="post-head">
-        <h1 id="openswan">
-            
-	            openswan
-            
-        </h1>
-        <div class="post-meta">
-    
-        <span class="categories-meta fa-wrap">
-            <i class="fa fa-folder-open-o"></i>
-            <a class="category-link" href="/categories/运维/">运维</a>
-        </span>
-    
+  
+  
+  <div class="cover-wrapper">
+    <cover class="cover post half">
+      
+        
+  <h1 class="title">172173.com</h1>
 
-    
-        <span class="fa-wrap">
-            <i class="fa fa-tags"></i>
-            <span class="tags-meta">
-                
-                    <a class="tag-link" href="/tags/vpn-openvpn-Ipsec-OpenSWan/">vpn openvpn Ipsec OpenSWan</a>
-                
-            </span>
-        </span>
-    
 
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder>
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class="menu navgation">
+  <ul class="h-list">
     
-        
-        <span class="fa-wrap">
-            <i class="fa fa-clock-o"></i>
-            <span class="date-meta">2019/05/05</span>
-        </span>
-        
-            <span class="fa-wrap">
-                <i class="fa fa-eye"></i>
-                <span id="busuanzi_value_page_pv"></span>
-            </span>
-        
+      
+        <li>
+          <a class="nav home" href="/" id="home">
+            <i class="fas fa-rss fa-fw"></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/" id="categories">
+            <i class="fas fa-code-branch fa-fw"></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/friends/" rel="nofollow" id="friends">
+            <i class="fas fa-link fa-fw"></i>&nbsp;友链
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/" rel="nofollow" id="about">
+            <i class="fas fa-info-circle fa-fw"></i>&nbsp;关于
+          </a>
+        </li>
+      
     
+  </ul>
 </div>
-            
-            
-    </div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          云运维
+        
+      </a>
+			<div class="menu navgation">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/categories/Linux" id="categoriesLinux">
+									<i class="fas fa-grin fa-fw"></i>&nbsp;Linux
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Windows" rel="nofollow" id="categoriesWindows">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;Windows
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Python" rel="nofollow" id="categoriesPython">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;Python
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/工具" rel="nofollow" id="categories工具">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;工具
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+        
+          <li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/" id="home">
+								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+								<i class="fas fa-archive fa-fw"></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categores/" id="categores">
+								<i class="fas fa-code-branch fa-fw"></i>&nbsp;文档分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/" rel="nofollow" id="friends">
+								<i class="fas fa-link fa-fw"></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/" rel="nofollow" id="https:xaoxuu.comwikimaterial-x">
+								<i class="fas fa-book fa-fw"></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/" rel="nofollow" id="about">
+								<i class="fas fa-info-circle fa-fw"></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class="l_main">
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class="meta">
     
-    <div class="post-body post-content">
-        <h2 id="安装-openswan-及其环境"><a href="#安装-openswan-及其环境" class="headerlink" title="安装 openswan 及其环境"></a>安装 openswan 及其环境</h2><h3 id="一、openswan-介绍"><a href="#一、openswan-介绍" class="headerlink" title="一、openswan 介绍"></a>一、openswan 介绍</h3><ul>
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/openswan.html">
+        openswan
+      </a>
+    </h1>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://www.172173.com" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>zj</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-05-05</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Linux/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Linux</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="安装-openswan-及其环境"><a href="#安装-openswan-及其环境" class="headerlink" title="安装 openswan 及其环境"></a>安装 openswan 及其环境</h2><h3 id="一、openswan-介绍"><a href="#一、openswan-介绍" class="headerlink" title="一、openswan 介绍"></a>一、openswan 介绍</h3><ul>
 <li>OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持和ipsec相关的大多数的扩展（RFC+IETF drafts）。Openswan项目起源于FreeS/WAN 2.04项目，该项目的功能很强大，可以很大程度上保证数据在跨网传输中的安全性、完整性，特别是通过它，可以很好地实现跨机房或异地办公场所实现局域网互联解决方案，如果和openvpn工具配合，可以实现将注入门户网站的多机房互访及vpn的各种强大解决方案.  </li>
 <li>ucloud和公司网络打通,实现内网互通：<br>环境:<br>服务器：(外) 106.75.x.x (内) 10.10.68.61<br>公司:(外) 58.22.x.x（内）192.168.99.168</li>
 </ul>
+<a id="more"></a>
 <h3 id="二、安装-openswan-及其环境-两台都要装"><a href="#二、安装-openswan-及其环境-两台都要装" class="headerlink" title="二、安装 openswan 及其环境(两台都要装)"></a>二、安装 openswan 及其环境(两台都要装)</h3><h4 id="2-1-软件安装"><a href="#2-1-软件安装" class="headerlink" title="2.1 软件安装"></a>2.1 软件安装</h4><p>Centos:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y gmp gmp-devel gawk flex bison iproute2 iptables sed awk cut python xmlto lsof</span><br><span class="line">yum install -y openswan</span><br></pre></td></tr></table></figure></p>
 <p>Ubuntu:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y openswan lsof</span><br></pre></td></tr></table></figure></p>
 <p>(ubuntu 会交互安装，第一个询问启用 X.509 证书的时候选择 no，第二个只要点 ok 就可以。)</p>
@@ -256,164 +376,659 @@ OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持�
 <h4 id="4-3-其他主机路由"><a href="#4-3-其他主机路由" class="headerlink" title="4.3 其他主机路由"></a>4.3 其他主机路由</h4><p>其他云主机如果要通过 ipsec 访问对端要增加相应的路由，或者网关指向本地的 ipsec服务器。</p>
 <h4 id="4-4-故障排查-发生no-connection-named-“xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看-var-log-messages中具体错误参数-格式提示。"><a href="#4-4-故障排查-发生no-connection-named-“xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看-var-log-messages中具体错误参数-格式提示。" class="headerlink" title="4.4 故障排查 发生no connection named “xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看/var/log/messages中具体错误参数/格式提示。"></a>4.4 故障排查 发生no connection named “xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看/var/log/messages中具体错误参数/格式提示。</h4><p>发生第一阶段（STATEMAINI1）或者第二阶段（STATEQUICKI1）初始化超时报错的时候，多为两端参数配置错误导致的协商失败，需要查看/var/log/secure以及对端的日志确定具体哪个参数协商错误。</p>
 
-    </div>
-    
-        <div class="reward" ontouchstart>
-    <div class="reward-wrap">赏
-        <div class="reward-box">
-            
-            
-                <span class="reward-type">
-                    <img class="wechat" src="../../../../img/reward-wepay.png"><b>微信打赏</b>
-                </span>
-            
         </div>
-    </div>
-    <p class="reward-tip">赞赏是不耍流氓的鼓励</p>
-</div>
-
-
-    
-    <div class="post-footer">
-        <div>
-            
-                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href target="_blank">Snippet</a>
-            
-        </div>
-        <div>
-            
-        </div>
-    </div>
-</article>
-
-<div class="article-nav prev-next-wrap clearfix">
-    
-        <a href="/8r8c.html" class="pre-post btn btn-default" title="DevOps-八荣八耻">
-            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-            <span class="hidden-xs">DevOps-八荣八耻</span>
-        </a>
-    
-    
-        <a href="/Forefront-TMG-2010.html" class="next-post btn btn-default" title="Forefront TMG 2010">
-            <span class="hidden-lg">下一篇</span>
-            <span class="hidden-xs">Forefront TMG 2010</span><i class="fa fa-angle-right fa-fw"></i>
-        </a>
-    
-</div>
-
-
-<!--<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-7288533661448713",
-    enable_page_level_ads: true
-  });
-</script>
--->
-
-
-    <div id="comments">
         
-	
-    <div id="vcomments" class="valine"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="/assets/valine.min.js"></script>
-
-    <script>
-        new Valine({
-            av: AV,
-            el: '#vcomments',
-            appId: 'xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz',
-            appKey: 'wn426D29iJpKjYczYLBPPCiP',
-            placeholder: '说点什么吧',
-            notify: false,
-            verify: false,
-            avatar: 'mm',
-            meta: 'nick,mail'.split(','),
-            pageSize: '10',
-            path: window.location.pathname,
-            lang: 'zh-CN'.toLowerCase()
-        })
-    </script>
+          
 
 
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-14T17:39:17+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年8月14日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vpn-openvpn-Ipsec-OpenSWan/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>vpn openvpn Ipsec OpenSWan</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/openswan.html&title=openswan | 云运维&summary=安装 openswan 及其环境一、openswan 介绍
+OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持和ipsec相关的大多数的扩展（RFC+IETF drafts）。Openswan项目起源于FreeS/WAN 2.04项目，该项目的功能很强大，可以很大程度上保证数据在跨网传输中的安全性、完整性，特别是通过它，可以很好地实现跨机房或异地办公场所实现局域网互联解决方案，如果和openvpn工具配合，可以实现将注入门户网站的多机房互访及vpn的各种强大解决方案.  
+ucloud和公司网络打通,实现内网互通：环境:服务器：(外) 106.75.x.x (内) 10.10.68.61公司:(外) 58.22.x.x（内）192.168.99.168
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/openswan.html&title=openswan | 云运维&summary=安装 openswan 及其环境一、openswan 介绍
+OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持和ipsec相关的大多数的扩展（RFC+IETF drafts）。Openswan项目起源于FreeS/WAN 2.04项目，该项目的功能很强大，可以很大程度上保证数据在跨网传输中的安全性、完整性，特别是通过它，可以很好地实现跨机房或异地办公场所实现局域网互联解决方案，如果和openvpn工具配合，可以实现将注入门户网站的多机房互访及vpn的各种强大解决方案.  
+ucloud和公司网络打通,实现内网互通：环境:服务器：(外) 106.75.x.x (内) 10.10.68.61公司:(外) 58.22.x.x（内）192.168.99.168
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/openswan.html&title=openswan | 云运维&summary=安装 openswan 及其环境一、openswan 介绍
+OpenSWan是linux选Ipsec及I2tp协议的一个不错的实现方案。他支持和ipsec相关的大多数的扩展（RFC+IETF drafts）。Openswan项目起源于FreeS/WAN 2.04项目，该项目的功能很强大，可以很大程度上保证数据在跨网传输中的安全性、完整性，特别是通过它，可以很好地实现跨机房或异地办公场所实现局域网互联解决方案，如果和openvpn工具配合，可以实现将注入门户网站的多机房互访及vpn的各种强大解决方案.  
+ucloud和公司网络打通,实现内网互通：环境:服务器：(外) 106.75.x.x (内) 10.10.68.61公司:(外) 58.22.x.x（内）192.168.99.168
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
     </div>
+  </section>
 
 
-
-
-
-                </main>
+        
+        
+            <div class="prev-next">
                 
-                    <aside id="article-toc" role="navigation" class="col-md-4">
-    <div class="widget">
-        <h3 class="title">文章目录</h3>
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/8r8c.html" rel="prev" title="DevOps-八荣八耻">
+                                  
+                                      DevOps-八荣八耻
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/八荣八耻-云运维-devops/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>八荣八耻 云运维 devops</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/Forefront-TMG-2010.html" rel="prev" title="Forefront TMG 2010">
+                                    
+                                        Forefront TMG 2010
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/TMG-vpn-windows-Forefront-TMG-2010/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>TMG vpn windows Forefront TMG 2010</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-openswan-及其环境"><span class="toc-text">安装 openswan 及其环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、openswan-介绍"><span class="toc-text">一、openswan 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装-openswan-及其环境-两台都要装"><span class="toc-text">二、安装 openswan 及其环境(两台都要装)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-软件安装"><span class="toc-text">2.1 软件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、开启-linux-主机的路由功能（所有为ipsec-vpn-server-的主机都要开启）"><span class="toc-text">2.2、开启 linux 主机的路由功能（所有为ipsec vpn server 的主机都要开启）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、在控制台上的防火墙添加-ipsec-vpn-所用的端口"><span class="toc-text">2.3、在控制台上的防火墙添加 ipsec vpn 所用的端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-测试udp端口"><span class="toc-text">2.4 测试udp端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-验证环境"><span class="toc-text">2.5 验证环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、配置服务"><span class="toc-text">三、配置服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-检测服务正常（所有为-ipsec-vpn-server-的主机）"><span class="toc-text">3.1 检测服务正常（所有为 ipsec vpn server 的主机）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-配置认证-key（所有为-ipsec-vpn-server-的主机）"><span class="toc-text">3.2 配置认证 key（所有为 ipsec vpn server 的主机）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-配置VPN主体"><span class="toc-text">3.3 配置VPN主体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-跨外网云主机间（云主机和其他公司内网-linux-主机）互通"><span class="toc-text">3.3.1 跨外网云主机间（云主机和其他公司内网 linux 主机）互通</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、测试完成与错误定位"><span class="toc-text">四、测试完成与错误定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-测试"><span class="toc-text">4.1 测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-VPN自动启动"><span class="toc-text">4.2 VPN自动启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-其他主机路由"><span class="toc-text">4.3 其他主机路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-故障排查-发生no-connection-named-“xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看-var-log-messages中具体错误参数-格式提示。"><span class="toc-text">4.4 故障排查 发生no connection named “xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看/var/log/messages中具体错误参数/格式提示。</span></a></li></ol></li></ol></li></ol>
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'openswan',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class="l_side">
+  
+    
+    
+      
         
+          
+          
+            <section class="widget author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://res.cloudinary.com/www-172173-com/image/upload/v1565838363/IMG_1014_ctdjly.jpg">
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装-openswan-及其环境"><span class="toc-text">安装 openswan 及其环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、openswan-介绍"><span class="toc-text">一、openswan 介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、安装-openswan-及其环境-两台都要装"><span class="toc-text">二、安装 openswan 及其环境(两台都要装)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-软件安装"><span class="toc-text">2.1 软件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2、开启-linux-主机的路由功能（所有为ipsec-vpn-server-的主机都要开启）"><span class="toc-text">2.2、开启 linux 主机的路由功能（所有为ipsec vpn server 的主机都要开启）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3、在控制台上的防火墙添加-ipsec-vpn-所用的端口"><span class="toc-text">2.3、在控制台上的防火墙添加 ipsec vpn 所用的端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-测试udp端口"><span class="toc-text">2.4 测试udp端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-验证环境"><span class="toc-text">2.5 验证环境</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、配置服务"><span class="toc-text">三、配置服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-检测服务正常（所有为-ipsec-vpn-server-的主机）"><span class="toc-text">3.1 检测服务正常（所有为 ipsec vpn server 的主机）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-配置认证-key（所有为-ipsec-vpn-server-的主机）"><span class="toc-text">3.2 配置认证 key（所有为 ipsec vpn server 的主机）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-配置VPN主体"><span class="toc-text">3.3 配置VPN主体</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-跨外网云主机间（云主机和其他公司内网-linux-主机）互通"><span class="toc-text">3.3.1 跨外网云主机间（云主机和其他公司内网 linux 主机）互通</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、测试完成与错误定位"><span class="toc-text">四、测试完成与错误定位</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-测试"><span class="toc-text">4.1 测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-VPN自动启动"><span class="toc-text">4.2 VPN自动启动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-其他主机路由"><span class="toc-text">4.3 其他主机路由</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-故障排查-发生no-connection-named-“xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看-var-log-messages中具体错误参数-格式提示。"><span class="toc-text">4.4 故障排查 发生no connection named “xxxxx”的报错时基本为配置文件错误或者conn名字错误，检查conn名称、配置文件格式，并查看/var/log/messages中具体错误参数/格式提示。</span></a></li></ol></li></ol></li></ol>
     </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class="widget grid">
+  
+<header class="pure">
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class="content pure">
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/" id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/" rel="nofollow" id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories" href="/categories" id="categories">
+          
+            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
+          
+          文章分类
+        </a></li>
+      
+        <li><a class="flat-box" title="/friends/" href="/friends/" rel="nofollow" id="friends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/" rel="nofollow" id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/categories/" title="blog/categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(29)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class="name">Python</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Redis/" href="/categories/Redis/"><div class="name">Redis</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/SVN/" href="/categories/SVN/"><div class="name">SVN</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ubuntu/" href="/categories/Ubuntu/"><div class="name">Ubuntu</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(7)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/tags/" title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
 </aside>
 
-                
-            </div>
-        </div>
-    </section>
-    <footer class="main-footer">
-    <div class="container">
-        <div class="row">
-        </div>
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
     </div>
+  
+  <br>
+  <div><p>Copyright © 2019 | 版权所有 <a href="http://fj.beian.miit.gov.cn/publish/query/indexFirst.action;jsessionid=075DA6F247D146C9201341C9B5A740CF">闽IC P备18011948号</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://www.172173.com/about" target="_blank" class="codename">172173.com</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
 </footer>
-<span>
-
-<a id="back-to-top" class="icon-btn hide">
-	<i class="fa fa-chevron-up"></i>
-</a>
+<script>setLoadingBarProgress(80);</script>
+<script type="text/javascript" src="/cool/banner.js"></script>
 
 
-
-</span>
-    <div class="copyright">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="busuanzi">
-    
-        访问量:
-        <strong id="busuanzi_value_site_pv">
-            <i class="fa fa-spinner fa-spin"></i>
-        </strong>
-        &nbsp; | &nbsp;
-        访客数:
-        <strong id="busuanzi_value_site_uv">
-            <i class="fa fa-spinner fa-spin"></i>
-        </strong>
-    
-</div>
-
-            </div>
-            <div class="col-sm-12">
-               
-                <span>Copyright &copy; 2019
-                </span> |
-                 <span>
-                版权所有 <a href="//beian.miit.gov.cn" class="copyright-links" target="_blank" rel="nofollow">闽IC
-P备18011948号</a>
-        	</span>
-            </div>
-        </div>
+      <script>setLoadingBarProgress(60);</script>
     </div>
-</div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
 
 
 
 
 
 
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-<script src="/js/app.js?rev=@@hash"></script>
 
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz",
+    appKey: "wn426D29iJpKjYczYLBPPCiP",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'false'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "[object Object]";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>

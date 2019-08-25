@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>Shadowsocks | 云运维</title>
+  
+  <meta name="keywords" content="Shadowsocks ss VPN, 云运维 运维 技术 云 172173">
+  
+  
+  <meta name="description" content="创新云技术">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+<!--<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>-->
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class="cover post half">
+      
+        
+  <h1 class="title">172173.com</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder>
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class="menu navgation">
+  <ul class="h-list">
+    
+      
+        <li>
+          <a class="nav home" href="/" id="home">
+            <i class="fas fa-rss fa-fw"></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/" id="categories">
+            <i class="fas fa-code-branch fa-fw"></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/friends/" rel="nofollow" id="friends">
+            <i class="fas fa-link fa-fw"></i>&nbsp;友链
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/" rel="nofollow" id="about">
+            <i class="fas fa-info-circle fa-fw"></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          云运维
+        
+      </a>
+			<div class="menu navgation">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/categories/Linux" id="categoriesLinux">
+									<i class="fas fa-grin fa-fw"></i>&nbsp;Linux
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Windows" rel="nofollow" id="categoriesWindows">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;Windows
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Python" rel="nofollow" id="categoriesPython">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;Python
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/工具" rel="nofollow" id="categories工具">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;工具
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+        
+          <li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/" id="home">
+								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+								<i class="fas fa-archive fa-fw"></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categores/" id="categores">
+								<i class="fas fa-code-branch fa-fw"></i>&nbsp;文档分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/" rel="nofollow" id="friends">
+								<i class="fas fa-link fa-fw"></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/" rel="nofollow" id="https:xaoxuu.comwikimaterial-x">
+								<i class="fas fa-book fa-fw"></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/" rel="nofollow" id="about">
+								<i class="fas fa-info-circle fa-fw"></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class="l_main">
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/Shadowsocks.html">
+        Shadowsocks
+      </a>
+    </h1>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://www.172173.com" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>zj</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-08-15</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Linux/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Linux</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h3 id="参考网站"><a href="#参考网站" class="headerlink" title="参考网站"></a>参考网站</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://teddysun.com/342.html</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Shadowsocks 主要用于翻墙、配置境外服务器。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>Shadowsocks for Windows 客户端下载：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/shadowsocks/shadowsocks-windows/releases</span><br></pre></td></tr></table></figure>
+<h3 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h3><ul>
+<li>使用root用户登录，运行以下命令：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate -O shadowsocks.sh https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks.sh</span><br><span class="line">chmod +x shadowsocks.sh</span><br><span class="line">./shadowsocks.sh 2&gt;&amp;1 | tee shadowsocks.log.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>安装完成后，脚本提示如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Congratulations, Shadowsocks-python server install completed!</span><br><span class="line">Your Server IP        :your_server_ip</span><br><span class="line">Your Server Port      :your_server_port</span><br><span class="line">Your Password         :your_password</span><br><span class="line">Your Encryption Method:your_encryption_method</span><br><span class="line"></span><br><span class="line">Welcome to visit:https://teddysun.com/342.html</span><br><span class="line">Enjoy it!</span><br></pre></td></tr></table></figure>
+<h3 id="卸载方法："><a href="#卸载方法：" class="headerlink" title="卸载方法："></a>卸载方法：</h3><ul>
+<li>使用root用户登录，运行以下命令：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./shadowsocks.sh uninstall</span><br></pre></td></tr></table></figure>
+<ul>
+<li>单用户配置文件示例</li>
+<li>配置文件路径：/etc/shadowsocks.json</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:your_server_port,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;your_password&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;your_encryption_method&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多用户多端口配置文件示例</li>
+<li>配置文件路径：/etc/shadowsocks.json</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;port_password&quot;:&#123;</span><br><span class="line">         &quot;8989&quot;:&quot;password0&quot;,</span><br><span class="line">         &quot;9001&quot;:&quot;password1&quot;,</span><br><span class="line">         &quot;9002&quot;:&quot;password2&quot;,</span><br><span class="line">         &quot;9003&quot;:&quot;password3&quot;,</span><br><span class="line">         &quot;9004&quot;:&quot;password4&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;your_encryption_method&quot;,</span><br><span class="line">    &quot;fast_open&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="安装脚本"><a href="#安装脚本" class="headerlink" title="安装脚本"></a>安装脚本</h3><ul>
+<li>python 如果有安装其他版本记得改下 </li>
+<li>python3 setup.py install –record /usr/local/shadowsocks_install.log</li>
+<li>ln -s /usr/local/python3/bin/ssserver /usr/bin/ssserver</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env bash</span><br><span class="line">PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin</span><br><span class="line">export PATH</span><br><span class="line">#=================================================================#</span><br><span class="line">#   System Required:  CentOS 6+, Debian 7+, Ubuntu 12+            #</span><br><span class="line">#   Description: One click Install Shadowsocks-Python server      #</span><br><span class="line">#   Author: Teddysun &lt;i@teddysun.com&gt;                             #</span><br><span class="line">#   Thanks: @clowwindy &lt;https://twitter.com/clowwindy&gt;            #</span><br><span class="line">#   Intro:  https://teddysun.com/342.html                         #</span><br><span class="line">#=================================================================#</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">echo</span><br><span class="line">echo &quot;#############################################################&quot;</span><br><span class="line">echo &quot;# One click Install Shadowsocks-Python server               #&quot;</span><br><span class="line">echo &quot;# Intro: https://teddysun.com/342.html                      #&quot;</span><br><span class="line">echo &quot;# Author: Teddysun &lt;i@teddysun.com&gt;                         #&quot;</span><br><span class="line">echo &quot;# Github: https://github.com/shadowsocks/shadowsocks        #&quot;</span><br><span class="line">echo &quot;#############################################################&quot;</span><br><span class="line">echo</span><br><span class="line"></span><br><span class="line">libsodium_file=&quot;libsodium-1.0.15&quot;</span><br><span class="line">libsodium_url=&quot;https://github.com/jedisct1/libsodium/releases/download/1.0.15/libsodium-1.0.15.tar.gz&quot;</span><br><span class="line"></span><br><span class="line"># Current folder</span><br><span class="line">cur_dir=`pwd`</span><br><span class="line"># Stream Ciphers</span><br><span class="line">ciphers=(</span><br><span class="line">aes-256-gcm</span><br><span class="line">aes-192-gcm</span><br><span class="line">aes-128-gcm</span><br><span class="line">aes-256-ctr</span><br><span class="line">aes-192-ctr</span><br><span class="line">aes-128-ctr</span><br><span class="line">aes-256-cfb</span><br><span class="line">aes-192-cfb</span><br><span class="line">aes-128-cfb</span><br><span class="line">camellia-128-cfb</span><br><span class="line">camellia-192-cfb</span><br><span class="line">camellia-256-cfb</span><br><span class="line">chacha20-ietf-poly1305</span><br><span class="line">chacha20-ietf</span><br><span class="line">chacha20</span><br><span class="line">rc4-md5</span><br><span class="line">)</span><br><span class="line"># Color</span><br><span class="line">red=&apos;\033[0;31m&apos;</span><br><span class="line">green=&apos;\033[0;32m&apos;</span><br><span class="line">yellow=&apos;\033[0;33m&apos;</span><br><span class="line">plain=&apos;\033[0m&apos;</span><br><span class="line"></span><br><span class="line"># Make sure only root can run our script</span><br><span class="line">[[ $EUID -ne 0 ]] &amp;&amp; echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] This script must be run as root!&quot; &amp;&amp; exit 1</span><br><span class="line"></span><br><span class="line"># Disable selinux</span><br><span class="line">disable_selinux()&#123;</span><br><span class="line">    if [ -s /etc/selinux/config ] &amp;&amp; grep &apos;SELINUX=enforcing&apos; /etc/selinux/config; then</span><br><span class="line">        sed -i &apos;s/SELINUX=enforcing/SELINUX=disabled/g&apos; /etc/selinux/config</span><br><span class="line">        setenforce 0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#Check system</span><br><span class="line">check_sys()&#123;</span><br><span class="line">    local checkType=$1</span><br><span class="line">    local value=$2</span><br><span class="line"></span><br><span class="line">    local release=&apos;&apos;</span><br><span class="line">    local systemPackage=&apos;&apos;</span><br><span class="line"></span><br><span class="line">    if [[ -f /etc/redhat-release ]]; then</span><br><span class="line">        release=&quot;centos&quot;</span><br><span class="line">        systemPackage=&quot;yum&quot;</span><br><span class="line">    elif cat /etc/issue | grep -Eqi &quot;debian&quot;; then</span><br><span class="line">        release=&quot;debian&quot;</span><br><span class="line">        systemPackage=&quot;apt&quot;</span><br><span class="line">    elif cat /etc/issue | grep -Eqi &quot;ubuntu&quot;; then</span><br><span class="line">        release=&quot;ubuntu&quot;</span><br><span class="line">        systemPackage=&quot;apt&quot;</span><br><span class="line">    elif cat /etc/issue | grep -Eqi &quot;centos|red hat|redhat&quot;; then</span><br><span class="line">        release=&quot;centos&quot;</span><br><span class="line">        systemPackage=&quot;yum&quot;</span><br><span class="line">    elif cat /proc/version | grep -Eqi &quot;debian&quot;; then</span><br><span class="line">        release=&quot;debian&quot;</span><br><span class="line">        systemPackage=&quot;apt&quot;</span><br><span class="line">    elif cat /proc/version | grep -Eqi &quot;ubuntu&quot;; then</span><br><span class="line">        release=&quot;ubuntu&quot;</span><br><span class="line">        systemPackage=&quot;apt&quot;</span><br><span class="line">    elif cat /proc/version | grep -Eqi &quot;centos|red hat|redhat&quot;; then</span><br><span class="line">        release=&quot;centos&quot;</span><br><span class="line">        systemPackage=&quot;yum&quot;</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    if [[ $&#123;checkType&#125; == &quot;sysRelease&quot; ]]; then</span><br><span class="line">        if [ &quot;$value&quot; == &quot;$release&quot; ]; then</span><br><span class="line">            return 0</span><br><span class="line">        else</span><br><span class="line">            return 1</span><br><span class="line">        fi</span><br><span class="line">    elif [[ $&#123;checkType&#125; == &quot;packageManager&quot; ]]; then</span><br><span class="line">        if [ &quot;$value&quot; == &quot;$systemPackage&quot; ]; then</span><br><span class="line">            return 0</span><br><span class="line">        else</span><br><span class="line">            return 1</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Get version</span><br><span class="line">getversion()&#123;</span><br><span class="line">    if [[ -s /etc/redhat-release ]]; then</span><br><span class="line">        grep -oE  &quot;[0-9.]+&quot; /etc/redhat-release</span><br><span class="line">    else</span><br><span class="line">        grep -oE  &quot;[0-9.]+&quot; /etc/issue</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># CentOS version</span><br><span class="line">centosversion()&#123;</span><br><span class="line">    if check_sys sysRelease centos; then</span><br><span class="line">        local code=$1</span><br><span class="line">        local version=&quot;$(getversion)&quot;</span><br><span class="line">        local main_ver=$&#123;version%%.*&#125;</span><br><span class="line">        if [ &quot;$main_ver&quot; == &quot;$code&quot; ]; then</span><br><span class="line">            return 0</span><br><span class="line">        else</span><br><span class="line">            return 1</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        return 1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Get public IP address</span><br><span class="line">get_ip()&#123;</span><br><span class="line">    local IP=$( ip addr | egrep -o &apos;[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;\.[0-9]&#123;1,3&#125;&apos; | egrep -v &quot;^192\.168|^172\.1[6-9]\.|^172\.2[0-9]\.|^172\.3[0-2]\.|^10\.|^127\.|^255\.|^0\.&quot; | head -n 1 )</span><br><span class="line">    [ -z $&#123;IP&#125; ] &amp;&amp; IP=$( wget -qO- -t1 -T2 ipv4.icanhazip.com )</span><br><span class="line">    [ -z $&#123;IP&#125; ] &amp;&amp; IP=$( wget -qO- -t1 -T2 ipinfo.io/ip )</span><br><span class="line">    [ ! -z $&#123;IP&#125; ] &amp;&amp; echo $&#123;IP&#125; || echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">get_char()&#123;</span><br><span class="line">    SAVEDSTTY=`stty -g`</span><br><span class="line">    stty -echo</span><br><span class="line">    stty cbreak</span><br><span class="line">    dd if=/dev/tty bs=1 count=1 2&gt; /dev/null</span><br><span class="line">    stty -raw</span><br><span class="line">    stty echo</span><br><span class="line">    stty $SAVEDSTTY</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Pre-installation settings</span><br><span class="line">pre_install()&#123;</span><br><span class="line">    if check_sys packageManager yum || check_sys packageManager apt; then</span><br><span class="line">        # Not support CentOS 5</span><br><span class="line">        if centosversion 5; then</span><br><span class="line">            echo -e &quot;$[&#123;red&#125;Error$&#123;plain&#125;] Not supported CentOS 5, please change to CentOS 6+/Debian 7+/Ubuntu 12+ and try again.&quot;</span><br><span class="line">            exit 1</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Your OS is not supported. please change OS to CentOS/Debian/Ubuntu and try again.&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">    # Set shadowsocks config password</span><br><span class="line">    echo &quot;Please enter password for shadowsocks-python&quot;</span><br><span class="line">    read -p &quot;(Default password: teddysun.com):&quot; shadowsockspwd</span><br><span class="line">    [ -z &quot;$&#123;shadowsockspwd&#125;&quot; ] &amp;&amp; shadowsockspwd=&quot;teddysun.com&quot;</span><br><span class="line">    echo</span><br><span class="line">    echo &quot;---------------------------&quot;</span><br><span class="line">    echo &quot;password = $&#123;shadowsockspwd&#125;&quot;</span><br><span class="line">    echo &quot;---------------------------&quot;</span><br><span class="line">    echo</span><br><span class="line">    # Set shadowsocks config port</span><br><span class="line">    while true</span><br><span class="line">    do</span><br><span class="line">    echo &quot;Please enter a port for shadowsocks-python [1-65535]&quot;</span><br><span class="line">    read -p &quot;(Default port: 8989):&quot; shadowsocksport</span><br><span class="line">    [ -z &quot;$shadowsocksport&quot; ] &amp;&amp; shadowsocksport=&quot;8989&quot;</span><br><span class="line">    expr $&#123;shadowsocksport&#125; + 1 &amp;&gt;/dev/null</span><br><span class="line">    if [ $? -eq 0 ]; then</span><br><span class="line">        if [ $&#123;shadowsocksport&#125; -ge 1 ] &amp;&amp; [ $&#123;shadowsocksport&#125; -le 65535 ] &amp;&amp; [ $&#123;shadowsocksport:0:1&#125; != 0 ]; then</span><br><span class="line">            echo</span><br><span class="line">            echo &quot;---------------------------&quot;</span><br><span class="line">            echo &quot;port = $&#123;shadowsocksport&#125;&quot;</span><br><span class="line">            echo &quot;---------------------------&quot;</span><br><span class="line">            echo</span><br><span class="line">            break</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Please enter a correct number [1-65535]&quot;</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    # Set shadowsocks config stream ciphers</span><br><span class="line">    while true</span><br><span class="line">    do</span><br><span class="line">    echo -e &quot;Please select stream cipher for shadowsocks-python:&quot;</span><br><span class="line">    for ((i=1;i&lt;=$&#123;#ciphers[@]&#125;;i++ )); do</span><br><span class="line">        hint=&quot;$&#123;ciphers[$i-1]&#125;&quot;</span><br><span class="line">        echo -e &quot;$&#123;green&#125;$&#123;i&#125;$&#123;plain&#125;) $&#123;hint&#125;&quot;</span><br><span class="line">    done</span><br><span class="line">    read -p &quot;Which cipher you&apos;d select(Default: $&#123;ciphers[0]&#125;):&quot; pick</span><br><span class="line">    [ -z &quot;$pick&quot; ] &amp;&amp; pick=1</span><br><span class="line">    expr $&#123;pick&#125; + 1 &amp;&gt;/dev/null</span><br><span class="line">    if [ $? -ne 0 ]; then</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Please enter a number&quot;</span><br><span class="line">        continue</span><br><span class="line">    fi</span><br><span class="line">    if [[ &quot;$pick&quot; -lt 1 || &quot;$pick&quot; -gt $&#123;#ciphers[@]&#125; ]]; then</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Please enter a number between 1 and $&#123;#ciphers[@]&#125;&quot;</span><br><span class="line">        continue</span><br><span class="line">    fi</span><br><span class="line">    shadowsockscipher=$&#123;ciphers[$pick-1]&#125;</span><br><span class="line">    echo</span><br><span class="line">    echo &quot;---------------------------&quot;</span><br><span class="line">    echo &quot;cipher = $&#123;shadowsockscipher&#125;&quot;</span><br><span class="line">    echo &quot;---------------------------&quot;</span><br><span class="line">    echo</span><br><span class="line">    break</span><br><span class="line">    done</span><br><span class="line"></span><br><span class="line">    echo</span><br><span class="line">    echo &quot;Press any key to start...or Press Ctrl+C to cancel&quot;</span><br><span class="line">    char=`get_char`</span><br><span class="line">    # Install necessary dependencies</span><br><span class="line">    if check_sys packageManager yum; then</span><br><span class="line">        yum install -y python python-devel python-setuptools openssl openssl-devel curl wget unzip gcc automake autoconf make libtool</span><br><span class="line">    elif check_sys packageManager apt; then</span><br><span class="line">        apt-get -y update</span><br><span class="line">        apt-get -y install python python-dev python-setuptools openssl libssl-dev curl wget unzip gcc automake autoconf make libtool</span><br><span class="line">    fi</span><br><span class="line">    cd $&#123;cur_dir&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Download files</span><br><span class="line">download_files()&#123;</span><br><span class="line">    # Download libsodium file</span><br><span class="line">    if ! wget --no-check-certificate -O $&#123;libsodium_file&#125;.tar.gz $&#123;libsodium_url&#125;; then</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Failed to download $&#123;libsodium_file&#125;.tar.gz!&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">    # Download Shadowsocks file</span><br><span class="line">    if ! wget --no-check-certificate -O shadowsocks-master.zip https://github.com/shadowsocks/shadowsocks/archive/master.zip; then</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Failed to download shadowsocks python file!&quot;</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line">    # Download Shadowsocks init script</span><br><span class="line">    if check_sys packageManager yum; then</span><br><span class="line">        if ! wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks -O /etc/init.d/shadowsocks; then</span><br><span class="line">            echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Failed to download shadowsocks chkconfig file!&quot;</span><br><span class="line">            exit 1</span><br><span class="line">        fi</span><br><span class="line">    elif check_sys packageManager apt; then</span><br><span class="line">        if ! wget --no-check-certificate https://raw.githubusercontent.com/teddysun/shadowsocks_install/master/shadowsocks-debian -O /etc/init.d/shadowsocks; then</span><br><span class="line">            echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Failed to download shadowsocks chkconfig file!&quot;</span><br><span class="line">            exit 1</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Config shadowsocks</span><br><span class="line">config_shadowsocks()&#123;</span><br><span class="line">    cat &gt; /etc/shadowsocks.json&lt;&lt;-EOF</span><br><span class="line">&#123;</span><br><span class="line">    &quot;server&quot;:&quot;0.0.0.0&quot;,</span><br><span class="line">    &quot;server_port&quot;:$&#123;shadowsocksport&#125;,</span><br><span class="line">    &quot;local_address&quot;:&quot;127.0.0.1&quot;,</span><br><span class="line">    &quot;local_port&quot;:1080,</span><br><span class="line">    &quot;password&quot;:&quot;$&#123;shadowsockspwd&#125;&quot;,</span><br><span class="line">    &quot;timeout&quot;:300,</span><br><span class="line">    &quot;method&quot;:&quot;$&#123;shadowsockscipher&#125;&quot;,</span><br><span class="line">    &quot;fast_open&quot;:false</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Firewall set</span><br><span class="line">firewall_set()&#123;</span><br><span class="line">    echo -e &quot;[$&#123;green&#125;Info$&#123;plain&#125;] firewall set start...&quot;</span><br><span class="line">    if centosversion 6; then</span><br><span class="line">        /etc/init.d/iptables status &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">        if [ $? -eq 0 ]; then</span><br><span class="line">            iptables -L -n | grep -i $&#123;shadowsocksport&#125; &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">            if [ $? -ne 0 ]; then</span><br><span class="line">                iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $&#123;shadowsocksport&#125; -j ACCEPT</span><br><span class="line">                iptables -I INPUT -m state --state NEW -m udp -p udp --dport $&#123;shadowsocksport&#125; -j ACCEPT</span><br><span class="line">                /etc/init.d/iptables save</span><br><span class="line">                /etc/init.d/iptables restart</span><br><span class="line">            else</span><br><span class="line">                echo -e &quot;[$&#123;green&#125;Info$&#123;plain&#125;] port $&#123;shadowsocksport&#125; has already been set up.&quot;</span><br><span class="line">            fi</span><br><span class="line">        else</span><br><span class="line">            echo -e &quot;[$&#123;yellow&#125;Warning$&#123;plain&#125;] iptables looks like shutdown or not installed, please manually set it if necessary.&quot;</span><br><span class="line">        fi</span><br><span class="line">    elif centosversion 7; then</span><br><span class="line">        systemctl status firewalld &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">        if [ $? -eq 0 ]; then</span><br><span class="line">            firewall-cmd --permanent --zone=public --add-port=$&#123;shadowsocksport&#125;/tcp</span><br><span class="line">            firewall-cmd --permanent --zone=public --add-port=$&#123;shadowsocksport&#125;/udp</span><br><span class="line">            firewall-cmd --reload</span><br><span class="line">        else</span><br><span class="line">            echo -e &quot;[$&#123;yellow&#125;Warning$&#123;plain&#125;] firewalld looks like not running or not installed, please enable port $&#123;shadowsocksport&#125; manually if necessary.&quot;</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line">    echo -e &quot;[$&#123;green&#125;Info$&#123;plain&#125;] firewall set completed...&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Install Shadowsocks</span><br><span class="line">install()&#123;</span><br><span class="line">    # Install libsodium</span><br><span class="line">    if [ ! -f /usr/lib/libsodium.a ]; then</span><br><span class="line">        cd $&#123;cur_dir&#125;</span><br><span class="line">        tar zxf $&#123;libsodium_file&#125;.tar.gz</span><br><span class="line">        cd $&#123;libsodium_file&#125;</span><br><span class="line">        ./configure --prefix=/usr &amp;&amp; make &amp;&amp; make install</span><br><span class="line">        if [ $? -ne 0 ]; then</span><br><span class="line">            echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] libsodium install failed!&quot;</span><br><span class="line">            install_cleanup</span><br><span class="line">            exit 1</span><br><span class="line">        fi</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    ldconfig</span><br><span class="line">    # Install Shadowsocks</span><br><span class="line">    cd $&#123;cur_dir&#125;</span><br><span class="line">    unzip -q shadowsocks-master.zip</span><br><span class="line">    if [ $? -ne 0 ];then</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] unzip shadowsocks-master.zip failed! please check unzip command.&quot;</span><br><span class="line">        install_cleanup</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    cd $&#123;cur_dir&#125;/shadowsocks-master</span><br><span class="line">    python setup.py install --record /usr/local/shadowsocks_install.log</span><br><span class="line"></span><br><span class="line">    if [ -f /usr/bin/ssserver ] || [ -f /usr/local/bin/ssserver ]; then</span><br><span class="line">        chmod +x /etc/init.d/shadowsocks</span><br><span class="line">        if check_sys packageManager yum; then</span><br><span class="line">            chkconfig --add shadowsocks</span><br><span class="line">            chkconfig shadowsocks on</span><br><span class="line">        elif check_sys packageManager apt; then</span><br><span class="line">            update-rc.d -f shadowsocks defaults</span><br><span class="line">        fi</span><br><span class="line">        /etc/init.d/shadowsocks start</span><br><span class="line">    else</span><br><span class="line">        echo</span><br><span class="line">        echo -e &quot;[$&#123;red&#125;Error$&#123;plain&#125;] Shadowsocks install failed! please visit https://teddysun.com/342.html and contact.&quot;</span><br><span class="line">        install_cleanup</span><br><span class="line">        exit 1</span><br><span class="line">    fi</span><br><span class="line"></span><br><span class="line">    clear</span><br><span class="line">    echo</span><br><span class="line">    echo -e &quot;Congratulations, Shadowsocks-python server install completed!&quot;</span><br><span class="line">    echo -e &quot;Your Server IP        : \033[41;37m $(get_ip) \033[0m&quot;</span><br><span class="line">    echo -e &quot;Your Server Port      : \033[41;37m $&#123;shadowsocksport&#125; \033[0m&quot;</span><br><span class="line">    echo -e &quot;Your Password         : \033[41;37m $&#123;shadowsockspwd&#125; \033[0m&quot;</span><br><span class="line">    echo -e &quot;Your Encryption Method: \033[41;37m $&#123;shadowsockscipher&#125; \033[0m&quot;</span><br><span class="line">    echo</span><br><span class="line">    echo &quot;Welcome to visit:https://teddysun.com/342.html&quot;</span><br><span class="line">    echo &quot;Enjoy it!&quot;</span><br><span class="line">    echo</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Install cleanup</span><br><span class="line">install_cleanup()&#123;</span><br><span class="line">    cd $&#123;cur_dir&#125;</span><br><span class="line">    rm -rf shadowsocks-master.zip shadowsocks-master $&#123;libsodium_file&#125;.tar.gz $&#123;libsodium_file&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Uninstall Shadowsocks</span><br><span class="line">uninstall_shadowsocks()&#123;</span><br><span class="line">    printf &quot;Are you sure uninstall Shadowsocks? (y/n) &quot;</span><br><span class="line">    printf &quot;\n&quot;</span><br><span class="line">    read -p &quot;(Default: n):&quot; answer</span><br><span class="line">    [ -z $&#123;answer&#125; ] &amp;&amp; answer=&quot;n&quot;</span><br><span class="line">    if [ &quot;$&#123;answer&#125;&quot; == &quot;y&quot; ] || [ &quot;$&#123;answer&#125;&quot; == &quot;Y&quot; ]; then</span><br><span class="line">        ps -ef | grep -v grep | grep -i &quot;ssserver&quot; &gt; /dev/null 2&gt;&amp;1</span><br><span class="line">        if [ $? -eq 0 ]; then</span><br><span class="line">            /etc/init.d/shadowsocks stop</span><br><span class="line">        fi</span><br><span class="line">        if check_sys packageManager yum; then</span><br><span class="line">            chkconfig --del shadowsocks</span><br><span class="line">        elif check_sys packageManager apt; then</span><br><span class="line">            update-rc.d -f shadowsocks remove</span><br><span class="line">        fi</span><br><span class="line">        # delete config file</span><br><span class="line">        rm -f /etc/shadowsocks.json</span><br><span class="line">        rm -f /var/run/shadowsocks.pid</span><br><span class="line">        rm -f /etc/init.d/shadowsocks</span><br><span class="line">        rm -f /var/log/shadowsocks.log</span><br><span class="line">        if [ -f /usr/local/shadowsocks_install.log ]; then</span><br><span class="line">            cat /usr/local/shadowsocks_install.log | xargs rm -rf</span><br><span class="line">        fi</span><br><span class="line">        echo &quot;Shadowsocks uninstall success!&quot;</span><br><span class="line">    else</span><br><span class="line">        echo</span><br><span class="line">        echo &quot;uninstall cancelled, nothing to do...&quot;</span><br><span class="line">        echo</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Install Shadowsocks-python</span><br><span class="line">install_shadowsocks()&#123;</span><br><span class="line">    disable_selinux</span><br><span class="line">    pre_install</span><br><span class="line">    download_files</span><br><span class="line">    config_shadowsocks</span><br><span class="line">    if check_sys packageManager yum; then</span><br><span class="line">        firewall_set</span><br><span class="line">    fi</span><br><span class="line">    install</span><br><span class="line">    install_cleanup</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># Initialization step</span><br><span class="line">action=$1</span><br><span class="line">[ -z $1 ] &amp;&amp; action=install</span><br><span class="line">case &quot;$action&quot; in</span><br><span class="line">    install|uninstall)</span><br><span class="line">        $&#123;action&#125;_shadowsocks</span><br><span class="line">        ;;</span><br><span class="line">    *)</span><br><span class="line">        echo &quot;Arguments error! [$&#123;action&#125;]&quot;</span><br><span class="line">        echo &quot;Usage: `basename $0` [install|uninstall]&quot;</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<h3 id="启动脚本"><a href="#启动脚本" class="headerlink" title="启动脚本"></a>启动脚本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line"># chkconfig: 2345 90 10</span><br><span class="line"># description: Start or stop the Shadowsocks server</span><br><span class="line">#</span><br><span class="line">### BEGIN INIT INFO</span><br><span class="line"># Provides: Shadowsocks</span><br><span class="line"># Required-Start: $network $syslog</span><br><span class="line"># Required-Stop: $network</span><br><span class="line"># Default-Start: 2 3 4 5</span><br><span class="line"># Default-Stop: 0 1 6</span><br><span class="line"># Description: Start or stop the Shadowsocks server</span><br><span class="line">### END INIT INFO</span><br><span class="line"></span><br><span class="line"># Author: Teddysun &lt;i@teddysun.com&gt;</span><br><span class="line"></span><br><span class="line">name=shadowsocks</span><br><span class="line">BIN=/usr/bin/ssserver</span><br><span class="line">conf=/etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line">start()&#123;</span><br><span class="line">    $BIN -c $conf -d start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">        echo &quot;$name start success&quot;</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name start failed&quot;</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">stop()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;BIN&#125;&quot; | awk &apos;&#123;print $2&#125;&apos;`</span><br><span class="line">    if [ ! -z $pid ]; then</span><br><span class="line">        $BIN -c $conf -d stop</span><br><span class="line">        RETVAL=$?</span><br><span class="line">        if [ &quot;$RETVAL&quot; = &quot;0&quot; ]; then</span><br><span class="line">            echo &quot;$name stop success&quot;</span><br><span class="line">        else</span><br><span class="line">            echo &quot;$name stop failed&quot;</span><br><span class="line">        fi</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">status()&#123;</span><br><span class="line">    pid=`ps -ef | grep -v grep | grep -v ps | grep -i &quot;$&#123;BIN&#125;&quot; | awk &apos;&#123;print $2&#125;&apos;`</span><br><span class="line">    if [ -z $pid ]; then</span><br><span class="line">        echo &quot;$name is not running&quot;</span><br><span class="line">        RETVAL=1</span><br><span class="line">    else</span><br><span class="line">        echo &quot;$name is running with PID $pid&quot;</span><br><span class="line">        RETVAL=0</span><br><span class="line">    fi</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">case &quot;$1&quot; in</span><br><span class="line">&apos;start&apos;)</span><br><span class="line">    start</span><br><span class="line">    ;;</span><br><span class="line">&apos;stop&apos;)</span><br><span class="line">    stop</span><br><span class="line">    ;;</span><br><span class="line">&apos;status&apos;)</span><br><span class="line">    status</span><br><span class="line">    ;;</span><br><span class="line">&apos;restart&apos;)</span><br><span class="line">    stop</span><br><span class="line">    start</span><br><span class="line">    RETVAL=$?</span><br><span class="line">    ;;</span><br><span class="line">*)</span><br><span class="line">    echo &quot;Usage: $0 &#123; start | stop | restart | status &#125;&quot;</span><br><span class="line">    RETVAL=1</span><br><span class="line">    ;;</span><br><span class="line">esac</span><br><span class="line">exit $RETVAL</span><br><span class="line"></span><br><span class="line">vim /usr/bin/ssserver</span><br><span class="line"></span><br><span class="line">#!/usr/bin/python</span><br><span class="line"># EASY-INSTALL-ENTRY-SCRIPT: &apos;shadowsocks==2.8.2&apos;,&apos;console_scripts&apos;,&apos;ssserver&apos;</span><br><span class="line">__requires__ = &apos;shadowsocks==2.8.2&apos;</span><br><span class="line">import sys</span><br><span class="line">from pkg_resources import load_entry_point</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    sys.exit(</span><br><span class="line">        load_entry_point(&apos;shadowsocks==2.8.2&apos;, &apos;console_scripts&apos;, &apos;ssserver&apos;)()</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-25T11:59:37+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年8月25日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Shadowsocks/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>Shadowsocks</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/Shadowsocks.html&title=Shadowsocks | 云运维&summary=参考网站1https://teddysun.com/342.html
+
+Shadowsocks 主要用于翻墙、配置境外服务器。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/Shadowsocks.html&title=Shadowsocks | 云运维&summary=参考网站1https://teddysun.com/342.html
+
+Shadowsocks 主要用于翻墙、配置境外服务器。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/Shadowsocks.html&title=Shadowsocks | 云运维&summary=参考网站1https://teddysun.com/342.html
+
+Shadowsocks 主要用于翻墙、配置境外服务器。
+">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/hexo-material-x.html" rel="prev" title="hexo-material-x">
+                                  
+                                      hexo-material-x
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/material-x/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>material-x</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/nginx-ocsp.html" rel="prev" title="nginx-ocsp">
+                                    
+                                        nginx-ocsp
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/nginx-ocsp/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>nginx ocsp</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Shadowsocks',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class="l_side">
+  
+    
+    
+      
+        
+          
+          
+            <section class="widget author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://res.cloudinary.com/www-172173-com/image/upload/v1565838363/IMG_1014_ctdjly.jpg">
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#参考网站"><span class="toc-text">参考网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用方法："><span class="toc-text">使用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#卸载方法："><span class="toc-text">卸载方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装脚本"><span class="toc-text">安装脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动脚本"><span class="toc-text">启动脚本</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class="widget grid">
+  
+<header class="pure">
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class="content pure">
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/" id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/" rel="nofollow" id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories" href="/categories" id="categories">
+          
+            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
+          
+          文章分类
+        </a></li>
+      
+        <li><a class="flat-box" title="/friends/" href="/friends/" rel="nofollow" id="friends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/" rel="nofollow" id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/categories/" title="blog/categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(29)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class="name">Python</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Redis/" href="/categories/Redis/"><div class="name">Redis</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/SVN/" href="/categories/SVN/"><div class="name">SVN</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ubuntu/" href="/categories/Ubuntu/"><div class="name">Ubuntu</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(7)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/tags/" title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright © 2019 | 版权所有 <a href="http://fj.beian.miit.gov.cn/publish/query/indexFirst.action;jsessionid=075DA6F247D146C9201341C9B5A740CF">闽IC P备18011948号</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://www.172173.com/about" target="_blank" class="codename">172173.com</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+<script type="text/javascript" src="/cool/banner.js"></script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz",
+    appKey: "wn426D29iJpKjYczYLBPPCiP",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'false'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "[object Object]";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
