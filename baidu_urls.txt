@@ -15,8 +15,8 @@ https://www.172173.com/svn-slave.html
 https://www.172173.com/svn-svnsync.html
 https://www.172173.com/svn-svnmanger.html
 https://www.172173.com/svn-http.html
-https://www.172173.com/redis-key.html
 https://www.172173.com/redis-install.html
+https://www.172173.com/redis-key.html
 https://www.172173.com/redis-master-salve.html
 https://www.172173.com/redis-password.html
 https://www.172173.com/redis-slowlog.html
