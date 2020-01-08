@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>passwd-error | 云运维</title>
+  
+  <meta name="keywords" content="Authentication token manipulation error, 云运维 运维 技术 云 172173">
+  
+  
+  <meta name="description" content="创新云技术">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+<!--<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>-->
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class="cover post half">
+      
+        
+  <h1 class="title">172173.com</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder>
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class="menu navgation">
+  <ul class="h-list">
+    
+      
+        <li>
+          <a class="nav home" href="/" id="home">
+            <i class="fas fa-rss fa-fw"></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/" id="categories">
+            <i class="fas fa-code-branch fa-fw"></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/friends/" rel="nofollow" id="friends">
+            <i class="fas fa-link fa-fw"></i>&nbsp;友链
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/" rel="nofollow" id="about">
+            <i class="fas fa-info-circle fa-fw"></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          云运维
+        
+      </a>
+			<div class="menu navgation">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/categories/Linux" id="categoriesLinux">
+									<i class="fas fa-grin fa-fw"></i>&nbsp;Linux
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Windows" rel="nofollow" id="categoriesWindows">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;Windows
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Python" rel="nofollow" id="categoriesPython">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;Python
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/工具" rel="nofollow" id="categories工具">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;工具
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+        
+          <li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/" id="home">
+								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+								<i class="fas fa-archive fa-fw"></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categores/" id="categores">
+								<i class="fas fa-code-branch fa-fw"></i>&nbsp;文档分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/" rel="nofollow" id="friends">
+								<i class="fas fa-link fa-fw"></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/" rel="nofollow" id="https:xaoxuu.comwikimaterial-x">
+								<i class="fas fa-book fa-fw"></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/" rel="nofollow" id="about">
+								<i class="fas fa-info-circle fa-fw"></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class="l_main">
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/passwd-error.html">
+        passwd-error
+      </a>
+    </h1>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://www.172173.com" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>zj</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-11-22</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Linux/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Linux</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h3 id="Linux-修改root密码报错"><a href="#Linux-修改root密码报错" class="headerlink" title="Linux 修改root密码报错"></a>Linux 修改root密码报错</h3><h3 id="情况一"><a href="#情况一" class="headerlink" title="情况一"></a>情况一</h3><p>认证的地方出问题了。<br>现象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@x ~]# passwd  root</span><br><span class="line">Changing password for user root.</span><br><span class="line">passwd: Authentication token manipulation error</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>检查/etc/pam.d/passwd、/etc/pam.d/system-auth以下配置是否存在：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/pam.d/system-auth</span><br><span class="line">#%PAM-1.0</span><br><span class="line"># This file is auto-generated.</span><br><span class="line"># User changes will be destroyed the next time authconfig is run.</span><br><span class="line">auth        required      pam_env.so</span><br><span class="line">auth        required      pam_faildelay.so delay=2000000</span><br><span class="line">auth        sufficient    pam_unix.so nullok try_first_pass</span><br><span class="line">auth        requisite     pam_succeed_if.so uid &gt;= 1000 quiet_success</span><br><span class="line">auth        required      pam_deny.so</span><br><span class="line"></span><br><span class="line">account     required      pam_unix.so</span><br><span class="line">account     sufficient    pam_localuser.so</span><br><span class="line">account     sufficient    pam_succeed_if.so uid &lt; 1000 quiet</span><br><span class="line">account     required      pam_permit.so</span><br><span class="line"></span><br><span class="line">#password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type=</span><br><span class="line">password    sufficient    pam_unix.so sha512 shadow nullok try_first_pass use_authtok</span><br><span class="line">password    required      pam_deny.so</span><br><span class="line"></span><br><span class="line">session     optional      pam_keyinit.so revoke</span><br><span class="line">session     required      pam_limits.so</span><br><span class="line">-session     optional      pam_systemd.so</span><br><span class="line">session     [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid</span><br><span class="line">session     required      pam_unix.so</span><br></pre></td></tr></table></figure></p>
+<p>发现设置密码复杂被人注释了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">password    requisite     pam_pwquality.so try_first_pass local_users_only retry=3 authtok_type=</span><br></pre></td></tr></table></figure></p>
+<p>修复去掉# 就可以了。<br>如果没有文件，或者文件被改动比较大，可以去同系统版本的操作系统上把这两个文件copy过来覆盖。</p>
+<p>这条是设置密码,设置口令复杂度, 参数意思。</p>
+<blockquote>
+<p>difok= ：此选项用来定义新密码中必须要有几个字符和旧密码不同</p>
+</blockquote>
+<blockquote>
+<p>minlen=：此选项用来设置新密码的最小长度</p>
+</blockquote>
+<blockquote>
+<p>ucredit= ：此选项用来设定新密码中可以包含的大写字母的最大数目。-1 至少一个</p>
+</blockquote>
+<blockquote>
+<p>lcredit=：此选项用来设定新密码中可以包含的小写字母的最大数目</p>
+</blockquote>
+<blockquote>
+<p>dcredit=：此选项用来设定新密码中可以包含的数字的最大数目 </p>
+</blockquote>
+<h4 id="情况二"><a href="#情况二" class="headerlink" title="情况二"></a>情况二</h4><p>/etc/passwd, /etc/shadow文件被锁住，不允许修改。<br>现象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@x ~]# lsattr /etc/passwd</span><br><span class="line">----i-------- /etc/passwd</span><br><span class="line">[root@x ~]# lsattr /etc/shadow</span><br><span class="line">----i-------- /etc/shadow</span><br></pre></td></tr></table></figure></p>
+<p>情况<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@x ~]# passwd root</span><br><span class="line">Changing password for user root.</span><br><span class="line">New UNIX password:</span><br><span class="line">BAD PASSWORD: it is based on a dictionary word</span><br><span class="line">Retype new UNIX password:</span><br><span class="line">passwd: Authentication token manipulation error</span><br></pre></td></tr></table></figure></p>
+<p>解决方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@x ~]#  chattr -i /etc/shadow</span><br><span class="line">[root@x ~]#  chattr -i /etc/passwd</span><br><span class="line">[root@x ~]#  lsattr /etc/passwd</span><br><span class="line">------------- /etc/passwd</span><br><span class="line">[root@x ~]# lsattr /etc/shadow</span><br><span class="line">------------- /etc/shadow</span><br></pre></td></tr></table></figure></p>
+<h3 id="情况三"><a href="#情况三" class="headerlink" title="情况三"></a>情况三</h3><p>磁盘空间满了,检查下，并清理磁盘空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@x ~]#  df -l</span><br><span class="line">Filesystem     1K-blocks    Used Available Use% Mounted on</span><br><span class="line">/dev/vda1       20960256 20960256  0  100% /</span><br><span class="line">devtmpfs          980108       0    980108   0% /dev</span><br><span class="line">tmpfs             990780       0    990780   0% /dev/shm</span><br><span class="line">tmpfs             990780  106996    883784  11% /run</span><br><span class="line">tmpfs             990780       0    990780   0% /sys/fs/cgroup</span><br><span class="line">tmpfs             198156       0    198156   0% /run/user/0</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-11-22T15:24:55+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年11月22日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/passwd-error/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>passwd error</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/passwd-error.html&title=passwd-error | 云运维&summary=Linux 修改root密码报错情况一认证的地方出问题了。现象：123[root@x ~]# passwd  rootChanging password for user root.passwd: Authentication token manipulation error">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/passwd-error.html&title=passwd-error | 云运维&summary=Linux 修改root密码报错情况一认证的地方出问题了。现象：123[root@x ~]# passwd  rootChanging password for user root.passwd: Authentication token manipulation error">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/passwd-error.html&title=passwd-error | 云运维&summary=Linux 修改root密码报错情况一认证的地方出问题了。现象：123[root@x ~]# passwd  rootChanging password for user root.passwd: Authentication token manipulation error">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/mac-install.html" rel="prev" title="mac-install">
+                                  
+                                      mac-install
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/MAC-install/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>MAC install</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/vpn-use.html" rel="prev" title="vpn-use">
+                                    
+                                        vpn-use
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/vpn-use/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>vpn use</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'passwd-error',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class="l_side">
+  
+    
+    
+      
+        
+          
+          
+            <section class="widget author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://res.cloudinary.com/www-172173-com/image/upload/v1565838363/IMG_1014_ctdjly.jpg">
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-修改root密码报错"><span class="toc-text">Linux 修改root密码报错</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#情况一"><span class="toc-text">情况一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#情况二"><span class="toc-text">情况二</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#情况三"><span class="toc-text">情况三</span></a></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class="widget grid">
+  
+<header class="pure">
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class="content pure">
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/" id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/" rel="nofollow" id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories" href="/categories" id="categories">
+          
+            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
+          
+          文章分类
+        </a></li>
+      
+        <li><a class="flat-box" title="/friends/" href="/friends/" rel="nofollow" id="friends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/" rel="nofollow" id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/categories/" title="blog/categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class="name">Python</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Redis/" href="/categories/Redis/"><div class="name">Redis</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/SVN/" href="/categories/SVN/"><div class="name">SVN</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ubuntu/" href="/categories/Ubuntu/"><div class="name">Ubuntu</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/tags/" title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright © 2019 | 版权所有 <a href="http://fj.beian.miit.gov.cn/publish/query/indexFirst.action;jsessionid=075DA6F247D146C9201341C9B5A740CF">闽IC P备18011948号</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://www.172173.com/about" target="_blank" class="codename">172173.com</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+<script type="text/javascript" src="/cool/banner.js"></script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz",
+    appKey: "wn426D29iJpKjYczYLBPPCiP",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "[object Object]";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

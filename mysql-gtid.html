@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <title>mysql-GTID | 云运维</title>
+  
+  <meta name="keywords" content="mysql gtid 主从, 云运维 运维 技术 云 172173">
+  
+  
+  <meta name="description" content="创新云技术">
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.6.3/css/all.min.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/css/style.css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-7288533661448713",
+    enable_page_level_ads: true
+  });
+</script>
+<!--<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>-->
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class="cover post half">
+      
+        
+  <h1 class="title">172173.com</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder>
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class="menu navgation">
+  <ul class="h-list">
+    
+      
+        <li>
+          <a class="nav home" href="/" id="home">
+            <i class="fas fa-rss fa-fw"></i>&nbsp;博文
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/categories/" id="categories">
+            <i class="fas fa-code-branch fa-fw"></i>&nbsp;分类
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/friends/" rel="nofollow" id="friends">
+            <i class="fas fa-link fa-fw"></i>&nbsp;友链
+          </a>
+        </li>
+      
+        <li>
+          <a class="nav home" href="/about/" rel="nofollow" id="about">
+            <i class="fas fa-info-circle fa-fw"></i>&nbsp;关于
+          </a>
+        </li>
+      
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class="wrapper">
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href="/">
+        
+          云运维
+        
+      </a>
+			<div class="menu navgation">
+				<ul class="h-list">
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/categories/Linux" id="categoriesLinux">
+									<i class="fas fa-grin fa-fw"></i>&nbsp;Linux
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Windows" rel="nofollow" id="categoriesWindows">
+									<i class="fas fa-folder-open fa-fw"></i>&nbsp;Windows
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/Python" rel="nofollow" id="categoriesPython">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;Python
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/categories/工具" rel="nofollow" id="categories工具">
+									<i class="fas fa-hashtag fa-fw"></i>&nbsp;工具
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+									<i class="fas fa-archive fa-fw"></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索">
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class="switcher h-list">
+				
+					<li class="s-search"><a class="fas fa-search fa-fw" href="javascript:void(0)"></a></li>
+				
+				<li class="s-menu"><a class="fas fa-bars fa-fw" href="javascript:void(0)"></a></li>
+			</ul>
+		</div>
+
+		<div class="nav-sub container container--flex">
+			<a class="logo flat-box"></a>
+			<ul class="switcher h-list">
+				<li class="s-comment"><a class="flat-btn fas fa-comments fa-fw" href="javascript:void(0)"></a></li>
+        
+          <li class="s-toc"><a class="flat-btn fas fa-list fa-fw" href="javascript:void(0)"></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/" id="home">
+								<i class="fas fa-clock fa-fw"></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/" rel="nofollow" id="archives">
+								<i class="fas fa-archive fa-fw"></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/categores/" id="categores">
+								<i class="fas fa-code-branch fa-fw"></i>&nbsp;文档分类
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/friends/" rel="nofollow" id="friends">
+								<i class="fas fa-link fa-fw"></i>&nbsp;我的友链
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="https://xaoxuu.com/wiki/material-x/" rel="nofollow" id="https:xaoxuu.comwikimaterial-x">
+								<i class="fas fa-book fa-fw"></i>&nbsp;主题文档
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/about/" rel="nofollow" id="about">
+								<i class="fas fa-info-circle fa-fw"></i>&nbsp;关于小站
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class="l_main">
+  
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class="meta">
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/mysql-gtid.html">
+        mysql-GTID
+      </a>
+    </h1>
+  
+
+
+      
+      <div class="new-meta-box">
+        
+          
+        
+          
+            
+  <div class="new-meta-item author">
+    <a href="https://www.172173.com" rel="nofollow">
+      
+        <i class="fas fa-user" aria-hidden="true"></i>
+      
+      <p>lyc</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class="notlink">
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2019-09-21</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class="new-meta-item category">
+    <a href="/categories/Linux/" rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Linux</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class="notlink">
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <blockquote>
+<p>Write by lyc at 2018-09-19<br>概念参考博文《MySQL-5.6版本GTID的主从复制》<a href="https://www.cnblogs.com/abobo/p/4242417.html">https://www.cnblogs.com/abobo/p/4242417.html</a><br>配置参考博文《散尽浮华：Mysql5.6主从同步引用新特性-GTID》<a href="https://www.cnblogs.com/kevingrace/p/5569753.html">https://www.cnblogs.com/kevingrace/p/5569753.html</a><br>综合参考博文《阿里云：MySQL5.7杀手级新特性：GTID原理与实战》<a href="https://yq.aliyun.com/articles/57731">https://yq.aliyun.com/articles/57731</a></p>
+</blockquote>
+<h1 id="一、GTID复制基础"><a href="#一、GTID复制基础" class="headerlink" title="一、GTID复制基础"></a>一、GTID复制基础</h1><h2 id="1-什么是GTID"><a href="#1-什么是GTID" class="headerlink" title="1.什么是GTID"></a>1.什么是GTID</h2><p>GTID即全局事务ID（global transaction identifier），MySQL-5.6.2开始支持，MySQL-5.6.10后完善，GTID 分成两部分：</p>
+<ul>
+<li>UUID：MySQL实例的唯一标识，UUID保存在mysql数据目录的<code>auto.cnf</code>文件中，这是一个非常重要的文件，不能删除，这一部分是不会变的。</li>
+<li>TID：事务ID，代表了该实例上已经提交的事务数量，并且随着事务提交单调递增。  <a id="more"></a>
+</li>
+</ul>
+<p>所以GTID能够保证每个MySQL实例事务的执行（不会重复执行同一个事务，并且会补全没有执行的事务）。下面是一个GTID的具体形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show master status;</span><br><span class="line">+---------------------+----------+--------------+------------------+------------------------------------------+</span><br><span class="line">| File                | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set                        |</span><br><span class="line">+---------------------+----------+--------------+------------------+------------------------------------------+</span><br><span class="line">| log-bin-3306.000007 |      720 |              |                  | a3fad9de-a5f9-11e8-8881-000c2900f08d:1-2 |</span><br><span class="line">+---------------------+----------+--------------+------------------+------------------------------------------+</span><br><span class="line">1 row in set (0.01 sec)</span><br><span class="line"></span><br><span class="line"># UUID:a3fad9de-a5f9-11e8-8881-000c2900f08d</span><br><span class="line"># TID:1-2</span><br><span class="line"># GTID:a3fad9de-a5f9-11e8-8881-000c2900f08d:1-2</span><br></pre></td></tr></table></figure>
+<p>==在整个复制架构中GTID是不变化的，即使在多个连环主从中也不会变。==例如：</p>
+<ul>
+<li>ServerA —&gt;ServerB —-&gt;ServerC ，GTID从在ServerA ,ServerB,ServerC 中都是一样的。</li>
+</ul>
+<h2 id="2-GTID的概述"><a href="#2-GTID的概述" class="headerlink" title="2.GTID的概述"></a>2.GTID的概述</h2><ol>
+<li>全局事物标识：global transaction identifieds。</li>
+<li>==GTID事务唯一性的，且一个事务对应一个GTID==。</li>
+<li>一个GTID在一个服务器上只执行一次，避免重复执行导致数据混乱或者主从不一致。</li>
+<li>GTID用来代替classic的复制方法，不在使用binlog+pos开启复制。而是==使用<code>master_auto_postion=1</code>的方式自动匹配GTID断点进行复制==。</li>
+<li>MySQL-5.6.5开始支持的，MySQL-5.6.10后开始完善。</li>
+<li>在传统的slave端，binlog是不用开启的，但是==在GTID中，slave端的binlog是必须开启的，目的是记录执行过的GTID（强制）==。</li>
+</ol>
+<h2 id="3-GTID复制的优点"><a href="#3-GTID复制的优点" class="headerlink" title="3.GTID复制的优点"></a>3.GTID复制的优点</h2><ol>
+<li>更简单的实现failover，不用以前那样在需要找log_file和log_Pos。</li>
+<li>更简单的搭建主从复制。</li>
+<li>比传统复制更加安全。</li>
+<li>GTID是连续没有空洞的，因此主从库出现数据冲突时，可以用添加空事物的方式进行跳过。</li>
+</ol>
+<h2 id="4-GTID复制的工作原理"><a href="#4-GTID复制的工作原理" class="headerlink" title="4.GTID复制的工作原理"></a>4.GTID复制的工作原理</h2><ol>
+<li>master更新数据时，会在事务前产生GTID，一同记录到binlog日志中。</li>
+<li>slave端的i/o 线程将变更的binlog，写入到本地的relay log中。</li>
+<li>sql线程从relay log中获取GTID，然后对比slave端的binlog是否有记录。</li>
+<li>如果有记录，说明该GTID的事务已经执行，slave会忽略。</li>
+<li>如果没有记录，slave就会从relay log中执行该GTID的事务，并记录到binlog。</li>
+<li>在解析过程中会判断是否有主键，如果没有就用二级索引，如果没有就用全部扫描。</li>
+</ol>
+<p>==要点：==</p>
+<ul>
+<li>slave在接受master的binlog时，会校验master的GTID是否已经执行过（一个服务器只能执行一次）。</li>
+<li>为了保证主从数据的一致性，多线程只能同时执行一个GTID。</li>
+</ul>
+<h2 id="5-GTID复制的限制"><a href="#5-GTID复制的限制" class="headerlink" title="5.GTID复制的限制"></a>5.GTID复制的限制</h2><ol>
+<li>==不支持非事务引擎（MyISAM）==</li>
+<li>不支持create table … select 语句复制(主库直接报错)<br>原理：（ 会生成两个sql，一个是DDL创建表SQL，一个是insert into 插入数据的sql。<br>由于DDL会导致自动提交，所以这个sql至少需要两个GTID，但是GTID模式下，只能给这个sql生成一个GTID ）</li>
+<li>不允许一个SQL同时更新一个事务引擎表和非事务引擎表</li>
+<li>==在一个复制组中，必须要求统一开启GTID或者是关闭GTID==</li>
+<li>开启GTID需要重启（5.7除外）</li>
+<li>==开启GTID后，就不再使用原来的传统复制方式==</li>
+<li>对于create temporary table 和 drop temporary table语句不支持</li>
+<li>不支持sql_slave_skip_counter</li>
+</ol>
+<h1 id="二、GTID复制参数"><a href="#二、GTID复制参数" class="headerlink" title="二、GTID复制参数"></a>二、GTID复制参数</h1><h2 id="GTID相关参数解析"><a href="#GTID相关参数解析" class="headerlink" title="GTID相关参数解析"></a>GTID相关参数解析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &quot;%gtid%&quot;;  </span><br><span class="line">+----------------------------------+-----------+</span><br><span class="line">| Variable_name                    | Value     |</span><br><span class="line">+----------------------------------+-----------+</span><br><span class="line">| binlog_gtid_simple_recovery      | ON        |</span><br><span class="line">| enforce_gtid_consistency         | ON        |    # enforce_gtid_consistency=ON,保证GTID安全的参数，对于出现GTID复制的限制从库会报错，即便是gtid_mode=OFF也会校验限制（必须ON）</span><br><span class="line">| gtid_executed_compression_period | 1000      |    # gtid_executed,执行过的所有GTID，全局和seeeion级别都可以用。贴士：show  master status\G;输出结果中的Executed_Gtid_Set和gitd_executed一致。reset master时，此值会被清空。</span><br><span class="line">| gtid_mode                        | ON        |    # gtid_mode=ON,是否开启GTID功能（必须ON）</span><br><span class="line">| gtid_next                        | AUTOMATIC |    # gtid_next,这个时session级别的参数：[master]&gt;show session variables like &apos;%gtid_next%&apos;;</span><br><span class="line">| gtid_owned                       |           |    # gtid_owned,正在运行的gtid，全局和session级别都可用，全局表示所有服务器拥有GTIDs，session级别表示当前client拥有所有GTIDs。（此功能用的少）</span><br><span class="line">| gtid_purged                      |           |    # gtid_purged,丢弃掉的GTID，全局参数，设置在binlog中，已经purged的GTIDs，并且purged掉的GTIDs会包含到gtid_executed中。贴士：从而导致slave不会再去master请求这些GTIDs，并且Executed_Gtid_Set为空时，才可以设置此值。</span><br><span class="line">| session_track_gtids              | OFF       |</span><br><span class="line">+----------------------------------+-----------+</span><br><span class="line">8 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h2 id="关于GTID-MODE的4中模式"><a href="#关于GTID-MODE的4中模式" class="headerlink" title="关于GTID_MODE的4中模式"></a>关于GTID_MODE的4中模式</h2><blockquote>
+<p>综合参考博文《阿里云：MySQL5.7杀手级新特性：GTID原理与实战》<a href="https://yq.aliyun.com/articles/57731">https://yq.aliyun.com/articles/57731</a></p>
+</blockquote>
+<p>归纳总结：</p>
+<ol>
+<li>当master产生Normal_GTID的时候（ON_PERMISSIVE，ON），如果slave的gtid_mode（OFF）不能接受Normal_GTID，那么就会报错</li>
+<li>当master产生ANONYMOUS_GTID的时候（OFF_PERMISSIVE，OFF），如果slave的gtid_mode（ON）不能接受ANONYMOUS_GTID，那么就会报错</li>
+<li>==设置auto_position的条件： 当master gtid_mode=ON时，slave可以为OFF_PERMISSIVE，ON_PERMISSIVE，ON。除此之外，都不能设置auto_position = on==</li>
+</ol>
+<h1 id="三、通过备份搭建GTID-slave"><a href="#三、通过备份搭建GTID-slave" class="headerlink" title="三、通过备份搭建GTID slave"></a>三、通过备份搭建GTID slave</h1><h2 id="开启GTID的必备条件"><a href="#开启GTID的必备条件" class="headerlink" title="开启GTID的必备条件"></a>开启GTID的必备条件</h2><ul>
+<li>master,slave都配置的参数</li>
+</ul>
+<blockquote>
+<p>5.6gtid参数都是静态参数，需要重启mysqld</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">gtid_mode = ON                  # 打开gtid模式</span><br><span class="line">log_bin = ON                    # 所有节点都要记录binlog</span><br><span class="line">log-slave-updates = ON          # 开启记录binlog</span><br><span class="line">enforce_gtid_consistency = ON   # gtid复制安全性参数</span><br><span class="line"></span><br><span class="line"># 建议binlog改成行级模式，确保主从复制的一致性</span><br><span class="line">binlog_format = row</span><br></pre></td></tr></table></figure>
+<h2 id="1-通过mysqldump"><a href="#1-通过mysqldump" class="headerlink" title="1.通过mysqldump"></a>1.通过mysqldump</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># master mysqldump</span><br><span class="line">#mysqldump -uroot -p -S /data/mysql_data_3306/mysql_3306.sock -A --master-data=2 --single-transaction --set-gtid-purged -B &gt; mysql207.sql</span><br><span class="line">mysqldump -uroot -p -S /data/mysql_data_3306/mysql_3306.sock -A --master-data=2 --single-transaction --set-gtid-purged -B &gt; mysql207.sql</span><br><span class="line"></span><br><span class="line"># 导入sql到新实例后，CHANGE MASTER TO</span><br><span class="line">stop slave;</span><br><span class="line">CHANGE MASTER TO</span><br><span class="line">MASTER_HOST=&apos;192.168.x.x&apos;,</span><br><span class="line">MASTER_PORT=3306,</span><br><span class="line">MASTER_USER=&apos;newslave&apos;,</span><br><span class="line">MASTER_PASSWORD=&apos;123456&apos;,</span><br><span class="line">MASTER_AUTO_POSITION=1;</span><br><span class="line">start slave;</span><br><span class="line"></span><br><span class="line"># MASTER_AUTO_POSITION=1;   # 这条命令是重点，1开启GTID复制</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="GTID复制错误"><a href="#GTID复制错误" class="headerlink" title="GTID复制错误"></a>GTID复制错误</h1><h2 id="1-关于enforce-gtid-consistency-1引起的GTID复制错误"><a href="#1-关于enforce-gtid-consistency-1引起的GTID复制错误" class="headerlink" title="1.关于enforce_gtid_consistency=1引起的GTID复制错误"></a>1.关于enforce_gtid_consistency=1引起的GTID复制错误</h2><h3 id="故障描述"><a href="#故障描述" class="headerlink" title="故障描述"></a>故障描述</h3><p>[ERROR] Slave SQL: Error ‘CREATE TABLE … SELECT is forbidden when @@GLOBAL’ Error_code: 1786</p>
+<ul>
+<li>这套YD的高可用数据库是<code>gtid_mode=OFF</code>的，主库<code>enforce_gtid_consistency=0</code>，从库<code>enforce_gtid_consistency=1</code></li>
+<li><code>enforce_gtid_consistency</code>是校验GTID复制安全性的参数，即便<code>gtid_mode=OFF</code>，把该参数设置成1仍然会检测主从复制过程中对GTID不安全的因素(<code>CREATE TABLE ... SELECT</code>)，所以会报这个错误。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>ucloud高可用是基于<code>file+pos</code>的传统复制，而高可用下再挂的从库才是基于GTID的复制。所以控制台创建的机器是强制要求<code>gtid_mode=ON</code>，<code>enforce_gtid_consistency=1</code></p>
+<ul>
+<li>虽然没再建从库，两个GTID的开关开着，能够在主从复制的过程中暴露出从库同步失败的错误，如sql语句，不支持事务的MyISAM引擎等，从而去优化。</li>
+<li>再联想到自建库，若要从传统的赋值升级成GTID的复制，同样也要采用这种方式，打开GTID，只要<code>Auto_Position: 0</code>都是传统复制，让主从复制暴露出问题，进而优化。</li>
+<li>千万不能直接上，否则可能会经常出现主从复制异常的隐患。</li>
+</ul>
+<h3 id="enforce-gtid-consistency参数何时才能开？"><a href="#enforce-gtid-consistency参数何时才能开？" class="headerlink" title="enforce_gtid_consistency参数何时才能开？"></a>enforce_gtid_consistency参数何时才能开？</h3><p>==<code>enforce_gtid_consistency</code>是静态参数，重启服务生效。==</p>
+<ol>
+<li><code>gtid_mode=on</code>,<code>enforce_gtid_consistency</code>必须为1，否则服务起不来</li>
+<li><code>gtid_mode=off</code>,<code>enforce_gtid_consistency</code>可以为1，用于校验GTID安全性，意义不大，因为都是静态参数要么就全开。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &quot;%gtid%&quot;;</span><br><span class="line">+----------------------------------+------------------------------------------+</span><br><span class="line">| Variable_name                    | Value                                    |</span><br><span class="line">+----------------------------------+------------------------------------------+</span><br><span class="line">| binlog_gtid_simple_recovery      | ON                                       |</span><br><span class="line">| enforce_gtid_consistency         | ON                                       |</span><br><span class="line">| gtid_executed_compression_period | 1000                                     |</span><br><span class="line">| gtid_mode                        | OFF                                      |</span><br><span class="line">| gtid_next                        | AUTOMATIC                                |</span><br><span class="line">| gtid_owned                       |                                          |</span><br><span class="line">| gtid_purged                      | a3fad9de-a5f9-11e8-8881-000c2900f08d:1-2 |</span><br><span class="line">| session_track_gtids              | OFF                                      |</span><br><span class="line">+----------------------------------+------------------------------------------+</span><br><span class="line">8 rows in set (0.01 sec)</span><br><span class="line"></span><br><span class="line"># 一开一关根本没意义，因为两个都是静态参数</span><br><span class="line"># 校验完你以后要用呢？还得重启去开gtid_mode=ON</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-mysql5-7-gtid-mode-gt-dynamic"><a href="#2-mysql5-7-gtid-mode-gt-dynamic" class="headerlink" title="2.mysql5.7 gtid_mode-&gt;dynamic"></a>2.mysql5.7 gtid_mode-&gt;dynamic</h2><ul>
+<li>在mysql5.7是支持动态修改GTID_MODE的</li>
+<li>需要注意的是GTID_MODE需要逐级修改</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; set global gtid_mode=ON;</span><br><span class="line">ERROR 1788 (HY000): The value of @@GLOBAL.GTID_MODE can only be changed one step at a time: OFF &lt;-&gt; OFF_PERMISSIVE &lt;-&gt; ON_PERMISSIVE &lt;-&gt; ON. Also note that this value must be stepped up or down simultaneously on all servers. See the Manual for instructions.</span><br><span class="line">mysql&gt; set @@GLOBAL.GTID_MODE=ON;</span><br><span class="line">ERROR 1788 (HY000): The value of @@GLOBAL.GTID_MODE can only be changed one step at a time: OFF &lt;-&gt; OFF_PERMISSIVE &lt;-&gt; ON_PERMISSIVE &lt;-&gt; ON. Also note that this value must be stepped up or down simultaneously on all servers. See the Manual for instructions.</span><br><span class="line"></span><br><span class="line">set @@GLOBAL.GTID_MODE=ON;</span><br><span class="line">OFF &lt;-&gt; OFF_PERMISSIVE &lt;-&gt; ON_PERMISSIVE &lt;-&gt; ON</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+          
+
+
+  <section class="meta" id="footer-meta">
+    <hr>
+    <div class="new-meta-box">
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-09-21T15:49:31+08:00">
+  <a class="notlink">
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2019年9月21日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/mysql-gtid/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>mysql gtid</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/mysql-gtid.html&title=mysql-GTID | 云运维&summary=
+Write by lyc at 2018-09-19概念参考博文《MySQL-5.6版本GTID的主从复制》https://www.cnblogs.com/abobo/p/4242417.html配置参考博文《散尽浮华：Mysql5.6主从同步引用新特性-GTID》https://www.cnblogs.com/kevingrace/p/5569753.html综合参考博文《阿里云：MySQL5.7杀手级新特性：GTID原理与实战》https://yq.aliyun.com/articles/57731
+
+一、GTID复制基础1.什么是GTIDGTID即全局事务ID（global transaction identifier），MySQL-5.6.2开始支持，MySQL-5.6.10后完善，GTID 分成两部分：
+
+UUID：MySQL实例的唯一标识，UUID保存在mysql数据目录的auto.cnf文件中，这是一个非常重要的文件，不能删除，这一部分是不会变的。
+TID：事务ID，代表了该实例上已经提交的事务数量，并且随着事务提交单调递增。">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/mysql-gtid.html&title=mysql-GTID | 云运维&summary=
+Write by lyc at 2018-09-19概念参考博文《MySQL-5.6版本GTID的主从复制》https://www.cnblogs.com/abobo/p/4242417.html配置参考博文《散尽浮华：Mysql5.6主从同步引用新特性-GTID》https://www.cnblogs.com/kevingrace/p/5569753.html综合参考博文《阿里云：MySQL5.7杀手级新特性：GTID原理与实战》https://yq.aliyun.com/articles/57731
+
+一、GTID复制基础1.什么是GTIDGTID即全局事务ID（global transaction identifier），MySQL-5.6.2开始支持，MySQL-5.6.10后完善，GTID 分成两部分：
+
+UUID：MySQL实例的唯一标识，UUID保存在mysql数据目录的auto.cnf文件中，这是一个非常重要的文件，不能删除，这一部分是不会变的。
+TID：事务ID，代表了该实例上已经提交的事务数量，并且随着事务提交单调递增。">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/mysql-gtid.html&title=mysql-GTID | 云运维&summary=
+Write by lyc at 2018-09-19概念参考博文《MySQL-5.6版本GTID的主从复制》https://www.cnblogs.com/abobo/p/4242417.html配置参考博文《散尽浮华：Mysql5.6主从同步引用新特性-GTID》https://www.cnblogs.com/kevingrace/p/5569753.html综合参考博文《阿里云：MySQL5.7杀手级新特性：GTID原理与实战》https://yq.aliyun.com/articles/57731
+
+一、GTID复制基础1.什么是GTIDGTID即全局事务ID（global transaction identifier），MySQL-5.6.2开始支持，MySQL-5.6.10后完善，GTID 分成两部分：
+
+UUID：MySQL实例的唯一标识，UUID保存在mysql数据目录的auto.cnf文件中，这是一个非常重要的文件，不能删除，这一部分是不会变的。
+TID：事务ID，代表了该实例上已经提交的事务数量，并且随着事务提交单调递增。">
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+            <div class="prev-next">
+                
+                    <section class="prev">
+                        <span class="art-item-left">
+                            <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                            <h4>
+                                <a href="/vpn-use.html" rel="prev" title="vpn-use">
+                                  
+                                      vpn-use
+                                  
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/vpn-use/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>vpn use</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/es-shard.html" rel="prev" title="es-shard">
+                                    
+                                        es-shard
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/单台CPU高-ES异常/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>单台CPU高 ES异常</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'mysql-GTID',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class="l_side">
+  
+    
+    
+      
+        
+          
+          
+            <section class="widget author">
+  <div class="content pure">
+    
+      <div class="avatar">
+        <img class="avatar" src="https://res.cloudinary.com/www-172173-com/image/upload/v1565838363/IMG_1014_ctdjly.jpg">
+      </div>
+    
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget toc-wrapper">
+    
+<header class="pure">
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class="wrapper"><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class="content pure">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、GTID复制基础"><span class="toc-text">一、GTID复制基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-什么是GTID"><span class="toc-text">1.什么是GTID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-GTID的概述"><span class="toc-text">2.GTID的概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-GTID复制的优点"><span class="toc-text">3.GTID复制的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-GTID复制的工作原理"><span class="toc-text">4.GTID复制的工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-GTID复制的限制"><span class="toc-text">5.GTID复制的限制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、GTID复制参数"><span class="toc-text">二、GTID复制参数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#GTID相关参数解析"><span class="toc-text">GTID相关参数解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关于GTID-MODE的4中模式"><span class="toc-text">关于GTID_MODE的4中模式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、通过备份搭建GTID-slave"><span class="toc-text">三、通过备份搭建GTID slave</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#开启GTID的必备条件"><span class="toc-text">开启GTID的必备条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-通过mysqldump"><span class="toc-text">1.通过mysqldump</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GTID复制错误"><span class="toc-text">GTID复制错误</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-关于enforce-gtid-consistency-1引起的GTID复制错误"><span class="toc-text">1.关于enforce_gtid_consistency=1引起的GTID复制错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#故障描述"><span class="toc-text">故障描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#enforce-gtid-consistency参数何时才能开？"><span class="toc-text">enforce_gtid_consistency参数何时才能开？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-mysql5-7-gtid-mode-gt-dynamic"><span class="toc-text">2.mysql5.7 gtid_mode-&gt;dynamic</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            <section class="widget grid">
+  
+<header class="pure">
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class="content pure">
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/" id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/" rel="nofollow" id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+        <li><a class="flat-box" title="/categories" href="/categories" id="categories">
+          
+            <i class="fas fa-code-branch fa-fw" aria-hidden="true"></i>
+          
+          文章分类
+        </a></li>
+      
+        <li><a class="flat-box" title="/friends/" href="/friends/" rel="nofollow" id="friends">
+          
+            <i class="fas fa-link fa-fw" aria-hidden="true"></i>
+          
+          我的友链
+        </a></li>
+      
+        <li><a class="flat-box" title="/about/" href="/about/" rel="nofollow" id="about">
+          
+            <i class="fas fa-info-circle fa-fw" aria-hidden="true"></i>
+          
+          关于小站
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget category">
+    
+<header class="pure">
+  <div><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;文章分类</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/categories/" title="blog/categories/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <ul class="entry">
+        
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Python/" href="/categories/Python/"><div class="name">Python</div><div class="badge">(4)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Redis/" href="/categories/Redis/"><div class="name">Redis</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/SVN/" href="/categories/SVN/"><div class="name">SVN</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Ubuntu/" href="/categories/Ubuntu/"><div class="name">Ubuntu</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/Windows/" href="/categories/Windows/"><div class="name">Windows</div><div class="badge">(8)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
+        
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+        
+      </ul>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+  <section class="widget tagcloud">
+    
+<header class="pure">
+  <div><i class="fas fa-fire fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn" rel="nofollow" href="/blog/tags/" title="blog/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class="content pure">
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+    </div>
+  </section>
+
+
+          
+        
+      
+        
+          
+          
+            
+
+
+
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="/atom.xml" class="social fas fa-rss flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="mailto:me@xaoxuu.com" class="social fas fa-envelope flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://github.com/xaoxuu" class="social fab fa-github flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/user/home?id=63035382" class="social fas fa-headphones-alt flat-btn" target="_blank" rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright © 2019 | 版权所有 <a href="http://fj.beian.miit.gov.cn/publish/query/indexFirst.action;jsessionid=075DA6F247D146C9201341C9B5A740CF">闽IC P备18011948号</a></p>
+</div>
+  <div>
+    本站使用
+    <a href="https://www.172173.com/about" target="_blank" class="codename">172173.com</a>
+    作为主题
+    
+      ，
+      总访问量为
+      <span id="busuanzi_value_site_pv"><i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i></span>
+      次
+    
+    。
+  </div>
+</footer>
+<script>setLoadingBarProgress(80);</script>
+<script type="text/javascript" src="/cool/banner.js"></script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('.cover') {
+          $('.cover').backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["https://res.cloudinary.com/www-172173-com/image/upload/v1566033053/IMG_1022_bvt23k.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="https://cdn.jsdelivr.net/gh/xaoxuu/volantis@1.0/js/volantis.min.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "xFcujt6m2KQvPvjBxRVRiD6R-gzGzoHsz",
+    appKey: "wn426D29iJpKjYczYLBPPCiP",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/app.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-material-x@19.5/js/search.js"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "[object Object]";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

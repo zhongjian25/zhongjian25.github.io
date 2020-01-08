@@ -1,3 +1,12 @@
+https://www.172173.com/supervisor.html
+https://www.172173.com/mac-install.html
+https://www.172173.com/passwd-error.html
+https://www.172173.com/vpn-use.html
+https://www.172173.com/mysql-gtid.html
+https://www.172173.com/es-shard.html
+https://www.172173.com/windows-KB4512506.html
+https://www.172173.com/Ubuntu-safe.html
+https://www.172173.com/Linux-safe.html
 https://www.172173.com/window-IIS7-backup.html
 https://www.172173.com/window-2018-mster.html
 https://www.172173.com/svn-hook.html
@@ -6,8 +15,8 @@ https://www.172173.com/svn-slave.html
 https://www.172173.com/svn-svnsync.html
 https://www.172173.com/svn-svnmanger.html
 https://www.172173.com/svn-http.html
-https://www.172173.com/redis-install.html
 https://www.172173.com/redis-key.html
+https://www.172173.com/redis-install.html
 https://www.172173.com/redis-master-salve.html
 https://www.172173.com/redis-password.html
 https://www.172173.com/redis-slowlog.html
@@ -22,9 +31,7 @@ https://www.172173.com/svn-present.html
 https://www.172173.com/hexo-material-x.html
 https://www.172173.com/Shadowsocks.html
 https://www.172173.com/nginx-ocsp.html
-https://www.172173.com/Ubuntu-safe.html
 https://www.172173.com/Nexus3-docker.html
-https://www.172173.com/Linux-safe.html
 https://www.172173.com/Nexus3.html
 https://www.172173.com/qiniu-bucket-domain.html
 https://www.172173.com/window-disk.html

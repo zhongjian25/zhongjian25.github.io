@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.172173.com/Linux-safe.html</loc>
-    <lastmod>2019-08-25</lastmod>
+    <loc>https://www.172173.com/supervisor.html</loc>
+    <lastmod>2020-01-08</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/mac-install.html</loc>
+    <lastmod>2019-12-09</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/passwd-error.html</loc>
+    <lastmod>2019-11-22</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/vpn-use.html</loc>
+    <lastmod>2019-09-26</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/mysql-gtid.html</loc>
+    <lastmod>2019-09-21</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/windows-KB4512506.html</loc>
+    <lastmod>2019-09-09</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/es-shard.html</loc>
+    <lastmod>2019-09-09</lastmod>
   </url>  <url>
     <loc>https://www.172173.com/Ubuntu-safe.html</loc>
+    <lastmod>2019-08-25</lastmod>
+  </url>  <url>
+    <loc>https://www.172173.com/Linux-safe.html</loc>
     <lastmod>2019-08-25</lastmod>
   </url>  <url>
     <loc>https://www.172173.com/Shadowsocks.html</loc>
