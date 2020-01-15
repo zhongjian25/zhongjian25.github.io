@@ -48,13 +48,10 @@ https://www.172173.com/python-win32net.html
 https://www.172173.com/filebeat.html
 https://www.172173.com/sersync.html
 https://www.172173.com/lsyncd.html
-https://www.172173.com/Supervisord.html
 https://www.172173.com/php-install.html
 https://www.172173.com/TMG-error.html
 https://www.172173.com/cloud.html
 https://www.172173.com/python-re.html
-https://www.172173.com/8r8c.html
-https://www.172173.com/openswan.html
 https://www.172173.com/Forefront-TMG-2010.html
 https://www.172173.com/nginx-ssl.html
 https://www.172173.com/nginx-rewrite.html

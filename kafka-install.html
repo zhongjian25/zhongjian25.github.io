@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>kafka-install | 云运维</title>
+  <title>Kafka-install | 云运维</title>
   
   <meta name="keywords" content="kafka install, 云运维 运维 技术 云 172173">
   
@@ -264,7 +264,7 @@
   
     <h1 class="title">
       <a href="/kafka-install.html">
-        kafka-install
+        Kafka-install
       </a>
     </h1>
   
@@ -345,8 +345,18 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <h3 id="系统更新"><a href="#系统更新" class="headerlink" title="系统更新"></a>系统更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:openjdk-r/ppa</span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+          <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><pre><code>Kafka是最初由Linkedin公司开发，是一个分布式、分区的、多副本的、多订阅者，基于zookeeper协调的分布式日志系统（也可以当做MQ系统），常见可以用于web/nginx日志、访问日志，消息服务等等，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。
+</code></pre><a id="more"></a>
+<pre><code>主要应用场景是：日志收集系统和消息系统。
+
+Kafka主要设计目标如下：
+
+以时间复杂度为O(1)的方式提供消息持久化能力，即使对TB级以上数据也能保证常数时间的访问性能。
+高吞吐率。即使在非常廉价的商用机器上也能做到单机支持每秒100K条消息的传输。
+支持Kafka Server间的消息分区，及分布式消费，同时保证每个partition内的消息顺序传输。
+同时支持离线数据处理和实时数据处理。
+Scale out:支持在线水平扩展
+</code></pre><h3 id="系统更新"><a href="#系统更新" class="headerlink" title="系统更新"></a>系统更新</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo add-apt-repository ppa:openjdk-r/ppa</span><br><span class="line">sudo apt-get update </span><br><span class="line">sudo apt-get install openjdk-8-jdk</span><br></pre></td></tr></table></figure>
 <h3 id="安装-zookeeper"><a href="#安装-zookeeper" class="headerlink" title="安装 zookeeper"></a>安装 zookeeper</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://apache.fayea.com/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz</span><br><span class="line"></span><br><span class="line">tar xf zookeeper-3.4.10.tar.gz -C /usr/local</span><br><span class="line">cd /usr/local/zookeeper-3.4.10/conf</span><br><span class="line">cp -pv zoo_sample.cfg zoo.cfg</span><br><span class="line">vim /usr/local/zookeeper/conf/zoo.cfg</span><br><span class="line">mkdir -p /data/zookeeper</span><br></pre></td></tr></table></figure>
 <h3 id="安装-kafka"><a href="#安装-kafka" class="headerlink" title="安装 kafka"></a>安装 kafka</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget http://www-eu.apache.org/dist/kafka/0.10.2.1/kafka_2.12-0.10.2.1.tgz</span><br><span class="line">tar xf kafka_2.12-0.10.2.1.tgz -C /usr/local</span><br><span class="line">cd /usr/local &amp;&amp; ln -s kafka_2.12-0.10.2.1 kafka</span><br><span class="line"></span><br><span class="line">vim /usr/local/kafka/config/server.properties</span><br><span class="line"></span><br><span class="line">nohup  bin/kafka-server-start.sh config/server.properties &amp;</span><br></pre></td></tr></table></figure>
 <h3 id="安装-supervisor-守护进程"><a href="#安装-supervisor-守护进程" class="headerlink" title="安装 supervisor 守护进程"></a>安装 supervisor 守护进程</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">python get-pip.py </span><br><span class="line">pip install setuptools</span><br><span class="line">pip install -U setuptools</span><br><span class="line">pip install supervisor</span><br><span class="line">echo_supervisord_conf &gt; /etc/supervisord.conf</span><br><span class="line">mkdir /etc/supervisor</span><br><span class="line">sed -i &apos;s#\;\[include\]#\[include\]#&apos; /etc/supervisord.conf</span><br><span class="line">sed -i &apos;/relative\/directory/a\files = /etc/supervisor/*.ini&apos; /etc/supervisord.conf</span><br><span class="line">mkdir /data/httplogs</span><br><span class="line">supervisord -c /etc/supervisord.conf</span><br></pre></td></tr></table></figure>
@@ -365,10 +375,10 @@
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-14T17:38:35+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-15T10:52:35+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年8月14日</p>
+    <p>最后更新于 2020年1月15日</p>
   </a>
 </div>
 
@@ -388,7 +398,8 @@
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/kafka-install.html&title=kafka-install | 云运维&summary=系统更新123sudo add-apt-repository ppa:openjdk-r/ppasudo apt-get update sudo apt-get install openjdk-8-jdk">
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/kafka-install.html&title=Kafka-install | 云运维&summary=概述Kafka是最初由Linkedin公司开发，是一个分布式、分区的、多副本的、多订阅者，基于zookeeper协调的分布式日志系统（也可以当做MQ系统），常见可以用于web/nginx日志、访问日志，消息服务等等，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。
+">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
           
@@ -396,7 +407,8 @@
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/kafka-install.html&title=kafka-install | 云运维&summary=系统更新123sudo add-apt-repository ppa:openjdk-r/ppasudo apt-get update sudo apt-get install openjdk-8-jdk">
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/kafka-install.html&title=Kafka-install | 云运维&summary=概述Kafka是最初由Linkedin公司开发，是一个分布式、分区的、多副本的、多订阅者，基于zookeeper协调的分布式日志系统（也可以当做MQ系统），常见可以用于web/nginx日志、访问日志，消息服务等等，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。
+">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
           
@@ -404,7 +416,8 @@
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/kafka-install.html&title=kafka-install | 云运维&summary=系统更新123sudo add-apt-repository ppa:openjdk-r/ppasudo apt-get update sudo apt-get install openjdk-8-jdk">
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/kafka-install.html&title=Kafka-install | 云运维&summary=概述Kafka是最初由Linkedin公司开发，是一个分布式、分区的、多副本的、多订阅者，基于zookeeper协调的分布式日志系统（也可以当做MQ系统），常见可以用于web/nginx日志、访问日志，消息服务等等，Linkedin于2010年贡献给了Apache基金会并成为顶级开源项目。
+">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
           
@@ -430,9 +443,9 @@
                         <span class="art-item-left">
                             <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                             <h4>
-                                <a href="/kafka-REST-Proxy.html" rel="prev" title="kafka-REST-Proxy">
+                                <a href="/kafka-REST-Proxy.html" rel="prev" title="Kafka-REST-Proxy">
                                   
-                                      kafka-REST-Proxy
+                                      Kafka-REST-Proxy
                                   
                                 </a>
                             </h4>
@@ -450,9 +463,9 @@
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/HTTPS-Certbot.html" rel="prev" title="HTTPS-Certbot">
+                                <a href="/HTTPS-Certbot.html" rel="prev" title="HTTPS-使用Certbot自动配置Let’s Encrypt证书">
                                     
-                                        HTTPS-Certbot
+                                        HTTPS-使用Certbot自动配置Let’s Encrypt证书
                                     
                                 </a>
                             </h4>
@@ -504,7 +517,7 @@
 
   <script>
     window.subData = {
-      title: 'kafka-install',
+      title: 'Kafka-install',
       tools: true
     }
   </script>
@@ -572,7 +585,7 @@
 </header>
 
     <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#系统更新"><span class="toc-text">系统更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-zookeeper"><span class="toc-text">安装 zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-kafka"><span class="toc-text">安装 kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-supervisor-守护进程"><span class="toc-text">安装 supervisor 守护进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kafka-启动"><span class="toc-text">kafka 启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swap-关闭"><span class="toc-text">swap 关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-elasticsearch"><span class="toc-text">安装 elasticsearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-node"><span class="toc-text">安装 node</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统更新"><span class="toc-text">系统更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-zookeeper"><span class="toc-text">安装 zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-kafka"><span class="toc-text">安装 kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-supervisor-守护进程"><span class="toc-text">安装 supervisor 守护进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#kafka-启动"><span class="toc-text">kafka 启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#swap-关闭"><span class="toc-text">swap 关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-elasticsearch"><span class="toc-text">安装 elasticsearch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-node"><span class="toc-text">安装 node</span></a></li></ol>
     </div>
   </section>
 
@@ -652,7 +665,7 @@
     <div class="content pure">
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(32)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
         
@@ -668,7 +681,7 @@
         
           <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(2)</div></a></li>
         
       </ul>
     </div>
@@ -693,7 +706,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
     </div>
   </section>
 

@@ -268,7 +268,7 @@
         
   <h2 class="title">
     <a href="/svn-hook.html">
-      svn-hook
+      Svn-hook
     </a>
   </h2>
 
@@ -335,8 +335,7 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p>在做版本更新的时候，需要SVN做一些自动化的事情，比如提交前自动更新；提交一些文件后关联着提交另一些。所以需要写一点自动化脚本。</p>
-<h1 id="1-什么是svn钩子"><a href="#1-什么是svn钩子" class="headerlink" title="1.什么是svn钩子"></a>1.什么是svn钩子</h1><p>官方说法：<br>钩子是通过版本库事件触发，例如新版本的创建或一个未版本化属性的修改。一些钩子（叫做“pre hooks”）在事件发生前运行，可以用来报告发生了什么以及防止它发生。还有一些钩子（“post hooks”）在版本库事件之后发生，只是用来报告。每个钩子能够获得事件的足够信息，例如提出的（或完成的）版本库修改细节，还有触发事件的用户名。</p>
+      <p>在做版本更新的时候，需要SVN做一些自动化的事情，比如提交前自动更新；提交一些文件后关联着提交另一些。所以需要写一点自动化脚本。.</p>
       
         <div class="readmore">
           <a href="/svn-hook.html" class="flat-box">
@@ -373,7 +372,7 @@
         
   <h2 class="title">
     <a href="/svn-submin.html">
-      svn-submin
+      Svn-submin
     </a>
   </h2>
 
@@ -440,7 +439,7 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p>参考文档《Submin 部署SVN服务器WEB管理端 CentOS7》<a href="http://blog.51cto.com/990487026/1974106">http://blog.51cto.com/990487026/1974106</a><br>官方网站：<a href="https://github.com/mjholtkamp/submin">https://github.com/mjholtkamp/submin</a><br>操作系统：CentOS7.6<br>Subversion：1.8<br>Apache：2.4<br>Python：2.7</p>
+      <p>参考文档《Submin 部署SVN服务器WEB管理端 CentOS7》<a href="http://blog.51cto.com/990487026/1974106">http://blog.51cto.com/990487026/1974106</a><br>官方网站：<a href="https://github.com/mjholtkamp/submin">https://github.com/mjholtkamp/submin</a>  </p>
 <h1 id="一、submin介绍"><a href="#一、submin介绍" class="headerlink" title="一、submin介绍"></a>一、submin介绍</h1><h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><p>submin - 类似于svnmanager的svn用户与仓库管理的web管理平台，用python2开发的，比svnmanager轻量，部署非常容易，环境只需要python2+apache即可。数据库用sqlit3存储。</p>
       
         <div class="readmore">
@@ -478,7 +477,7 @@
         
   <h2 class="title">
     <a href="/svn-slave.html">
-      svn-slave
+      Svn-slave
     </a>
   </h2>
 
@@ -602,7 +601,7 @@
         
   <h2 class="title">
     <a href="/svn-svnsync.html">
-      svn-svnsync
+      Svn-svnsync
     </a>
   </h2>
 
@@ -715,7 +714,7 @@
         
   <h2 class="title">
     <a href="/svn-svnmanger.html">
-      svn-svnmanger
+      Svn-svnmanger
     </a>
   </h2>
 
@@ -820,7 +819,7 @@
         
   <h2 class="title">
     <a href="/svn-http.html">
-      svn-http
+      Svn-http
     </a>
   </h2>
 
@@ -891,14 +890,6 @@
 <h1 id="svn-http访问注意点："><a href="#svn-http访问注意点：" class="headerlink" title="svn http访问注意点："></a>svn http访问注意点：</h1><ul>
 <li>用http://方式访问，要配合apache的svn模块。</li>
 <li>用http://方式访问的svn服务端的守护进程不用启动，是通过apache的svn模块来调用svn命令操作svn检入检出的。</li>
-<li>访问方式不同，对应账户文件不同：<ul>
-<li><code>passwd文件</code> - <code>svn://方式访问</code> - 使用的是自带的明文账户文件</li>
-<li><code>http_users文件</code> - <code>http://方式访问</code> - 使用的是apache创建的密文账户文件</li>
-</ul>
-</li>
-<li><code>SVNPath</code> 与 <code>SVNParentPath</code> 的区别</li>
-<li>新创建的仓库根目录要记得给<code>apache</code>用户授权</li>
-<li>记得添加<code>auth</code>文件里的用户权限及版本库权限</li>
 </ul>
       
         <div class="readmore">
@@ -936,7 +927,7 @@
         
   <h2 class="title">
     <a href="/redis-install.html">
-      redis-install
+      Redis-install
     </a>
   </h2>
 
@@ -1041,7 +1032,7 @@
         
   <h2 class="title">
     <a href="/redis-key.html">
-      redis-key
+      Redis-key
     </a>
   </h2>
 
@@ -1150,7 +1141,7 @@
         
   <h2 class="title">
     <a href="/redis-master-salve.html">
-      redis主从
+      Redis-主从
     </a>
   </h2>
 
@@ -1263,7 +1254,7 @@
         
   <h2 class="title">
     <a href="/redis-password.html">
-      redis-password
+      Redis-password
     </a>
   </h2>
 
@@ -1517,7 +1508,7 @@
     <div class="content pure">
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(32)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
         
@@ -1533,7 +1524,7 @@
         
           <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(2)</div></a></li>
         
       </ul>
     </div>
@@ -1558,7 +1549,7 @@
 </header>
 
     <div class="content pure">
-      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
     </div>
   </section>
 

@@ -346,8 +346,8 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           <h1 id="Install-Pure-ftp"><a href="#Install-Pure-ftp" class="headerlink" title="Install Pure-ftp"></a><strong>Install Pure-ftp</strong></h1><h2 id="FTP-簡介"><a href="#FTP-簡介" class="headerlink" title="FTP 簡介"></a><strong>FTP 簡介</strong></h2><p>　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。</p>
-<p>　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。</p>
 <a id="more"></a>
+<p>　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。</p>
 <p>　用来架设 FTP Server 的软件有好几种，其中最老牌的算是 wu-ftpd，不过也由于其树大招风的关系，使得在安全性方面会有比较大的隐忧。不过还好后来又陆续发展出一些安全性较佳的服务器软件，比方像 proftpd、vsftpd 及 pure-ftpd 等，而本章将会针对 pure-ftpd 及 vsftpd 这两个服务器软件来做介绍。</p>
 <h2 id="FTP-的联机流程"><a href="#FTP-的联机流程" class="headerlink" title="FTP 的联机流程"></a><strong>FTP 的联机流程</strong></h2><p>　在还没开始介绍流程之前，要先来了解一下两台计算机间 TCP 联机建立的过程：</p>
 <p>　 当 Client 向 Server 提出主动联机请求时，会送出联机过程的第一个 TCP 封包给对方，而此时 TCP 封包中的 SYN (同步旗标) 位值设定为 1，代表的是一个联机的启动 ﹔接着 Server 端也必须启动自己的联机并做响应的确认，因此会向 Client 端送出联机过程的第二个封包，此时该封包的 SYN 及 ACK (回应确认旗标) 位值皆设定为 1 ﹔最后在 Client 端收到对方的封包后，必须做响应确认的动作，因此会送出联机过程的第三个封包给 Server，此时封包的 ACK 位值设定为 1。至此双方的联机才正式建立起来，这就是所谓的 TCP Three-Way Handshake ( TCP 三段式交握 )。</p>
@@ -451,10 +451,10 @@ or
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-08-14T17:39:26+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-15T11:01:05+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年8月14日</p>
+    <p>最后更新于 2020年1月15日</p>
   </a>
 </div>
 
@@ -474,8 +474,7 @@ or
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。
-　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。">
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
           
@@ -483,8 +482,7 @@ or
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。
-　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。">
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
           
@@ -492,8 +490,7 @@ or
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。
-　我们都知道 Web Server 是用 http 来做数据传输的协议，其除了可让 Client 端浏览网页外，同时也提供档案上传与下载的服务，不过它比较适用于小档案的传输，而在对大文件传输时，所表现的稳定度及传输效率就不那么高了。所以想改善 http 传输档案上的缺失及效能，最好的方式就是架设一台 FTP Server 了。">
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/Pure-ftp-install.html&title=Pure-ftp-install | 云运维&summary=Install Pure-ftpFTP 簡介　FTP (File Transfer Protocol) 是在因特网上已行之多年的文件传输协议，透过这个通讯协议，可以将远程计算机的档案数据传送回本机端 (下载)，也可以把本机的档案数据传输至远程计算机 (上传) ﹔而所谓的 FTP Server，就是一部专门提供给客户端进行档案上传与下载服务的服务器。">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
           
@@ -519,9 +516,9 @@ or
                         <span class="art-item-left">
                             <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                             <h4>
-                                <a href="/mac-python-error-matplotlib.html" rel="prev" title="mac-python-error-matplotlib">
+                                <a href="/mac-python-error-matplotlib.html" rel="prev" title="Mac-Python-error-matplotlib">
                                   
-                                      mac-python-error-matplotlib
+                                      Mac-Python-error-matplotlib
                                   
                                 </a>
                             </h4>
@@ -539,9 +536,9 @@ or
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/yum-errno-256.html" rel="prev" title="yum-errno-256">
+                                <a href="/yum-errno-256.html" rel="prev" title="Yum-errno-256">
                                     
-                                        yum-errno-256
+                                        Yum-errno-256
                                     
                                 </a>
                             </h4>
@@ -741,7 +738,7 @@ or
     <div class="content pure">
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(32)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
         
@@ -757,7 +754,7 @@ or
         
           <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(2)</div></a></li>
         
       </ul>
     </div>
@@ -782,7 +779,7 @@ or
 </header>
 
     <div class="content pure">
-      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
     </div>
   </section>
 

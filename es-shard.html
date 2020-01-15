@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>es-shard | 云运维</title>
+  <title>ES-shard&amp;replica机制 | 云运维</title>
   
   <meta name="keywords" content="单台CPU高 ES异常, 云运维 运维 技术 云 172173">
   
@@ -264,7 +264,7 @@
   
     <h1 class="title">
       <a href="/es-shard.html">
-        es-shard
+        ES-shard&replica机制
       </a>
     </h1>
   
@@ -345,14 +345,14 @@
 
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
-          <p><a href="https://cloud.tencent.com/developer/article/1370560">参考资料</a></p>
+          <p><a href="https://cloud.tencent.com/developer/article/1370560">参考资料</a><br>[参考资料](<a href="https://www.jianshu.com/p/f1fd38796daa）">https://www.jianshu.com/p/f1fd38796daa）</a></p>
 <blockquote>
 <p>ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，使用的是普通盘1T,最大的index 大概在50多g ,分片恢复并发数默认是2个，同时2个50g 分片同时恢复，IO吃不消，导致集群 hang 住的问题。</p>
 </blockquote>
+<a id="more"></a>
 <h3 id="场景描述"><a href="#场景描述" class="headerlink" title="场景描述"></a>场景描述</h3><blockquote>
 <p>线上ES 5台 8核24g 普通盘（事实证明，ES 还是要用ssd,不然数据量在大点就抗不住），通用型云主机。某台主机挂了，开始恢复，CPU会越来越大。最后整个集群卡死。</p>
 </blockquote>
-<a id="more"></a>
 <h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><h4 id="ES-线程池（thread-pool）"><a href="#ES-线程池（thread-pool）" class="headerlink" title="ES 线程池（thread pool）"></a>ES 线程池（thread pool）</h4><blockquote>
 <p>ES 中每个节点有多种线程池，各有用途。重要的有：</p>
 </blockquote>
@@ -360,6 +360,7 @@
 <p>generic ：通用线程池，后台的 node discovery，上述的分片恢复（node recovery）等等一些通用后台的操作都会用到该线程池。该线程池线程数量默认为配置的处理器数量（processors）<em> 4，最小128，最大512。<br>index ：index/delete 等索引操作会用到该线程池，包括自动创建索引等。默认线程数量为配置的处理器数量，默认队列大小：200.<br>search ：查询请求处理线程池。默认线程数量：int((# of available_processors </em> 3) / 2) + 1，默认队列大小：1000.<br>get ：get 请求处理线程池。默认线程数量为配置的处理器数量，默认队列大小：1000.<br>write ：单个文档的 index/delete/update 以及 bulk 请求处理线程。默认线程数量为配置的处理器数量，默认队列大小：200，在写多的日志场景我们一般会将队列调大。<br>还有其它线程池，例如备份回档（snapshot）、analyze、refresh 等，这里就不一一介绍了。</p>
 </blockquote>
 <p>详细可参考官方文档：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-threadpool.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-threadpool.html</a></p>
+<h4 id="shard-amp-replica机制再次梳理3"><a href="#shard-amp-replica机制再次梳理3" class="headerlink" title="shard&amp;replica机制再次梳理3"></a>shard&amp;replica机制再次梳理3</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"> (1）index包含多个shard</span><br><span class="line">（2）每个shard都是一个最小工作单元，承载部分数据，lucene实例，完整的建立索引和处理请求的能力</span><br><span class="line">（3）增减节点时，shard会自动在nodes中负载均衡</span><br><span class="line">（4）primary shard和replica shard，每个document肯定只存在于某一个primary shard以及其对应的replica shard中，不可能存在于多个primary shard</span><br><span class="line">（5）replica shard是primary shard的副本，负责容错，以及承担读请求负载</span><br><span class="line">（6）primary shard的数量在创建索引的时候就固定了，replica shard的数量可以随时修改</span><br><span class="line">（7）primary shard的默认数量是5，replica默认是1，默认有10个shard，5个primary shard，5个replica shard</span><br><span class="line">（8）primary shard不能和自己的replica shard放在同一个节点上（否则节点宕机，primary shard和副本都丢失，起不到容错的作用），但是可以和其他primary shard的replica shard放在同一个节点上</span><br></pre></td></tr></table></figure>
 <h4 id="集群恢复之分片恢复"><a href="#集群恢复之分片恢复" class="headerlink" title="集群恢复之分片恢复"></a>集群恢复之分片恢复</h4><blockquote>
 <p>我们知道 ES 集群状态分为三种，green、yellow、red。green 状态表示所有分片包括主副本均正常被分配；yellow 状态表示所有主分片已分配，但是有部分副本分片未分配；red 表示有部分主分片未分配。</p>
 </blockquote>
@@ -398,10 +399,10 @@ cluster.routing.allocation.node_concurrent_recoveries ：该参数同时设置�
     <div class="new-meta-box">
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-09-09T14:04:50+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-15T10:49:25+08:00">
   <a class="notlink">
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>最后更新于 2019年9月9日</p>
+    <p>最后更新于 2020年1月15日</p>
   </a>
 </div>
 
@@ -421,12 +422,9 @@ cluster.routing.allocation.node_concurrent_recoveries ：该参数同时设置�
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/es-shard.html&title=es-shard | 云运维&summary=参考资料
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer" href="http://connect.qq.com/widget/shareqq/index.html?url=https://www.172173.com/es-shard.html&title=ES-shard&replica机制 | 云运维&summary=参考资料[参考资料](https://www.jianshu.com/p/f1fd38796daa）
 
 ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，使用的是普通盘1T,最大的index 大概在50多g ,分片恢复并发数默认是2个，同时2个50g 分片同时恢复，IO吃不消，导致集群 hang 住的问题。
-
-场景描述
-线上ES 5台 8核24g 普通盘（事实证明，ES 还是要用ssd,不然数据量在大点就抗不住），通用型云主机。某台主机挂了，开始恢复，CPU会越来越大。最后整个集群卡死。
 ">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
@@ -435,12 +433,9 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
       
     
       
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/es-shard.html&title=es-shard | 云运维&summary=参考资料
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://www.172173.com/es-shard.html&title=ES-shard&replica机制 | 云运维&summary=参考资料[参考资料](https://www.jianshu.com/p/f1fd38796daa）
 
 ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，使用的是普通盘1T,最大的index 大概在50多g ,分片恢复并发数默认是2个，同时2个50g 分片同时恢复，IO吃不消，导致集群 hang 住的问题。
-
-场景描述
-线上ES 5台 8核24g 普通盘（事实证明，ES 还是要用ssd,不然数据量在大点就抗不住），通用型云主机。某台主机挂了，开始恢复，CPU会越来越大。最后整个集群卡死。
 ">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
@@ -449,12 +444,9 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
       
     
       
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/es-shard.html&title=es-shard | 云运维&summary=参考资料
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer" href="http://service.weibo.com/share/share.php?url=https://www.172173.com/es-shard.html&title=ES-shard&replica机制 | 云运维&summary=参考资料[参考资料](https://www.jianshu.com/p/f1fd38796daa）
 
 ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，使用的是普通盘1T,最大的index 大概在50多g ,分片恢复并发数默认是2个，同时2个50g 分片同时恢复，IO吃不消，导致集群 hang 住的问题。
-
-场景描述
-线上ES 5台 8核24g 普通盘（事实证明，ES 还是要用ssd,不然数据量在大点就抗不住），通用型云主机。某台主机挂了，开始恢复，CPU会越来越大。最后整个集群卡死。
 ">
           
             <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
@@ -481,9 +473,9 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
                         <span class="art-item-left">
                             <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                             <h4>
-                                <a href="/mysql-gtid.html" rel="prev" title="mysql-GTID">
+                                <a href="/mysql-gtid.html" rel="prev" title="Mysql-GTID">
                                   
-                                      mysql-GTID
+                                      Mysql-GTID
                                   
                                 </a>
                             </h4>
@@ -501,9 +493,9 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
                         <span class="art-item-right" aria-hidden="true">
                             <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                             <h4>
-                                <a href="/windows-KB4512506.html" rel="prev" title="windows-KB4512506">
+                                <a href="/windows-KB4512506.html" rel="prev" title="Windows-KB4512506">
                                     
-                                        windows-KB4512506
+                                        Windows-KB4512506
                                     
                                 </a>
                             </h4>
@@ -555,7 +547,7 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
 
   <script>
     window.subData = {
-      title: 'es-shard',
+      title: 'ES-shard&replica机制',
       tools: true
     }
   </script>
@@ -623,7 +615,7 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
 </header>
 
     <div class="content pure">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景描述"><span class="toc-text">场景描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ES-线程池（thread-pool）"><span class="toc-text">ES 线程池（thread pool）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#集群恢复之分片恢复"><span class="toc-text">集群恢复之分片恢复</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决问题"><span class="toc-text">解决问题</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#场景描述"><span class="toc-text">场景描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本概念"><span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ES-线程池（thread-pool）"><span class="toc-text">ES 线程池（thread pool）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shard-amp-replica机制再次梳理3"><span class="toc-text">shard&amp;replica机制再次梳理3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#集群恢复之分片恢复"><span class="toc-text">集群恢复之分片恢复</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解决问题"><span class="toc-text">解决问题</span></a></li></ol>
     </div>
   </section>
 
@@ -703,7 +695,7 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
     <div class="content pure">
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(34)</div></a></li>
+          <li><a class="flat-box" title="/categories/Linux/" href="/categories/Linux/"><div class="name">Linux</div><div class="badge">(32)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Mac/" href="/categories/Mac/"><div class="name">Mac</div><div class="badge">(2)</div></a></li>
         
@@ -719,7 +711,7 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
         
           <li><a class="flat-box" title="/categories/工具/" href="/categories/工具/"><div class="name">工具</div><div class="badge">(1)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(3)</div></a></li>
+          <li><a class="flat-box" title="/categories/闲谈/" href="/categories/闲谈/"><div class="name">闲谈</div><div class="badge">(2)</div></a></li>
         
       </ul>
     </div>
@@ -744,7 +736,7 @@ ES 的填坑经验。主要是关于集群恢复过程中，数据量过大，�
 </header>
 
     <div class="content pure">
-      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/supervisord/" style="font-size: 14px; color: #999">supervisord</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-openvpn-Ipsec-OpenSWan/" style="font-size: 14px; color: #999">vpn openvpn Ipsec OpenSWan</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/八荣八耻-云运维-devops/" style="font-size: 14px; color: #999">八荣八耻 云运维 devops</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
+      <a href="/tags/Django基础之form表单的所有内置字段/" style="font-size: 14px; color: #999">Django基础之form表单的所有内置字段</a> <a href="/tags/ERROR-matplotlib-1-3-1-requires-nose/" style="font-size: 14px; color: #999">ERROR: matplotlib 1.3.1 requires nose</a> <a href="/tags/IIS7-配置备份还原/" style="font-size: 14px; color: #999">IIS7 配置备份还原</a> <a href="/tags/Kafka-REST-Proxy/" style="font-size: 14px; color: #999">Kafka REST Proxy</a> <a href="/tags/Linux-安全/" style="font-size: 14px; color: #999">Linux 安全</a> <a href="/tags/Linux主机初始化/" style="font-size: 14px; color: #999">Linux主机初始化</a> <a href="/tags/MAC-install/" style="font-size: 14px; color: #999">MAC install</a> <a href="/tags/Nexus3/" style="font-size: 14px; color: #999">Nexus3</a> <a href="/tags/Nexus3-docker/" style="font-size: 14px; color: #999">Nexus3 docker</a> <a href="/tags/PHP-install-from-source/" style="font-size: 14px; color: #999">PHP install from source</a> <a href="/tags/Pure-ftp/" style="font-size: 14px; color: #999">Pure ftp</a> <a href="/tags/Redis-backup/" style="font-size: 14px; color: #999">Redis backup</a> <a href="/tags/Redis-info/" style="font-size: 14px; color: #999">Redis info</a> <a href="/tags/Redis-install/" style="font-size: 14px; color: #999">Redis install</a> <a href="/tags/Redis-master-slave/" style="font-size: 14px; color: #999">Redis master slave</a> <a href="/tags/Redis-slowlog/" style="font-size: 14px; color: #999">Redis slowlog</a> <a href="/tags/Redis-zabbix/" style="font-size: 14px; color: #999">Redis zabbix</a> <a href="/tags/Redis-密码设置/" style="font-size: 14px; color: #999">Redis 密码设置</a> <a href="/tags/Redis-过期-key/" style="font-size: 14px; color: #999">Redis 过期 key</a> <a href="/tags/Rsyslog/" style="font-size: 24px; color: #555">Rsyslog</a> <a href="/tags/Rsyslog-logger/" style="font-size: 14px; color: #999">Rsyslog logger</a> <a href="/tags/Rsyslog-日志转发/" style="font-size: 14px; color: #999">Rsyslog 日志转发</a> <a href="/tags/Shadowsocks/" style="font-size: 14px; color: #999">Shadowsocks</a> <a href="/tags/Supervisor/" style="font-size: 14px; color: #999">Supervisor</a> <a href="/tags/TMG-vpn-windows-Forefront-TMG-2010/" style="font-size: 14px; color: #999">TMG vpn windows Forefront TMG 2010</a> <a href="/tags/Ubuntu-安全/" style="font-size: 14px; color: #999">Ubuntu 安全</a> <a href="/tags/VPN-错误原因-找不到证书/" style="font-size: 14px; color: #999">VPN 错误原因: 找不到证书</a> <a href="/tags/Win2008-R2实现多用户远程连接设置方法/" style="font-size: 24px; color: #555">Win2008 R2实现多用户远程连接设置方法</a> <a href="/tags/charles/" style="font-size: 14px; color: #999">charles</a> <a href="/tags/filebeat-install/" style="font-size: 14px; color: #999">filebeat install</a> <a href="/tags/hexo-GitHub/" style="font-size: 14px; color: #999">hexo GitHub</a> <a href="/tags/hexo-valine-LeanCloud/" style="font-size: 14px; color: #999">hexo valine LeanCloud</a> <a href="/tags/https-Certbot-Let’s-Encrypt/" style="font-size: 14px; color: #999">https Certbot Let’s Encrypt</a> <a href="/tags/jenkins-install/" style="font-size: 14px; color: #999">jenkins install</a> <a href="/tags/kafka-install/" style="font-size: 14px; color: #999">kafka install</a> <a href="/tags/lsyncd/" style="font-size: 14px; color: #999">lsyncd</a> <a href="/tags/material-x/" style="font-size: 14px; color: #999">material-x</a> <a href="/tags/mysql-gtid/" style="font-size: 14px; color: #999">mysql gtid</a> <a href="/tags/nginx-install/" style="font-size: 14px; color: #999">nginx install</a> <a href="/tags/nginx-ocsp/" style="font-size: 14px; color: #999">nginx ocsp</a> <a href="/tags/nginx-rewrite/" style="font-size: 14px; color: #999">nginx rewrite</a> <a href="/tags/nginx-ssl/" style="font-size: 14px; color: #999">nginx ssl</a> <a href="/tags/nginx-tcp/" style="font-size: 14px; color: #999">nginx tcp</a> <a href="/tags/openswan/" style="font-size: 14px; color: #999">openswan</a> <a href="/tags/passwd-error/" style="font-size: 14px; color: #999">passwd error</a> <a href="/tags/python-re-正则表达式/" style="font-size: 14px; color: #999">python re 正则表达式</a> <a href="/tags/python-win32net-Windows-Users/" style="font-size: 14px; color: #999">python win32net Windows Users</a> <a href="/tags/sersync/" style="font-size: 14px; color: #999">sersync</a> <a href="/tags/svn/" style="font-size: 14px; color: #999">svn</a> <a href="/tags/svn-backup/" style="font-size: 14px; color: #999">svn backup</a> <a href="/tags/svn-hook/" style="font-size: 14px; color: #999">svn hook</a> <a href="/tags/svn-http/" style="font-size: 14px; color: #999">svn http</a> <a href="/tags/svn-install/" style="font-size: 14px; color: #999">svn install</a> <a href="/tags/svn-master-slave/" style="font-size: 14px; color: #999">svn master slave</a> <a href="/tags/svn-submin/" style="font-size: 14px; color: #999">svn submin</a> <a href="/tags/svnmanger/" style="font-size: 14px; color: #999">svnmanger</a> <a href="/tags/vpn-use/" style="font-size: 14px; color: #999">vpn use</a> <a href="/tags/yum-update-Errno-256/" style="font-size: 14px; color: #999">yum update Errno 256</a> <a href="/tags/七牛云-Bucket-空间域名/" style="font-size: 14px; color: #999">七牛云 Bucket 空间域名</a> <a href="/tags/单台CPU高-ES异常/" style="font-size: 14px; color: #999">单台CPU高 ES异常</a> <a href="/tags/各家云服务器商的对比/" style="font-size: 14px; color: #999">各家云服务器商的对比</a> <a href="/tags/磁盘清理/" style="font-size: 14px; color: #999">磁盘清理</a> <a href="/tags/补丁KB4512506无法安装/" style="font-size: 14px; color: #999">补丁KB4512506无法安装</a> <a href="/tags/连接无法继续，因为未启用身份验证/" style="font-size: 14px; color: #999">连接无法继续，因为未启用身份验证</a>
     </div>
   </section>
 
